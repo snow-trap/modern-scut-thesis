@@ -1,0 +1,15 @@
+[package]
+name = "modern-scut-thesis"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = []
+license = "MIT"
+description = "华南理工大学学位论文模板。Modern South China University of Technology Thesis."
+repository = "https://github.com/scut-thesis/modern-scut-thesis"
+keywords = ["South China University of Technology", "SCUT", "thesis"]
+categories = ["thesis"]
+compiler = "0.13.0"
+
+[template]
+path = "template"
+entrypoint = "thesis.typ"
