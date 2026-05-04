@@ -1,0 +1,8 @@
+# 第三方子模块（独立仓库，不直接跟踪内容）
+thirdparty/
+
+# Typst 编译产物
+*.pdf
+
+# Typst 缓存
+.typst/
