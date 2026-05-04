@@ -3,6 +3,7 @@ thirdparty/
 
 # Typst 编译产物
 *.pdf
+*.md
 
 # Typst 缓存
 .typst/
