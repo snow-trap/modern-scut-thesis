@@ -1,6 +1,6 @@
 // SCUT 目录生成
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号
 
 #let outline-page(
   // documentclass 传入参数
@@ -30,7 +30,7 @@
   fonts = 字体 + fonts
   if title-text-args == auto {
     // SCUT: 目录标题小二号黑体
-    title-text-args = (font: fonts.黑体, size: 字号.小二, weight: "bold")
+    title-text-args = (font: 章标题字体, size: 章标题字号, weight: "bold")
   }
   if reference-font == auto {
     reference-font = fonts.宋体

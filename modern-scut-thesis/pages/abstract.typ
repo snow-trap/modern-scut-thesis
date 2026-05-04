@@ -1,6 +1,5 @@
 // SCUT 中文摘要页
-#import "../utils/custom-cuti.typ": fakebold
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字号, 字体, 正文字体, 正文字号, 正文行距, 正文段间距, 首行缩进, 章标题字体, 章标题字号
 #import "../utils/invisible-heading.typ": invisible-heading
 
 #let abstract(
@@ -13,9 +12,9 @@
   keywords: (),
   outline-title: "中文摘要",
   outlined: true,
-  // SCUT: 摘要正文小四号宋体，1.5倍行距 (= 0.5em leading + 12pt font = 18pt baseline)
-  leading: 0.5em,
-  spacing: 0pt,
+  // SCUT: 摘要正文引用共享常量（与matter一致）
+  leading: 正文行距,
+  spacing: 正文段间距,
   body,
 ) = {
   // 1.  默认参数
@@ -28,7 +27,7 @@
   pagebreak(weak: true, to: if twoside { "odd" })
 
   [
-    #set text(font: fonts.宋体, size: 字号.小四)
+    #set text(font: 正文字体, size: 正文字号)
     #set par(leading: leading, justify: true, spacing: spacing)
 
     // 不可见标题用于目录生成
@@ -36,20 +35,21 @@
 
     // SCUT: "摘 要" 小二号黑体，居中
     #align(center)[
-      #set text(font: fonts.黑体, size: 字号.小二, weight: "bold")
+      #set text(font: 章标题字体, size: 章标题字号, weight: "bold")
       #v(1em)
       摘　　要
     ]
 
     #v(1em)
 
-    // SCUT: 摘要正文小四号宋体，1.5倍行距
-    #set par(first-line-indent: (amount: 2em, all: true))
+    // SCUT: 摘要正文，首行缩进
+    #set par(first-line-indent: 首行缩进)
     #body
 
     #v(1em)
 
-    // SCUT: 关键词，小四号黑体 + 小四号宋体
-    #fakebold[关键词：]#(("",)+ keywords.intersperse("；")).sum()
+    // SCUT: 关键词标签用黑体（\abskeycn{\heiti\xiaosihao}），关键词正文用宋体，不缩进
+    #set par(first-line-indent: 0pt)
+    #text(font: fonts.黑体)[关键词：]#(("",)+ keywords.intersperse("；")).sum()
   ]
 }

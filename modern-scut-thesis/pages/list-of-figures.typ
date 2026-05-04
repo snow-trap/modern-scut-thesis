@@ -1,7 +1,7 @@
 // SCUT 插图目录
 #import "@preview/i-figured:0.2.4"
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号
 
 #let list-of-figures(
   twoside: false,
@@ -18,7 +18,7 @@
 ) = {
   fonts = 字体 + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.黑体, size: 字号.小二, weight: "bold")
+    title-text-args = (font: 章标题字体, size: 章标题字号, weight: "bold")
   }
   if font == auto {
     font = fonts.宋体

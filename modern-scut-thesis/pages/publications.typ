@@ -1,6 +1,6 @@
 // SCUT 攻读博士/硕士学位期间取得的研究成果
 // 详细表格模板
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号, 辅助字体, 辅助字号
 
 #let publications(
   twoside: false,
@@ -17,8 +17,8 @@
 
   // 标题
   align(center, text(
-    font: fonts.黑体,
-    size: 字号.小二,
+    font: 章标题字体,
+    size: 章标题字号,
     weight: "bold",
     title,
   ))
@@ -33,7 +33,7 @@
   v(12pt)
 
   // 论文表格
-  set text(font: fonts.宋体, size: 字号.五号)
+  set text(font: 辅助字体, size: 辅助字号)
   figure(
     table(
       align: center + horizon,
