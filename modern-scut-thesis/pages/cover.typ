@@ -151,7 +151,7 @@
 
   v(50pt)
 
-  text(font: fonts.黑体, size: 字号.二号, weight: "bold", info.title-en.intersperse("\n").sum())
+  text(font: "Times New Roman", size: 字号.二号, weight: "bold", info.title-en.intersperse("\n").sum())
 
   v(36pt)
 
@@ -162,12 +162,12 @@
   v(24pt)
 
   text(size: 字号.四号)[Candidate：]
-  text(font: fonts.黑体, size: 字号.四号, weight: "bold", info.author-en)
+  text(font: "Times New Roman", size: 字号.四号, weight: "bold", info.author-en)
 
   v(8pt)
 
   text(size: 字号.四号)[Supervisor：]
-  text(font: fonts.黑体, size: 字号.四号, info.supervisor-en)
+  text(font: "Times New Roman", size: 字号.四号, info.supervisor-en)
 
   v(36pt)
 
