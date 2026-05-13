@@ -1,36 +1,29 @@
-// SCUT 英文摘要页
+// SCUT 英文摘要
 #import "../utils/style.typ": 字体, 正文字体, 正文字号, 正文行距, 正文段间距, 首行缩进, 章标题字号
 #import "../utils/invisible-heading.typ": invisible-heading
 
 #let abstract-en(
-  // documentclass 传入的参数
   doctype: "master",
   twoside: false,
   fonts: (:),
   info: (:),
-  // 其他参数
   keywords: (),
   outline-title: "Abstract",
   outlined: true,
-  // 英文摘要与中文摘要同字号、同行距，引用共享常量
   leading: 正文行距,
   spacing: 正文段间距,
   body,
 ) = {
-  // 1.  默认参数
   fonts = 字体 + fonts
 
-  // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
   [
     #set text(font: 正文字体, size: 正文字号)
     #set par(leading: leading, justify: true, spacing: spacing)
 
-    // 不可见标题用于目录生成
     #invisible-heading(level: 1, outlined: outlined, outline-title)
 
-    // Abstract 标题（与中文摘要标题一致：小二号，Times New Roman）
     #align(center)[
       #set text(font: "Times New Roman", size: 章标题字号)
       #v(1em)

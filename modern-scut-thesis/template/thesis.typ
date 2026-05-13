@@ -41,19 +41,19 @@
   bibliography: bibliography.with("ref.bib"),
 )
 
-// 文稿设置
+// 全局页面设置
 #show: doc
 
-// 字体展示测试页（调试用，正式请注释）
+// 字体展示测试页（调试用）
 // #fonts-display-page()
 
-// 封面（含中文封面、英文内封、提名页）
+// 封面
 #cover()
 
-// 原创性声明和使用授权书
+// 声明页
 #decl-page()
 
-// 前言（罗马数字页码）
+// 前言：罗马数字页码
 #show: preface
 
 // 中文摘要

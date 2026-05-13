@@ -1,5 +1,4 @@
-// SCUT 攻读博士/硕士学位期间取得的研究成果
-// 详细表格模板
+// SCUT 研究成果
 #import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号, 辅助字体, 辅助字号
 
 #let publications(
@@ -9,13 +8,10 @@
   outlined: true,
   body,
 ) = {
-  // 1.  默认参数
   fonts = 字体 + fonts
 
-  // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  // 标题
   align(center, text(
     font: 章标题字体,
     size: 章标题字号,
@@ -25,14 +21,12 @@
 
   v(24pt)
 
-  // 一、已发表论文情况
   text(font: fonts.黑体, size: 字号.小四)[
     一、已发表（包括已接受待发表）的论文，以及已投稿、或已成文打算投稿、或拟成文投稿的论文情况（只填写与学位论文内容相关的部分）：
   ]
 
   v(12pt)
 
-  // 论文表格
   set text(font: 辅助字体, size: 辅助字号)
   figure(
     table(
@@ -66,13 +60,11 @@
 
   v(16pt)
 
-  // 二、其它成果
   text(font: fonts.黑体, size: 字号.小四)[
     二、与学位内容相关的其它成果（包括专利、著作、获奖项目等）
   ]
 
   v(12pt)
 
-  // 用户自定义内容
   body
 }

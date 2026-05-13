@@ -1,4 +1,4 @@
-// 正文布局，配置 SCUT 规范的标题、页眉、行距等
+// 正文布局：标题、页眉、行距
 #import "@preview/i-figured:0.2.4"
 #import "../utils/style.typ": 字号, 字体, 正文字体, 正文字号, 正文行距, 正文段间距, 首行缩进, 辅助字体, 辅助字号, 章标题字体, 章标题字号, 节一级标题字号, 节二级标题字号, 节三级标题字号, 节标题字体
 #import "../utils/custom-numbering.typ": custom-numbering
@@ -6,70 +6,53 @@
 #import "../utils/unpairs.typ": unpairs
 
 #let mainmatter(
-  // documentclass 传入参数
   doctype: "master",
   twoside: false,
   fonts: (:),
-  // 其他参数
-  leading: 正文行距,   // 1.5倍行距
-  spacing: 正文段间距, // 段前段后间距
+  leading: 正文行距,
+  spacing: 正文段间距,
   justify: true,
   first-line-indent: 首行缩进,
   numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
-  // 正文字体与字号参数
   text-args: (font: 正文字体, size: 正文字号),
-  // 标题字体与字号
-  // SCUT: 章标题小二号黑体居中, 一级小三黑体居左, 二级四号黑体居左, 三级小四黑体居左
+  // SCUT：章居中黑体，节居左黑体；段前段后各 0.5 行，随字号自动缩放
   heading-font: (章标题字体, 节标题字体, 节标题字体, 节标题字体),
   heading-size: (章标题字号, 节一级标题字号, 节二级标题字号, 节三级标题字号),
   heading-weight: ("regular",),
-  // SCUT: 章、节、条标题为单倍行距，段前段后各 0.5 行
-  // SCUT: 单倍行距前提下段前段后各 0.5 行。0.5 * 1.3em 随标题字号自动缩放
   heading-above: (2em,) * 4,
   heading-below: (2em,) * 4,
   heading-pagebreak: (true, false),
   heading-align: (center, left, left, left),
-  // 页眉
-  // SCUT: 偶数页=学校+学位论文名称，奇数页=章序及章标题
+  // 页眉：偶数页学校名，奇数页章标题，1.5pt 下划线，不跳章首页
   header-render: auto,
   header-vspace: 0em,
   display-header: true,
-  // SCUT: 每页都要有页眉，不跳过章标题页（参考 fancypagestyle{plain}{\pagestyle{fancy}}）
   skip-on-first-level: false,
-  // SCUT: 页眉下加 1.5 磅实线
   stroke-width: 1.5pt,
   reset-footnote: true,
-  // caption 的 separator
   separator: "  ",
-  // caption 样式
   caption-style: strong,
   caption-size: 字号.五号,
-  // figure 计数 (SCUT: 图按章编排 "图 1-1")
   show-figure: i-figured.show-figure.with(numbering: "1-1"),
-  // SCUT: 公式按章编排，第一章第一个公式为"(1-1)"
   show-equation: i-figured.show-equation.with(numbering: "(1-1)"),
   ..args,
   it,
 ) = {
-  // 0.  标志前言结束
   set page(numbering: "1")
 
-  // 1.  默认参数
   fonts = 字体 + fonts
-  // 1.2 处理 heading- 开头的其他参数
+
+  // 收集用户传入的 heading-* 扩展参数
   let heading-text-args-lists = args.named().pairs()
     .filter((pair) => pair.at(0).starts-with("heading-"))
     .map((pair) => (pair.at(0).slice("heading-".len()), pair.at(1)))
 
-  // 2.  辅助函数
   let array-at(arr, pos) = {
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  // 3.  设置基本样式
-  // 3.1 文本和段落样式
+  // 正文样式
   set text(..text-args)
-  // SCUT: 正文 1.5 倍行距，段前段后无空行
   set par(
     leading: leading,
     justify: justify,
@@ -77,27 +60,25 @@
     spacing: spacing,
   )
   show raw: set text(font: fonts.等宽)
-  // 3.2 脚注样式
+
+  // 脚注、图表编号、公式编号
   show footnote.entry: set text(font: 辅助字体, size: 辅助字号)
-  // 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters
   show figure: show-figure
-  // 3.4 设置 equation 的编号和假段落首行缩进
   show math.equation.where(block: true): show-equation
-  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
-  show figure.where(
-    kind: table
-  ): set figure.caption(position: top)
+
+  // 表格：caption 置顶，空格代替冒号
+  show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: separator)
   show figure.caption: caption-style
   show figure.caption: set text(font: 辅助字体, size: 辅助字号)
-  // 3.6 优化列表显示
+
   show terms: set par(first-line-indent: 0pt)
 
-  // 4.  处理标题
-  // 4.1 设置标题的 Numbering
+  // 标题编号
   set heading(numbering: numbering)
-  // 4.2 设置字体字号并加入假段落模拟首行缩进
+
+  // 标题字体、字号、段间距
   show heading: it => {
     set text(
       font: array-at(heading-font, it.level),
@@ -112,10 +93,10 @@
     )
     it
   }
-  // 4.3 标题居中与自动换页
+
+  // 标题换页与对齐
   show heading: it => {
     if array-at(heading-pagebreak, it.level) {
-      // 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if "label" not in it.fields() or str(it.label) != "no-auto-pagebreak" {
         pagebreak(weak: true)
       }
@@ -128,11 +109,7 @@
     }
   }
 
-  // 5.  页眉与页脚合并设置
-  // SCUT: 偶数页="华南理工大学博士/硕士学位论文"，奇数页=章序及章标题
-  // 页眉五号宋体居中，下加 1.5 磅实线；页码五号宋体居中
-  // (参考 scutthesis.tex: \fancyhead[CE]{学校名} \fancyhead[CO]{\leftmark}
-  //                       \fancyfoot[C]{\thepage} \headrulewidth{1.5pt})
+  // 页眉页脚
   let school-header = if doctype == "doctor" {
     "华南理工大学博士学位论文"
   } else {
@@ -150,17 +127,14 @@
     ..(if display-header {
       (
         header: context {
-          // 重置 footnote 计数器
           if reset-footnote {
             counter(footnote).update(0)
           }
           let loc = here()
           let cur-heading = current-heading(level: 1)
-          // 如果当前页面有一级标题且设置了跳过，则不渲染页眉
           if not skip-on-first-level or cur-heading == none {
             if header-render == auto {
               set text(font: 辅助字体, size: 辅助字号)
-              // SCUT: 偶数页学校名，奇数页章标题
               let header-text = if twoside and calc.rem(loc.page(), 2) == 0 {
                 school-header
               } else {
@@ -170,7 +144,6 @@
                 v(15mm),
                 header-text,
                 v(0.25em),
-                // 页眉下 1.5 磅实线
                 line(length: 100%, stroke: stroke-width + black),
               ))
             } else {

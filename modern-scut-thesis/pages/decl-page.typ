@@ -1,14 +1,12 @@
-// SCUT 原创性声明和使用授权书
+// SCUT 原创性声明与版权授权书
 #import "../utils/style.typ": 字号, 字体
 
 #let decl-page(
   twoside: false,
   fonts: (:),
 ) = {
-  // 1.  默认参数
   fonts = 字体 + fonts
 
-  // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
   // ====== 原创性声明 ======
