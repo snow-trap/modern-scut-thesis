@@ -25,7 +25,7 @@
   heading-weight: ("regular",),
   // SCUT: 章、节、条标题为单倍行距，段前段后各 0.5 行
   // SCUT: 单倍行距前提下段前段后各 0.5 行。0.5 * 1.3em 随标题字号自动缩放
-  heading-above: (0.5 * 1.3em, 0.5 * 1.3em, 0.5 * 1.3em, 0.5 * 1.3em),
+  heading-above: (2em,) * 4,
   heading-below: (2em,) * 4,
   heading-pagebreak: (true, false),
   heading-align: (center, left, left, left),
@@ -140,10 +140,12 @@
   }
 
   set page(
-    margin: (x: 25mm, y: 25mm),
     footer: context {
       set text(font: 辅助字体, size: 辅助字号)
-      align(center, counter(page).display("1"))
+      align(center, stack(
+        counter(page).display("1"),
+        v(15mm),
+      ))
     },
     ..(if display-header {
       (
@@ -165,6 +167,7 @@
                 heading-display(active-heading(level: 1, prev: false))
               }
               align(center, stack(
+                v(15mm),
                 header-text,
                 v(0.25em),
                 // 页眉下 1.5 磅实线

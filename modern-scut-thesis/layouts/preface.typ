@@ -17,11 +17,13 @@
   counter(page).update(0)
   // SCUT: 五号罗马数字，页脚居中
   set page(
-    margin: (x: 25mm, y: 25mm),
     numbering: "I",
     footer: context {
       set text(font: 辅助字体, size: 辅助字号)
-      align(center, counter(page).display("I"))
+      align(center, stack(
+        counter(page).display("I"),
+        v(15mm),
+      ))
     },
   )
   it
