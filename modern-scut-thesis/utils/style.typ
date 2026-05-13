@@ -50,9 +50,9 @@
 #let 辅助字号 = 字号.五号  // 10.5pt
 
 // ===== 标题样式（SCUT 规范各级标题字体字号）=====
-#let 章标题字体 = 字体.黑体
+#let 章标题字体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei")
 #let 章标题字号 = 字号.小二  // 小二号 18pt，居中
 #let 节一级标题字号 = 字号.小三  // 小三号 15pt，居左
 #let 节二级标题字号 = 字号.四号  // 四号 14pt，居左
 #let 节三级标题字号 = 字号.小四  // 小四号 12pt，居左
-#let 节标题字体 = 字体.黑体       // 所有节标题统一黑体
+#let 节标题字体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei")  // SCUT: 标题拉丁部分 Times New Roman
