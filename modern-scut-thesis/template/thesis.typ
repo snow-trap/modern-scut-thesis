@@ -92,7 +92,17 @@
 
 == 研究背景
 
-正文内容。这是小四号宋体，1.5倍行距。正文段落首行缩进两个字。
+正文内容。这是小四号宋体，1.5倍行距。正文段落首行缩进两个字。 The user is asking how to stop tracking files that are currently being tracked by git, i.e., how   
+ to remove them from git's tracking while keeping them on disk (like git rm --cached). They         
+ probably mean the tracked .md files that they now want to ignore. 
+
+  The user is asking how to stop tracking files that are currently being tracked by git, i.e., how   
+ to remove them from git\'s tracking while keeping them on disk (like git rm --cached). They         
+ probably mean the tracked .md files that they now want to ignore. 选择哪种方法和参数，完全取决于你的具体需求。如果是写学术论文，需要严格遵守模板要求，建议咨询机构提供的官方模板；如果没有强制要求，使用上述推荐值就是很好的选择。一一一一一一一一一一一一一一一一MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+
+一
+
+M
 
 == 国内外研究现状
 

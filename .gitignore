@@ -2,6 +2,7 @@
 thirdparty/
 
 # Typst 编译产物
+/out/
 *.pdf
 *.md
 

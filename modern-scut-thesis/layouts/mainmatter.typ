@@ -11,23 +11,24 @@
   twoside: false,
   fonts: (:),
   // 其他参数
-  leading: auto,       // 1.5倍行距，自动计算
-  spacing: auto,       // 段前段后间距
+  leading: 正文行距,   // 1.5倍行距
+  spacing: 正文段间距, // 段前段后间距
   justify: true,
   first-line-indent: 首行缩进,
   numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
   // 正文字体与字号参数
-  text-args: auto,
+  text-args: (font: 正文字体, size: 正文字号),
   // 标题字体与字号
   // SCUT: 章标题小二号黑体居中, 一级小三黑体居左, 二级四号黑体居左, 三级小四黑体居左
-  heading-font: auto,
-  heading-size: auto,
+  heading-font: (章标题字体, 节标题字体, 节标题字体, 节标题字体),
+  heading-size: (章标题字号, 节一级标题字号, 节二级标题字号, 节三级标题字号),
   heading-weight: ("regular",),
   // SCUT: 章、节、条标题为单倍行距，段前段后各 0.5 行
-  heading-above: auto,
-  heading-below: auto,
+  // SCUT: 单倍行距前提下段前段后各 0.5 行。0.5 * 1.3em 随标题字号自动缩放
+  heading-above: (0.5 * 1.3em, 0.5 * 1.3em, 0.5 * 1.3em, 0.5 * 1.3em),
+  heading-below: (2em,) * 4,
   heading-pagebreak: (true, false),
-  heading-align: auto,
+  heading-align: (center, left, left, left),
   // 页眉
   // SCUT: 偶数页=学校+学位论文名称，奇数页=章序及章标题
   header-render: auto,
@@ -55,30 +56,6 @@
 
   // 1.  默认参数
   fonts = 字体 + fonts
-  if text-args == auto {
-    // SCUT: 正文小四号宋体
-    text-args = (font: 正文字体, size: 正文字号)
-  }
-  // 1.1 SCUT 字体与字号
-  if heading-font == auto {
-    heading-font = (章标题字体, 节标题字体, 节标题字体, 节标题字体)
-  }
-  if heading-size == auto {
-    // SCUT: 章小二号, 节一级小三号, 节二级四号, 节三级小四号
-    heading-size = (章标题字号, 节一级标题字号, 节二级标题字号, 节三级标题字号)
-  }
-  if heading-above == auto {
-    // SCUT: 标题段前段后各 0.5 行（单倍行距）
-    // 0.5行按各层级字号计算: 小二=9pt, 小三=7.5pt, 四号=7pt, 小四=6pt
-    heading-above = (9pt, 7.5pt, 7pt, 6pt)
-  }
-  if heading-below == auto {
-    heading-below = (9pt, 7.5pt, 7pt, 6pt)
-  }
-  if heading-align == auto {
-    // SCUT: 章居中, 其他居左
-    heading-align = (center, left, left, left)
-  }
   // 1.2 处理 heading- 开头的其他参数
   let heading-text-args-lists = args.named().pairs()
     .filter((pair) => pair.at(0).starts-with("heading-"))
@@ -93,22 +70,12 @@
   // 3.1 文本和段落样式
   set text(..text-args)
   // SCUT: 正文 1.5 倍行距，段前段后无空行
-  if leading == auto {
-    // 正文1.5倍行距，引用共享常量
-    set par(
-      leading: 正文行距,
-      justify: justify,
-      first-line-indent: first-line-indent,
-      spacing: 正文段间距,
-    )
-  } else {
-    set par(
-      leading: leading,
-      justify: justify,
-      first-line-indent: first-line-indent,
-      spacing: spacing,
-    )
-  }
+  set par(
+    leading: leading,
+    justify: justify,
+    first-line-indent: first-line-indent,
+    spacing: spacing,
+  )
   show raw: set text(font: fonts.等宽)
   // 3.2 脚注样式
   show footnote.entry: set text(font: 辅助字体, size: 辅助字号)
