@@ -4,10 +4,8 @@
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
 
 #let (
-  // 布局函数
   doc, preface, mainmatter, appendix,
-  // 页面函数
-  fonts-display-page, cover, decl-page, abstract, abstract-en, bilingual-bibliography,
+  fonts-display-page, cover, decl-page, abstract, abstract-en, bibliography,
   outline-page, list-of-figures, list-of-tables, notation, acknowledgement, publications,
 ) = documentclass(
   doctype: "master",  // "master" | "doctor"
@@ -38,7 +36,7 @@
     reviewer: ("某某某 教授", "某某某 教授"),
   ),
   // 参考文献源
-  bibliography: bibliography.with("ref.bib"),
+  bibliography: bibliography.with("ref.bib", style: "GB-T-7714—2015（顺序编码，双语，姓名不大写，无URL、DOI）.csl"),
 )
 
 // 全局页面设置
@@ -156,7 +154,7 @@ $ y = a x + b $ <eqt:linear>
 
 结论部分。结论作为单独一章排写，不加章号。结论应明确指出研究内容的创造性成果或创新性理论。
 
-#bilingual-bibliography(full: true)
+#bibliography(title: "参考文献", full: true)
 
 // 附录
 #show: appendix

@@ -16,7 +16,6 @@
 #import "pages/acknowledgement.typ": acknowledgement
 #import "pages/publications.typ": publications
 #import "utils/custom-cuti.typ": *
-#import "utils/bilingual-bibliography.typ": bilingual-bibliography
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "@preview/i-figured:0.2.4": show-figure, show-equation
@@ -121,9 +120,7 @@
     notation: (..args) => {
       notation(twoside: twoside, ..args)
     },
-    bilingual-bibliography: (..args) => {
-      bilingual-bibliography(bibliography: bibliography, ..args)
-    },
+    bibliography: bibliography,
     publications: (..args) => {
       publications(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
