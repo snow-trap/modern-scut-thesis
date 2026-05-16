@@ -20,12 +20,14 @@
   小七: 5pt,
 )
 
-// 拉丁字符均使用 Times New Roman，黑体拉丁用 Arial
+// SCUT 规范：全文拉丁字符均使用 Times New Roman
+#let 拉丁字体 = (name: "Times New Roman", covers: "latin-in-cjk")
+
 #let 字体 = (
-  宋体: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimSun"),
-  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei"),
-  楷体: ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi"),
-  仿宋: ((name: "Times New Roman", covers: "latin-in-cjk"), "FangSong"),
+  宋体: (拉丁字体, "SimSun"),
+  黑体: (拉丁字体, "SimHei"),
+  楷体: (拉丁字体, "KaiTi"),
+  仿宋: (拉丁字体, "FangSong"),
   等宽: ((name: "Courier New", covers: "latin-in-cjk"), "SimHei"),
 )
 
@@ -42,9 +44,9 @@
 #let 辅助字号 = 字号.五号
 
 // ===== 标题样式 =====
-#let 章标题字体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei")
+#let 章标题字体 = 字体.黑体
 #let 章标题字号 = 字号.小二
 #let 节一级标题字号 = 字号.小三
 #let 节二级标题字号 = 字号.四号
 #let 节三级标题字号 = 字号.小四
-#let 节标题字体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei")
+#let 节标题字体 = 字体.黑体
