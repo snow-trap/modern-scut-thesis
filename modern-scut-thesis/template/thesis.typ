@@ -127,13 +127,10 @@
   table(
     align: center + horizon,
     columns: 3,
-    table.hline(),
-    [参数], [数值], [单位],
-    table.hline(stroke: .5pt),
+    table.header([参数], [数值], [单位]),
     [温度], [25], [℃],
     [压力], [101.3], [kPa],
     [时间], [60], [s],
-    table.hline(),
   ),
   caption: [示例表格],
 ) <example-table>
@@ -177,19 +174,15 @@ $ y = a x + b $ <linear>
 
 图表标签不加前缀，由 `i-figured` 包自动生成带前缀的内部标签。引用时加对应前缀，且引用前不留空格。
 
-表格写法（三线表格式见本章第三节）：
+表格写法（三线表由模板自动生成）：
 
 #figure(
   ```typ
   #figure(
     table(
       columns: 3,
-      stroke: none,
-      table.hline(),
-      [参数], [数值], [单位],
-      table.hline(stroke: .5pt),
+      table.header([参数], [数值], [单位]),
       [温度], [25], [℃],
-      table.hline(),
     ),
     caption: [表格标题],
   ) <my-table>
@@ -218,10 +211,9 @@ $ y = a x + b $ <linear>
 
 == 三线表
 
-所有表格在正文中自动设为三线表（无竖线和默认边框）。在 `table()` 内显式绘制三条横线：
-`table.hline()`（顶线）、`table.hline(stroke: .5pt)`（表头下线）、`table.hline()`（底线）。
+正文中所有表格自动渲染为三线表：顶线和底线为粗线，表头下为细线，无竖线。只需用 `table.header()` 包裹表头即可。
 
-如需普通表格（如附录中的成果表），显式调用 `table.hline()` 绘制所需横线即可。
+无需手动添加 `table.hline()`，模板会自动过滤多余横线。如需用普通表格（如附录中的成果表），显式指定 `stroke` 参数即可。
 
 == 图片
 
