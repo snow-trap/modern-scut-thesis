@@ -32,21 +32,15 @@
     table(
       align: center + horizon,
       columns: 7,
-      table.hline(),
+      stroke: 0.5pt,
       table.header(
         [序号], [作者（全体作者，按顺序排列）], [题　目], [发表或投稿刊物名称、级别], [发表的卷期、年月、页码], [与学位论文哪一部分（章、节）相关], [被索引收录情况],
       ),
-      table.hline(),
       [1], [], [], [], [], [], [],
-      table.hline(),
       [2], [], [], [], [], [], [],
-      table.hline(),
       [3], [], [], [], [], [], [],
-      table.hline(),
       [4], [], [], [], [], [], [],
-      table.hline(),
       [5], [], [], [], [], [], [],
-      table.hline(),
     ),
   )
 
