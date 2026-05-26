@@ -67,16 +67,26 @@
   show figure: show-figure
   show math.equation.where(block: true): show-equation
 
-  // 表格：caption 置顶，空格代替冒号
+  // 表格：三线表，caption 置顶，空格代替冒号
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: separator)
   show figure.caption: caption-style
   show figure.caption: set text(font: 辅助字体, size: 辅助字号)
+  show table: set table(stroke: none)
 
   show terms: set par(first-line-indent: 0pt)
 
   // 标题编号
   set heading(numbering: numbering)
+
+  // 隐藏带 no-numbering 标签的标题编号（如结论章不加章号）
+  show heading: it => {
+    if "label" in it.fields() and str(it.label) == "no-numbering" {
+      heading(level: it.level, numbering: none, it.body)
+    } else {
+      it
+    }
+  }
 
   // 标题字体、字号、段间距
   show heading: it => {

@@ -66,7 +66,8 @@
             font: font.at(entry.level - 1, default: font.last()),
             size: size.at(entry.level - 1, default: size.last()),
             {
-              if entry.prefix() not in (none, []) {
+              let no-label = "label" in entry.element.fields() and str(entry.element.label) == "no-numbering"
+              if entry.prefix() not in (none, []) and not no-label {
                 entry.prefix()
                 h(gap)
               }

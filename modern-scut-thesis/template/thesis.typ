@@ -115,35 +115,47 @@
 
 === 核心算法
 
-公式序号按章编排，如第一章第一个公式序号为"(1-1)"：
-
-$ y = a x + b $ <eqt:linear>
-
-== 实验验证
-
-=== 实验设计
+== 图表与公式
 
 每个图均应有图题（由图号和图名组成）。图号按章编排，如第一章第一图的图号为"图1-1"等。图题置于图下。表序一般按章编排，如第一章第一个插表的序号为"表1-1"等。表序与表名之间应空一格，表名中不允许使用标点符号，表名后不加标点。表序与表名置于表上。
 
-示例表格如表 @tbl:example，示例图片如图 @fig:example。
+=== 三线表
+
+表格采用三线表格式：顶线和底线为粗线，表头下线为细线，无竖线。三线表如@tbl:example-table 所示。
 
 #figure(
   table(
     align: center + horizon,
     columns: 3,
-    [参数], [数值], [单位],
     table.hline(),
+    [参数], [数值], [单位],
+    table.hline(stroke: .5pt),
     [温度], [25], [℃],
     [压力], [101.3], [kPa],
     [时间], [60], [s],
+    table.hline(),
   ),
   caption: [示例表格],
-) <tbl:example>
+) <example-table>
+
+=== 图片
+
+插图应有图题，图题置于图下。示例图片如@fig:example-figure 所示。
 
 #figure(
   rect(width: 60%, height: 80pt, fill: gray.lighten(30%)),
   caption: [示例图片],
-) <fig:example>
+) <example-figure>
+
+=== 公式
+
+公式居中书写。公式序号按章编排，如第一章第一个公式序号为"(1-1)"，附录2中的第一个公式为"(2-1)"等。文中引用公式一般用"见式(1-1)"或"由公式(1-1)"。如@eqt:linear 所示。
+
+$ y = a x + b $ <linear>
+
+== 实验验证
+
+=== 实验设计
 
 == 结果分析
 
@@ -151,7 +163,98 @@ $ y = a x + b $ <eqt:linear>
 
 论文正文各章后应有一节"本章小结"。
 
-= 结　论
+= 本模板说明
+
+本章说明如何用本 Typst 模板实现上述 SCUT 规范格式。
+
+== 章节标题
+
+正文中 `=` 对应章标题，`==` 对应节标题，`===` 对应条标题。各层级自动按 SCUT 规范编号（如"第一章"、"1.1"、"1.1.1"）。结论章不加章号，在标题后加 `<no-numbering>` 标签即可。
+
+== 标签与引用
+
+=== 图表引用
+
+图表标签不加前缀，由 `i-figured` 包自动生成带前缀的内部标签。引用时加对应前缀，且引用前不留空格。
+
+表格写法（三线表格式见本章第三节）：
+
+#figure(
+  ```typ
+  #figure(
+    table(
+      columns: 3,
+      stroke: none,
+      table.hline(),
+      [参数], [数值], [单位],
+      table.hline(stroke: .5pt),
+      [温度], [25], [℃],
+      table.hline(),
+    ),
+    caption: [表格标题],
+  ) <my-table>
+  ```,
+  caption: [表格语法示例],
+)
+
+引用时用 `@tbl:my-table`，渲染为"表 X-Y"。图片同理，引用用 `@fig:my-figure`。例如前章的@tbl:example-table 和@fig:example-figure。
+
+=== 公式引用
+
+公式标签也不加前缀：
+
+#figure(
+  ```typ
+  $ y = a x + b $ <my-eq>
+  ```,
+  caption: [公式语法示例],
+)
+
+引用用 `@eqt:my-eq`。例如前章的@eqt:linear。行内公式（嵌入段落中的 `$...$`）不会编号。
+
+=== 参考文献引用
+
+参考文献采用 GB/T 7714 格式。在 `ref.bib` 中维护文献条目，正文中用 `@citation-key` 引用。引用标注格式为上标方括号，如文献 @蒋有绪1998 所述。
+
+== 三线表
+
+所有表格在正文中自动设为三线表（无竖线和默认边框）。在 `table()` 内显式绘制三条横线：
+`table.hline()`（顶线）、`table.hline(stroke: .5pt)`（表头下线）、`table.hline()`（底线）。
+
+如需普通表格（如附录中的成果表），显式调用 `table.hline()` 绘制所需横线即可。
+
+== 图片
+
+#figure(
+  ```typ
+  #figure(
+    image("path/to/image.png", width: 60%),
+    caption: [图片标题],
+  ) <my-fig>
+  ```,
+  caption: [图片语法示例],
+)
+
+== 代码块
+
+代码块支持语法高亮。
+
+#figure(
+  ```py
+  def hello():
+      print("Hello, SCUT!")
+  ```,
+  caption: [代码块示例],
+) <code-example>
+
+== 其他说明
+
+- 字体：宋体、黑体、楷体、仿宋需系统已安装，拉丁字符统一用 Times New Roman。
+- 盲审模式：在 `documentclass()` 中设置 `anonymous: true`，将隐藏作者和导师信息。
+- 双面打印：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题。
+- 图表清单：必要时可启用 `#list-of-figures()` 和 `#list-of-tables()`。
+
+= 结　论 <no-numbering>
 
 学位论文的结论单独作为一章排写，但不加章号。
 

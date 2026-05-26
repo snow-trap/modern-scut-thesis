@@ -1,7 +1,8 @@
 // 展示一个标题
 #let heading-display(it) = {
   if it != none {
-    if it.has("numbering") and it.numbering != none {
+    let no-label = "label" in it.fields() and str(it.label) == "no-numbering"
+    if it.has("numbering") and it.numbering != none and not no-label {
       numbering(it.numbering, ..counter(heading).at(it.location()))
       [ ]
     }
