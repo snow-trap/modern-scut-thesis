@@ -67,31 +67,11 @@
   show figure: show-figure
   show math.equation.where(block: true): show-equation
 
-  // 表格：自动三线表（顶线、表头下细线、底线），caption 置顶，空格代替冒号
+  // 表格：手动三线表，caption 置顶，空格代替冒号
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: separator)
   show figure.caption: caption-style
   show figure.caption: set text(font: 辅助字体, size: 辅助字号)
-  show table: it => {
-    if it.stroke == none  { return it }
-    let children = it.children
-    let filtered = children.filter(c => c.func() != table.hline and c.func() != table.vline)
-    let new-children = (table.hline(),)
-    for child in filtered {
-      new-children.push(child)
-      if child.func() == table.header {
-        new-children.push(table.hline(stroke: .5pt))
-      }
-    }
-    new-children.push(table.hline())
-    let fields = (:)
-    for (k, v) in it.fields() {
-      if k != "stroke" and k != "children" {
-        fields.insert(k, v)
-      }
-    }
-    table(stroke: none, ..fields, ..new-children)
-  }
 
   show terms: set par(first-line-indent: 0pt)
 
