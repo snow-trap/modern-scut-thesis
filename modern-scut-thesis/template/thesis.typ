@@ -7,6 +7,7 @@
   doc, preface, mainmatter, appendix,
   fonts-display-page, cover, decl-page, abstract, abstract-en, bibliography,
   outline-page, list-of-figures, list-of-tables, notation, acknowledgement, publications,
+  threeline-table,
 ) = documentclass(
   doctype: "master",  // "master" | "doctor"
   twoside: true,      // 双面模式
@@ -125,16 +126,14 @@
 表格采用三线表格式：顶线和底线为粗线，表头下线为细线，无竖线。三线表如@tbl:example-table 所示。
 
 #figure(
-  table(
-    align: center + horizon,
+  threeline-table(
     columns: 3,
-    table.hline(),
-    table.header([参数], [数值], [单位]),
-    table.hline(stroke: .5pt),
-    [温度], [25], [℃],
-    [压力], [101.3], [kPa],
-    [时间], [60], [s],
-    table.hline(),
+    header: ([参数], [数值], [单位]),
+    data: (
+      [温度], [25], [℃],
+      [压力], [101.3], [kPa],
+      [时间], [60], [s],
+    ),
   ),
   caption: [示例表格],
 ) <example-table>
@@ -178,18 +177,17 @@ $ y = a x + b $ <linear>
 
 图表标签不加前缀，由 `i-figured` 包自动生成带前缀的内部标签。引用时加对应前缀，且引用前不留空格。
 
-表格写法（三线表需手动添加横线）：
+表格写法（使用 `threeline-table` 封装函数）：
 
 #figure(
   ```typ
   #figure(
-    table(
+    threeline-table(
       columns: 3,
-      table.hline(),
-      table.header([参数], [数值], [单位]),
-      table.hline(stroke: .5pt),
-      [温度], [25], [℃],
-      table.hline(),
+      header: ([参数], [数值], [单位]),
+      data: (
+        [温度], [25], [℃],
+      ),
     ),
     caption: [表格标题],
   ) <my-table>
@@ -218,9 +216,12 @@ $ y = a x + b $ <linear>
 
 == 三线表
 
-三线表需手动添加横线：顶线 `table.hline()`、表头下细线 `table.hline(stroke: .5pt)`、底线 `table.hline()`。无竖线。
+使用 `threeline-table()` 封装函数，只需传入 `header` 和 `data`：
+- `header`：表头内容数组，自动加粗线顶线和细线表头下划线
+- `data`：数据行展开传入，自动加粗线底线
+- 无竖线
 
-如需普通表格（如附录中的成果表），不添加 `table.hline()` 即可。
+如需普通表格（如附录中的成果表），直接用 `table()` 即可。
 
 == 图片
 
