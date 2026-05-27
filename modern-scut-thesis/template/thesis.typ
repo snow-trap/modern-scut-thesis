@@ -55,22 +55,23 @@
 #show: preface
 
 // 中文摘要
-// “摘要是学位论文内容的简短陈述，应体现论文工作的核心思想。”
-// “摘要内容应涉及本项科研工作的目的和意义、研究思想和方法、研究成果和结论。”
-// “博士学位论文的中文摘要一般约1000字；硕士学位论文的中文摘要一般约500～800字。”
-// “关键词一般为3～5个，按词条的外延层次排列（外延大的排在前面）。关键词之间用分号分开，最后一个关键词后不打标点符号。”
 #abstract(
   keywords: ("关键词一", "关键词二", "关键词三", "关键词四")
 )[
-  这里是中文摘要的内容。
+  摘要是学位论文内容的简短陈述，应体现论文工作的核心思想。
+  论文摘要应力求语言精练准确。摘要内容应涉及本项科研工作的目的和意义、
+  研究思想和方法、研究成果和结论。
+  硕士学位论文的中文摘要一般约 500～800 字，必须突出论文的新见解。
+
+  关键词一般为 3～5 个，按词条的外延层次排列（外延大的排在前面）。
+  关键词之间用分号分开，最后一个关键词后不打标点符号。
 ]
 
 // 英文摘要
-// “英文摘要的内容及关键词应与中文摘要及关键词一致，要符合英语语法，语句通顺，文字流畅。”
 #abstract-en(
   keywords: ("Keyword1", "Keyword2", "Keyword3", "Keyword4")
 )[
-  Here is the English abstract content.
+  The content of the English abstract and keywords should be consistent with the Chinese abstract and keywords, conform to English grammar, and be smooth and fluent in wording.
 ]
 
 // 目录
