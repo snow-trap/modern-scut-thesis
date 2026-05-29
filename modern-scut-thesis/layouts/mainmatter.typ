@@ -8,6 +8,7 @@
 #import "@preview/great-theorems:0.1.2": great-theorems-init
 #import "@preview/headcount:0.1.0": reset-counter
 #import "@preview/zebraw:0.6.3": zebraw
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 
 #let mainmatter(
   doctype: "master",
@@ -64,6 +65,7 @@
     spacing: spacing,
   )
   show raw: set text(font: fonts.等宽)
+  show: show-cn-fakebold
   show: zebraw
 
   // 脚注、图表编号、公式编号
