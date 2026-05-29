@@ -1,0 +1,58 @@
+// great-theorems 定理环境封装
+#import "@preview/great-theorems:0.1.2": mathblock, proofblock
+#import "@preview/headcount:0.1.0": dependent-numbering
+
+#let theorem-counter = counter("theorem")
+
+#let theorem = mathblock(
+  blocktitle: "定理",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[定理 #counter:],
+)
+
+#let lemma = mathblock(
+  blocktitle: "引理",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[引理 #counter:],
+)
+
+#let corollary = mathblock(
+  blocktitle: "推论",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[推论 #counter:],
+)
+
+#let definition = mathblock(
+  blocktitle: "定义",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[定义 #counter:],
+)
+
+#let proposition = mathblock(
+  blocktitle: "命题",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[命题 #counter:],
+)
+
+#let example = mathblock(
+  blocktitle: "例",
+  counter: theorem-counter,
+  numbering: dependent-numbering("1.1", levels: 1),
+  prefix: counter => strong[例 #counter:],
+)
+
+#let remark = mathblock(
+  blocktitle: "备注",
+  prefix: [*备注.* ],
+)
+
+#let proof = proofblock(
+  blocktitle: "证明",
+  prefix: [_证明._ ],
+  suffix: [#h(1fr) $square$],
+)

@@ -4,13 +4,34 @@
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
 
 #let (
-  doc, preface, mainmatter, appendix,
-  fonts-display-page, cover, decl-page, abstract, abstract-en, bibliography,
-  outline-page, list-of-figures, list-of-tables, notation, acknowledgement, publications,
+  doc,
+  preface,
+  mainmatter,
+  appendix,
+  fonts-display-page,
+  cover,
+  decl-page,
+  abstract,
+  abstract-en,
+  bibliography,
+  outline-page,
+  list-of-figures,
+  list-of-tables,
+  notation,
+  acknowledgement,
+  publications,
   threeline-table,
+  theorem,
+  lemma,
+  corollary,
+  definition,
+  proposition,
+  example,
+  remark,
+  proof,
 ) = documentclass(
-  doctype: "master",  // "master" | "doctor"
-  twoside: true,      // 双面模式
+  doctype: "master", // "master" | "doctor"
+  twoside: true, // 双面模式
   // anonymous: true, // 盲审模式
   info: (
     title: ("基于 Typst 的", "华南理工大学学位论文"),
@@ -57,7 +78,7 @@
 
 // 中文摘要
 #abstract(
-  keywords: ("关键词一", "关键词二", "关键词三", "关键词四")
+  keywords: ("关键词一", "关键词二", "关键词三", "关键词四"),
 )[
   摘要是学位论文内容的简短陈述，应体现论文工作的核心思想。
   论文摘要应力求语言精练准确。摘要内容应涉及本项科研工作的目的和意义、
@@ -70,7 +91,7 @@
 
 // 英文摘要
 #abstract-en(
-  keywords: ("Keyword1", "Keyword2", "Keyword3", "Keyword4")
+  keywords: ("Keyword1", "Keyword2", "Keyword3", "Keyword4"),
 )[
   The content of the English abstract and keywords should be consistent with the Chinese abstract and keywords, conform to English grammar, and be smooth and fluent in wording.
 ]
@@ -115,6 +136,28 @@
 
 === 基本概念
 
+定理环境示例（如果要启用，取消下方注释）：
+
+#theorem[
+  设 $p$ 为素数，$p mid a$，则 $a^(p-1) equiv 1 (mod p)$。
+] <thm:fermat>
+
+#lemma[
+  若 $a equiv b (mod m)$，$c equiv d (mod m)$，则
+  $a + c equiv b + d (mod m)$。
+]
+
+#proof[
+  由同余定义直接可得。
+]
+
+#definition(title: [素数])[
+  一个大于 $1$ 的自然数，如果除了 $1$ 和它自身外，
+  不能被其他自然数整除，称为素数。
+]
+
+引用定理：@thm:fermat。
+
 === 核心算法
 
 == 图表与公式
@@ -130,9 +173,15 @@
     columns: 3,
     header: ([参数], [数值], [单位]),
     data: (
-      [温度], [25], [℃],
-      [压力], [101.3], [kPa],
-      [时间], [60], [s],
+      [温度],
+      [25],
+      [℃],
+      [压力],
+      [101.3],
+      [kPa],
+      [时间],
+      [60],
+      [s],
     ),
   ),
   caption: [示例表格],

@@ -4,6 +4,9 @@
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
+#import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter
+#import "@preview/great-theorems:0.1.2": great-theorems-init
+#import "@preview/headcount:0.1.0": reset-counter
 #import "@preview/zebraw:0.6.3": zebraw
 
 #let mainmatter(
@@ -75,6 +78,9 @@
   show figure.caption: caption-style
   show figure.caption: set text(font: 辅助字体, size: 辅助字号)
 
+  // 定理环境
+  show: great-theorems-init
+
   show terms: set par(first-line-indent: 0pt)
 
   // 标题编号
@@ -119,6 +125,9 @@
       it
     }
   }
+
+  // 定理计数器随章重置（放在最后一条 heading show rule）
+  show heading: reset-counter(theorem-counter, levels: 1)
 
   // 页眉页脚
   let school-header = if doctype == "doctor" {

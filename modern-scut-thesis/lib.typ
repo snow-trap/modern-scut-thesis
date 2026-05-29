@@ -19,6 +19,7 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "utils/threeline-table.typ": threeline-table
+#import "utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof
 #import "@preview/i-figured:0.2.4": show-figure, show-equation
 #import "utils/style.typ": 字体, 字号
 
@@ -129,5 +130,13 @@
       acknowledgement(twoside: twoside, ..args)
     },
     threeline-table: threeline-table,
+    theorem: theorem,
+    lemma: lemma,
+    corollary: corollary,
+    definition: definition,
+    proposition: proposition,
+    example: example,
+    remark: remark,
+    proof: proof,
   )
 }
