@@ -4,7 +4,7 @@
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
-#import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter
+#import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter, lemma-counter, corollary-counter, definition-counter, proposition-counter, example-counter
 #import "@preview/great-theorems:0.1.2": great-theorems-init
 #import "@preview/headcount:0.1.0": reset-counter
 #import "../utils/algorithm.typ": style-algorithm
@@ -134,6 +134,11 @@
 
   // 定理计数器随章重置（放在最后一条 heading show rule）
   show heading: reset-counter(theorem-counter, levels: 1)
+  show heading: reset-counter(lemma-counter, levels: 1)
+  show heading: reset-counter(corollary-counter, levels: 1)
+  show heading: reset-counter(definition-counter, levels: 1)
+  show heading: reset-counter(proposition-counter, levels: 1)
+  show heading: reset-counter(example-counter, levels: 1)
 
   // 页眉页脚
   let school-header = if doctype == "doctor" {

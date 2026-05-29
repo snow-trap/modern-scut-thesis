@@ -3,6 +3,11 @@
 #import "@preview/headcount:0.1.0": dependent-numbering
 
 #let theorem-counter = counter("theorem")
+#let lemma-counter = counter("lemma")
+#let corollary-counter = counter("corollary")
+#let definition-counter = counter("definition")
+#let proposition-counter = counter("proposition")
+#let example-counter = counter("example")
 
 #let theorem = mathblock(
   blocktitle: "定理",
@@ -13,35 +18,35 @@
 
 #let lemma = mathblock(
   blocktitle: "引理",
-  counter: theorem-counter,
+  counter: lemma-counter,
   numbering: dependent-numbering("1.1", levels: 1),
   prefix: counter => strong[引理 #counter:],
 )
 
 #let corollary = mathblock(
   blocktitle: "推论",
-  counter: theorem-counter,
+  counter: corollary-counter,
   numbering: dependent-numbering("1.1", levels: 1),
   prefix: counter => strong[推论 #counter:],
 )
 
 #let definition = mathblock(
   blocktitle: "定义",
-  counter: theorem-counter,
+  counter: definition-counter,
   numbering: dependent-numbering("1.1", levels: 1),
   prefix: counter => strong[定义 #counter:],
 )
 
 #let proposition = mathblock(
   blocktitle: "命题",
-  counter: theorem-counter,
+  counter: proposition-counter,
   numbering: dependent-numbering("1.1", levels: 1),
   prefix: counter => strong[命题 #counter:],
 )
 
 #let example = mathblock(
   blocktitle: "例",
-  counter: theorem-counter,
+  counter: example-counter,
   numbering: dependent-numbering("1.1", levels: 1),
   prefix: counter => strong[例 #counter:],
 )
