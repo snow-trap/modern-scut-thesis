@@ -20,6 +20,7 @@
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "utils/threeline-table.typ": threeline-table
 #import "utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof
+#import "utils/algorithm.typ": algorithm-figure
 #import "@preview/i-figured:0.2.4": show-figure, show-equation
 #import "utils/style.typ": 字体, 字号
 
@@ -138,5 +139,6 @@
     example: example,
     remark: remark,
     proof: proof,
+    algorithm-figure: algorithm-figure,
   )
 }

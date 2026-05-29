@@ -7,6 +7,7 @@
 #import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter
 #import "@preview/great-theorems:0.1.2": great-theorems-init
 #import "@preview/headcount:0.1.0": reset-counter
+#import "../utils/algorithm.typ": style-algorithm
 #import "@preview/zebraw:0.6.3": zebraw
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 
@@ -79,6 +80,9 @@
   set figure.caption(separator: separator)
   show figure.caption: caption-style
   show figure.caption: set text(font: 辅助字体, size: 辅助字号)
+
+  // 算法伪代码
+  show: style-algorithm
 
   // 定理环境
   show: great-theorems-init

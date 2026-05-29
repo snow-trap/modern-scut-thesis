@@ -1,4 +1,5 @@
 #import "../lib.typ": documentclass
+#import "@preview/algorithmic:1.0.7"
 
 // SCUT 学位论文模板
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
@@ -29,6 +30,7 @@
   example,
   remark,
   proof,
+  algorithm-figure,
 ) = documentclass(
   doctype: "master", // "master" | "doctor"
   twoside: true, // 双面模式
@@ -176,6 +178,8 @@
 
 == 定理环境
 
+基于 `great-theorems` 包。
+
 模板内置定理、引理、推论、定义、命题、例、备注、证明八种环境。
 所有编号环境共享同一计数器，在每章起始处自动重置，序号格式为"章号-序号"。
 
@@ -219,6 +223,8 @@
 
 == 图表
 
+基于 `i-figured` 包。
+
 === 三线表
 
 使用 `threeline-table()` 封装函数，传入 `header` 和 `data` 即可：
@@ -248,6 +254,8 @@
 ) <example-figure>
 
 == 公式
+
+基于 `i-figured` 包。
 
 === 独立编号公式
 
@@ -300,6 +308,8 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 标签与引用
 
+基于 `i-figured` 包。
+
 图表标签不加前缀，由 `i-figured` 自动生成带前缀的内部标签。引用时加对应前缀：
 
 - 表格 `@tbl:my-table`，如@tbl:example-table
@@ -310,6 +320,8 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 代码块
 
+基于 `zebraw` 包，支持行号和语法高亮。
+
 代码块支持语法高亮和行号。
 
 #figure(
@@ -319,6 +331,51 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
   ```,
   caption: [代码块示例],
 ) <code-example>
+
+== 算法伪代码
+
+基于 `algorithmic` 包。
+
+使用 `algorithm-figure()`，自动编号（"算法 2-1"）。
+语法模仿 LaTeX algorithmicx，提供 `If`/`While`/`For`/`Function`/`Procedure` 等。
+
+#algorithm-figure(
+  "Binary Search",
+  vstroke: .5pt + luma(200),
+  {
+    import algorithmic: *
+    Procedure(
+      "Binary-Search",
+      ("A", "n", "v"),
+      {
+        Comment[Initialize the search range]
+        Assign[$l$][$1$]
+        Assign[$r$][$n$]
+        LineBreak
+        While(
+          $l <= r$,
+          {
+            Assign([mid], FnInline[floor][$(l + r) / 2$])
+            IfElseChain(
+              $A ["mid"] < v$,
+              {
+                Assign[$l$][$"mid" + 1$]
+              },
+              [$A ["mid"] > v$],
+              {
+                Assign[$r$][$"mid" - 1$]
+              },
+              Return[mid],
+            )
+          },
+        )
+        Return[*null*]
+      },
+    )
+  },
+) <alg:binary-search>
+
+引用用 `@alg:binary-search`，渲染为@alg:binary-search。
 
 == 其他说明
 
