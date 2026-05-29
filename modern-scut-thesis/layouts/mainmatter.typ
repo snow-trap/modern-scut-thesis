@@ -4,6 +4,7 @@
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
+#import "@preview/zebraw:0.6.3": zebraw
 
 #let mainmatter(
   doctype: "master",
@@ -31,7 +32,7 @@
   stroke-width: 1.5pt,
   reset-footnote: true,
   separator: "  ",
-  // caption-style: strong, // 加粗题注数字
+  caption-style: it => it,
   caption-size: 字号.五号,
   show-figure: i-figured.show-figure.with(numbering: "1-1"),
   show-equation: i-figured.show-equation.with(numbering: "(1-1)"),
@@ -60,6 +61,7 @@
     spacing: spacing,
   )
   show raw: set text(font: fonts.等宽)
+  show: zebraw
 
   // 脚注、图表编号、公式编号
   show footnote.entry: set text(font: 辅助字体, size: 辅助字号)
