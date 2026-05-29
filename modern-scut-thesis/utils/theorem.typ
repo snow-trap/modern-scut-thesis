@@ -48,11 +48,12 @@
 
 #let remark = mathblock(
   blocktitle: "备注",
-  prefix: [*备注.* ],
+  prefix: strong[备注:],
 )
 
 #let proof = proofblock(
   blocktitle: "证明",
-  prefix: [_证明._ ],
+  prefix: strong[证明:],
+  prefix_with_of: of => strong[证明（#of）:],
   suffix: [#h(1fr) $square$],
 )

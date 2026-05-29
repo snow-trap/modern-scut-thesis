@@ -139,12 +139,12 @@
 定理环境示例（如果要启用，取消下方注释）：
 
 #theorem[
-  设 $p$ 为素数，$p mid a$，则 $a^(p-1) equiv 1 (mod p)$。
+  设 $p$ 为素数，$p ∤ a$，则 $a^(p-1) ≡ 1 (mod p)$。
 ] <thm:fermat>
 
 #lemma[
-  若 $a equiv b (mod m)$，$c equiv d (mod m)$，则
-  $a + c equiv b + d (mod m)$。
+  若 $a ≡ b (mod m)$，$c ≡ d (mod m)$，则
+  $a + c ≡ b + d (mod m)$。
 ]
 
 #proof[
@@ -154,6 +154,11 @@
 #definition(title: [素数])[
   一个大于 $1$ 的自然数，如果除了 $1$ 和它自身外，
   不能被其他自然数整除，称为素数。
+]
+
+#remark[
+  素数有无穷多个，这是古希腊数学家欧几里得在《几何原本》中
+  首次证明的经典结论。
 ]
 
 引用定理：@thm:fermat。
