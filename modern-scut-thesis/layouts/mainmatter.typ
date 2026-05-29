@@ -31,7 +31,7 @@
   stroke-width: 1.5pt,
   reset-footnote: true,
   separator: "  ",
-  caption-style: strong,
+  // caption-style: strong, // 加粗题注数字
   caption-size: 字号.五号,
   show-figure: i-figured.show-figure.with(numbering: "1-1"),
   show-equation: i-figured.show-equation.with(numbering: "(1-1)"),
