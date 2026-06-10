@@ -28,7 +28,7 @@
   黑体: (拉丁字体, "SimHei"),
   楷体: (拉丁字体, "KaiTi"),
   仿宋: (拉丁字体, "FangSong"),
-  等宽: ((name: "Courier New", covers: "latin-in-cjk"), "SimHei"),
+  等宽: ((name: "Courier New", covers: "latin-in-cjk"), "SimSun"),
 )
 
 // ===== 正文共享样式 =====
