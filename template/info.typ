@@ -11,11 +11,8 @@
   author-en: "Zhang San",
   student-id: "1234567890",
   department: "某学院",
-  department-en: "XX School",
   major: "某专业",
-  major-en: "XX Major",
   field: "某方向",
-  field-en: "XX Field",
   supervisor: ("李四", "教授"),
   supervisor-en: "Prof. Li Si",
   submit-date: datetime.today(),
@@ -29,8 +26,6 @@
   // CLC 按学位类型自动选择：博士 TP391，硕士 TP273。
   // 如需固定值，改为具体分类号即可。
   clc: if doctype == "doctor" { "TP391" } else { "TP273" },
-  udc: "004.9",
-  secret-level: "公开",
   chairman: "某某某 教授",
   reviewer: ("某某某 教授", "某某某 教授", "某某某 教授"),
 )
