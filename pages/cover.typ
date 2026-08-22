@@ -20,29 +20,6 @@
   datetime-ym-display: datetime-ym-display,
 ) = {
   fonts = 字体 + fonts
-  info = (
-    title: "华南理工大学学位论文",
-    title-en: "Thesis Title in English",
-    author: "张三",
-    author-en: "Zhang San",
-    major: "某专业",
-    major-en: "XX Major",
-    supervisor: ("李四", "教授"),
-    supervisor-en: "Prof. Li Si",
-    department: "某学院",
-    department-en: "XX School",
-    submit-date: datetime.today(),
-    defend-date: datetime.today(),
-    confer-date: datetime.today(),
-    school-code: "10561",
-    clc: "",
-    udc: "",
-    secret-level: "公开",
-    student-id: "1234567890",
-    field: "某方向",
-    chairman: "某某某 教授",
-    reviewer: ("某某某 教授", "某某某 教授"),
-  ) + info
 
   if type(info.title) == str {
     info.title = info.title.split("\n")
@@ -83,7 +60,7 @@
 
   let degree-name = if doctype == "doctor" { "博士学位论文" } else { "硕士学位论文" }
   let degree-name-en = if doctype == "doctor" { "Doctor of Philosophy" } else { "Master" }
-  let degree-level = if doctype == "doctor" { "工学博士" } else { "工学硕士" }
+  let degree-level = info.degree-type + (if doctype == "doctor" { "博士" } else { "硕士" })
 
   // ====== 中文封面 ======
   pagebreak(weak: true, to: if twoside { "odd" })
@@ -142,9 +119,9 @@
   v(16pt)
   text(size: 字号.小三, weight: "bold")[Supervisor：#info.supervisor-en]
   v(96pt)
-  text(size: 字号.小三)[South China University of Technology]
+  text(size: 字号.小三)[#info.school-name-en]
   v(16pt)
-  text(size: 字号.小三)[Guangzhou, China]
+  text(size: 字号.小三)[#info.school-address-en]
 
   // ====== 提名页 ======
   pagebreak(weak: true, to: if twoside { "odd" })
@@ -163,7 +140,7 @@
   [学　号：#info.student-id]
 
   v(70pt)
-  align(center, text(font: fonts.黑体, size: 字号.小二, "华南理工大学" + degree-name))
+  align(center, text(font: fonts.黑体, size: 字号.小二, info.school-name + degree-name))
   v(46pt)
   align(center, text(font: fonts.黑体, size: 字号.二号, weight: "bold", info.title.intersperse("\n").sum()))
   v(66pt)
@@ -188,7 +165,7 @@
     [],
     [论文提交日期：#h(0.5em)#datetime-display(info.submit-date)],
     [论文答辩日期：#h(0.5em)#info.defend-date],
-    [学位授予单位：#h(0.5em)华南理工大学],
+    [学位授予单位：#h(0.5em)#info.school-name],
     [学位授予日期：#h(0.5em)#confer-date-text],
   )
 

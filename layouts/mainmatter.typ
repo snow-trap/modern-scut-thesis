@@ -15,6 +15,7 @@
   doctype: "master",
   twoside: false,
   fonts: (:),
+  info: (:),
   leading: 正文行距,
   spacing: 正文段间距,
   justify: true,
@@ -141,11 +142,8 @@
   show heading: reset-counter(example-counter, levels: 1)
 
   // 页眉页脚
-  let school-header = if doctype == "doctor" {
-    "华南理工大学博士学位论文"
-  } else {
-    "华南理工大学硕士学位论文"
-  }
+  let degree-name = if doctype == "doctor" { "博士学位论文" } else { "硕士学位论文" }
+  let school-header = info.school-name + degree-name
 
   set page(
     footer: context {

@@ -6,11 +6,6 @@
   margin: (x: 25mm, y: 25mm),
   it,
 ) = {
-  info = (
-    title: ("基于 Typst 的", "华南理工大学学位论文"),
-    author: "张三",
-  ) + info
-
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }

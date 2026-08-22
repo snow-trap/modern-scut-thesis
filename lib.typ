@@ -36,30 +36,6 @@
   info: (:),
 ) = {
   fonts = 字体 + fonts
-  info = (
-    title: "华南理工大学学位论文",
-    title-en: "SCUT Thesis Template for Typst",
-    author: "张三",
-    author-en: "Zhang San",
-    student-id: "1234567890",
-    department: "某学院",
-    department-en: "XX School",
-    major: "某专业",
-    major-en: "XX Major",
-    field: "某方向",
-    field-en: "XX Field",
-    supervisor: ("李四", "教授"),
-    supervisor-en: "Prof. Li Si",
-    submit-date: datetime.today(),
-    defend-date: datetime.today(),
-    confer-date: datetime.today(),
-    school-code: "10561",
-    clc: "",
-    udc: "",
-    secret-level: "公开",
-    chairman: "某某某 教授",
-    reviewer: ("某某某 教授", "某某某 教授"),
-  ) + info
 
   return (
     doctype: doctype,
@@ -78,6 +54,7 @@
       mainmatter(
         doctype: doctype, twoside: twoside, display-header: true,
         ..args, fonts: fonts + args.named().at("fonts", default: (:)),
+        info: info + args.named().at("info", default: (:)),
       )
     },
     appendix: (..args) => {
