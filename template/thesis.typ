@@ -57,7 +57,7 @@
     udc: "004.9",
     secret-level: "公开",
     chairman: "某某某 教授",
-    reviewer: ("某某某 教授", "某某某 教授"),
+    reviewer: ("某某某 教授", "某某某 教授", "某某某 教授"),
   ),
   // 参考文献源
   bibliography: bibliography.with("ref.bib", style: "GB-T-7714—2015（顺序编码，双语，姓名不大写，无URL、DOI）.csl"),
@@ -197,7 +197,7 @@
 #proof[
   由同余定义直接可得。
 ]
-
+f
 #corollary[
   同余关系对减法也成立。
 ]

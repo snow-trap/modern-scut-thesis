@@ -1,5 +1,6 @@
 // SCUT 封面（中文封面 + 英文内封 + 提名页）
-#import "../utils/datetime-display.typ": datetime-display, datetime-en-display
+// 版式还原自 local/SCUT_thesis/cover_file/master_cover.docx
+#import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/style.typ": 字号, 字体
 
@@ -8,18 +9,15 @@
   twoside: false,
   fonts: (:),
   info: (:),
+  logo: image("../assets/scut-logo.jpg", width: 12.1cm),
   stroke-width: 0.5pt,
   min-title-lines: 2,
-  info-inset: (x: 0pt, bottom: 0.5pt),
-  info-key-width: 86pt,
-  info-column-gutter: 18pt,
-  info-row-gutter: 12pt,
-  defence-inset: (x: 0pt, bottom: 2pt),
-  defence-key-width: 110pt,
-  defence-column-gutter: 2pt,
-  defence-row-gutter: 12pt,
+  info-key-width: 112pt,
+  info-value-width: 210pt,
+  info-column-gutter: 10pt,
+  info-row-gutter: 7.5pt,
   datetime-display: datetime-display,
-  datetime-en-display: datetime-en-display,
+  datetime-ym-display: datetime-ym-display,
 ) = {
   fonts = 字体 + fonts
   info = (
@@ -52,159 +50,162 @@
   if type(info.title-en) == str {
     info.title-en = info.title-en.split("\n")
   }
-  // 标题行/评阅人补空行，日期格式化
+  // 标题补空行，日期格式化
   info.title = info.title + range(min-title-lines - info.title.len()).map((it) => "　")
-  info.reviewer = info.reviewer + range(5 - info.reviewer.len()).map((it) => "　")
   if type(info.defend-date) == datetime {
     info.defend-date = datetime-display(info.defend-date)
   }
-  if type(info.confer-date) == datetime {
-    info.confer-date = datetime-display(info.confer-date)
-  }
 
-  let info-key(body, inset: info-inset) = {
-    set text(font: fonts.楷体, size: 字号.三号, weight: "bold")
+  // 信息栏：黑体三号，标签四字分散对齐无冒号，值居中带下划线
+  let info-key(body) = {
+    set text(font: fonts.黑体, size: 字号.三号)
     rect(
       width: 100%,
-      inset: inset,
+      inset: (x: 0pt, bottom: 2pt),
       stroke: none,
-      justify-text(with-tail: true, body)
+      justify-text(with-tail: false, body),
     )
   }
 
-  let info-value(key, body, inset: info-inset, no-stroke: false) = {
-    set align(center)
+  let info-value(body, size: 字号.三号, width: info-value-width) = {
     rect(
-      width: 100%,
-      inset: inset,
-      stroke: if no-stroke { none } else { (bottom: stroke-width + black) },
-      text(
-        font: fonts.宋体,
-        size: 字号.三号,
+      width: width,
+      inset: (x: 0pt, bottom: 4pt),
+      stroke: (bottom: stroke-width + black),
+      align(center, text(
+        font: fonts.黑体,
+        size: size,
         bottom-edge: "descender",
         body,
-      ),
+      )),
     )
   }
-
-  let defence-key = info-key.with(inset: defence-inset)
-  let defence-value = info-value.with(inset: defence-inset)
 
   let degree-name = if doctype == "doctor" { "博士学位论文" } else { "硕士学位论文" }
   let degree-name-en = if doctype == "doctor" { "Doctor of Philosophy" } else { "Master" }
+  let degree-level = if doctype == "doctor" { "工学博士" } else { "工学硕士" }
 
   // ====== 中文封面 ======
   pagebreak(weak: true, to: if twoside { "odd" })
   set align(center)
 
-  v(30pt)
-  text(size: 28pt, font: fonts.黑体, spacing: 200%, weight: "bold")[华 南 理 工 大 学]
-  v(8pt)
-  text(size: 18pt, font: fonts.宋体)[South China University of Technology]
-  v(42pt)
-  text(size: 字号.二号, font: fonts.黑体, weight: "bold", degree-name)
-  v(42pt)
-
-  block(width: 320pt, grid(
-    columns: (info-key-width, 1fr),
-    column-gutter: info-column-gutter,
-    row-gutter: info-row-gutter,
-    info-key("论文题目"),
-    ..info.title.map((s) => info-value("title", s)).intersperse(info-key("　")),
-    info-key("作者姓名"),
-    info-value("author", info.author),
-    info-key("学科专业"),
-    info-value("major", info.major),
-    info-key("指导教师"),
-    info-value("supervisor", info.supervisor.intersperse(" ").sum()),
-    info-key("所在学院"),
-    info-value("department", info.department),
-    info-key("论文提交日期"),
-    info-value("submit-date", datetime-display(info.submit-date), no-stroke: true),
-  ))
-
-  // ====== 英文内封 ======
-  pagebreak(weak: true)
-  set text(font: fonts.宋体, size: 字号.小四)
-  set par(leading: 1.5em)
-  set align(center)
-
-  v(50pt)
-  text(font: "Times New Roman", size: 字号.二号, weight: "bold", info.title-en.intersperse("\n").sum())
+  v(70pt)
+  logo
+  v(-10pt)
+  text(size: 字号.初号, font: fonts.黑体, weight: "bold", degree-name)
   v(36pt)
-  text(size: 字号.四号)[A Dissertation Submitted for the Degree of #degree-name-en]
-  v(24pt)
-  text(size: 字号.四号)[Candidate：]
-  text(font: "Times New Roman", size: 字号.四号, weight: "bold", info.author-en)
-  v(8pt)
-  text(size: 字号.四号)[Supervisor：]
-  text(font: "Times New Roman", size: 字号.四号, info.supervisor-en)
-  v(36pt)
-  text(size: 字号.四号, info.department-en)
-  v(6pt)
-  text(size: 字号.四号)[South China University of Technology]
-  v(6pt)
-  text(size: 字号.四号)[Guangzhou, China]
-  v(24pt)
-  datetime-en-display(info.submit-date)
 
-  // ====== 提名页 ======
-  pagebreak(weak: true)
-  set align(left)
-  set text(font: fonts.宋体, size: 字号.小四)
-
-  grid(
-    columns: (auto, 1fr, auto, 1fr, auto, 1fr),
-    column-gutter: 8pt,
-    row-gutter: 4pt,
-    text(font: fonts.宋体, size: 字号.小四, "分类号："), text(font: fonts.宋体, size: 字号.小四, info.clc),
-    text(font: fonts.宋体, size: 字号.小四, "学校代号："), text(font: fonts.宋体, size: 字号.小四, info.school-code),
-    text(font: fonts.宋体, size: 字号.小四, "学　　号："), text(font: fonts.宋体, size: 字号.小四, info.student-id),
+  // 论文题目：无标签，标题居中带下划线，空行补足横线
+  stack(
+    spacing: 5pt,
+    ..info.title.map((s) => info-value(s, size: 字号.二号, width: 15cm)),
   )
 
-  v(36pt)
+  v(90pt)
+
+  grid(
+    columns: (info-key-width, info-value-width),
+    column-gutter: info-column-gutter,
+    row-gutter: info-row-gutter,
+    info-key("作者姓名"),
+    info-value(info.author),
+    info-key("学科专业"),
+    info-value(info.major),
+    info-key("指导教师"),
+    info-value(info.supervisor.intersperse(" ").sum()),
+    info-key("所在学院"),
+    info-value(info.department),
+    info-key("论文提交日期"),
+    // 硕士封面仅写年月，博士封面写全日期
+    info-value(if type(info.submit-date) == datetime {
+      if doctype == "doctor" {
+        datetime-display(info.submit-date)
+      } else {
+        datetime-ym-display(info.submit-date)
+      }
+    } else {
+      info.submit-date
+    }),
+  )
+
+  // ====== 英文内封 ======
+  pagebreak(weak: true, to: if twoside { "odd" })
+  set text(font: fonts.宋体)
   set align(center)
-  text(font: fonts.黑体, size: 字号.小二, weight: "bold", "华南理工大学" + degree-name)
-  v(12pt)
-  text(font: fonts.黑体, size: 字号.四号, weight: "bold", info.title.intersperse("\n").sum())
-  v(24pt)
 
-  set align(left)
-  set par(leading: 1.8em)
-
-  [
-    #set text(font: fonts.宋体, size: 字号.小四)
-    作者姓名：#h(1em)#info.author
-  ]
-  [
-    指导教师姓名、职称：#h(1em)#info.supervisor.intersperse(" ").sum()
-  ]
-  [
-    申请学位级别：#h(1em)#(if doctype == "doctor" { "工学博士" } else { "工学硕士" })
-  ]
-  [
-    学科专业名称：#h(1em)#info.major
-  ]
-  [
-    研究方向：#h(1em)#info.field
-  ]
-  [
-    论文提交日期：#h(1em)#datetime-display(info.submit-date)
-  ]
-  [
-    论文答辩日期：#h(1em)#info.defend-date
-  ]
-  [
-    学位授予单位：#h(1em)华南理工大学
-  ]
-  [
-    学位授予日期：#h(1em)#info.confer-date
-  ]
-
+  v(44pt)
+  text(size: 字号.小二, weight: "bold", info.title-en.intersperse("\n").sum())
+  v(64pt)
+  text(size: 字号.四号)[A Dissertation Submitted for the Degree of #degree-name-en]
+  v(64pt)
+  text(size: 字号.小三, weight: "bold")[Candidate：#info.author-en]
   v(16pt)
-  text(font: fonts.宋体, size: 字号.小四, weight: "bold", "答辩委员会成员：")
+  text(size: 字号.小三, weight: "bold")[Supervisor：#info.supervisor-en]
+  v(96pt)
+  text(size: 字号.小三)[South China University of Technology]
+  v(16pt)
+  text(size: 字号.小三)[Guangzhou, China]
+
+  // ====== 提名页 ======
+  pagebreak(weak: true, to: if twoside { "odd" })
+  set align(left)
+  set text(font: fonts.宋体, size: 字号.小四)
+
+  v(10pt)
+  set text(font: fonts.黑体, size: 字号.四号, weight: "bold")
+  stack(
+    dir: ltr,
+    [分类号：#info.clc],
+    h(1fr),
+    [学校代号：#info.school-code],
+  )
   v(4pt)
-  text(font: fonts.宋体, size: 字号.小四, "主席：　" + info.chairman)
-  v(4pt)
-  text(font: fonts.宋体, size: 字号.小四, "委员：　" + info.reviewer.intersperse("　").sum())
+  [学　号：#info.student-id]
+
+  v(70pt)
+  align(center, text(font: fonts.黑体, size: 字号.小二, "华南理工大学" + degree-name))
+  v(46pt)
+  align(center, text(font: fonts.黑体, size: 字号.二号, weight: "bold", info.title.intersperse("\n").sum()))
+  v(66pt)
+
+  let confer-date-text = if type(info.confer-date) == datetime {
+    datetime-display(info.confer-date)
+  } else {
+    "　　年　　月　　日"
+  }
+
+  set text(font: fonts.宋体, size: 字号.小四, weight: "regular")
+  set par(leading: 1.2em)
+  grid(
+    columns: (auto, 1fr),
+    column-gutter: 24pt,
+    row-gutter: 22pt,
+    [作者姓名：#h(0.5em)#info.author],
+    [指导教师姓名、职称：#h(0.5em)#info.supervisor.intersperse(" ").sum()],
+    [申请学位级别：#h(0.5em)#degree-level],
+    [学科专业名称：#h(0.5em)#info.major],
+    [研究方向：#h(0.5em)#info.field],
+    [],
+    [论文提交日期：#h(0.5em)#datetime-display(info.submit-date)],
+    [论文答辩日期：#h(0.5em)#info.defend-date],
+    [学位授予单位：#h(0.5em)华南理工大学],
+    [学位授予日期：#h(0.5em)#confer-date-text],
+  )
+
+  // 答辩委员会：姓名置于横线之上，留空则为固定宽空白横线
+  let committee-line(width, body) = if body == "" or body == none {
+    box(width: width, stroke: (bottom: stroke-width + black), inset: (bottom: 1pt))[]
+  } else {
+    box(stroke: (bottom: stroke-width + black), inset: (bottom: 1pt), body)
+  }
+
+  v(10pt)
+  parbreak()
+  [答辩委员会成员：]
+  v(2pt)
+  parbreak()
+  [主席：#committee-line(54pt, info.chairman)]
+  v(6pt)
+  parbreak()
+  [委员：#committee-line(385pt, info.reviewer.join("　"))]
 }
