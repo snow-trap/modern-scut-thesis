@@ -5,12 +5,12 @@
 
 #let decl-page(
   twoside: false,
-  anonymous: false,
+  blind: "none",
   fonts: (:),
   address: "广东省广州市天河区华南理工大学（五山校区）3号楼",
 ) = {
-  // 盲审模式下不包含声明页
-  if anonymous { return }
+  // 双盲评审不包含声明页
+  if blind == "double" { return }
 
   fonts = 字体 + fonts
 

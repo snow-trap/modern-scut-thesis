@@ -4,7 +4,14 @@
 
 #let doctype = "master" // "master" | "doctor"
 
-#let anonymous = false// true 时使用盲审模式
+// 盲审级别："none" 正式提交 | "single" 单盲评审 | "double" 双盲评审
+#let blind = "none"
+// "academic" 学术型 | "professional" 专业学位（影响盲审封面标题与字段标签）
+#let kind = "academic"
+// 留学生学位论文（影响盲审封面标题）
+#let international = false
+// 同等学力申请学位（盲审封面标题下加括号副题）
+#let equivalent = false
 
 #let twoside = true // 双面模式
 

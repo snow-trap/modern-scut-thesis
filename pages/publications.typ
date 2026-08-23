@@ -3,7 +3,7 @@
 
 #let publications(
   twoside: false,
-  anonymous: false,
+  blind: "none",
   fonts: (:),
   title: "攻读博士/硕士学位期间取得的研究成果",
   outlined: true,
@@ -30,8 +30,8 @@
 
   set text(font: 辅助字体, size: 辅助字号)
   figure(
-    if anonymous {
-      // 盲审版：不填题目与卷期页码，作者仅注明第几作者
+    if blind == "double" {
+      // 双盲版：不填题目与卷期页码，作者仅注明第几作者
       table(
         align: center + horizon,
         columns: (24pt, 178pt, 70pt, 56pt, 70pt, 56pt),
@@ -77,7 +77,7 @@
     inset: (left: 2em),
     {
       set par(leading: 0.35em)
-      if anonymous {
+      if blind == "double" {
         [#h(-2em)注：1.请在“作者”一栏填写本人是第几作者，例：“第一作者”或“导师第一，本人第二”等；\
           2.若文章未发表或未被接受，请在“发表年份”一栏据实填写“已投稿”，“拟投稿”。\
           不够请另加页。]
@@ -97,7 +97,7 @@
     二、与学位内容相关的其它成果（包括专利、著作、获奖项目等）
   ]
 
-  if anonymous {
+  if blind == "double" {
     v(4pt)
     // 参考附件中的填写示范
     text(font: fonts.宋体, size: 字号.五号, block(

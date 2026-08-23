@@ -1,9 +1,37 @@
-// SCUT 盲审封面（"双盲"评审学位论文封面）
-// 版式还原自 local/SCUT_thesis/cover_file/“双盲”评审学位论文模板.docx.pdf
-// 学术型硕士/博士封面：仅显示论文题目、学科专业、所在学院与论文提交日期
+// SCUT 盲审封面（“单盲”/“双盲”评审学位论文封面）
+// 版式还原自 local/SCUT_thesis/cover_file/“双盲”评审学位论文模板.docx 与
+// local/SCUT_thesis/settings_files/“单盲”评审学位论文模板.dotx
+// 覆盖学术型/专业学位 × 普通/留学生 × 普通/同等学力 共九种封面变体；
+// 单盲保留作者姓名与指导教师栏，双盲隐去。
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/custom-cuti.typ": fakebold
 #import "../utils/style.typ": 字号, 字体
+
+// 封面主标题行：“专业学位硕士留学生学位论文”过长，模板将其断为两行
+#let degree-name-lines(doctype: "master", kind: "academic", international: false) = {
+  let base = if doctype == "doctor" { "博士" } else { "硕士" }
+  if kind == "professional" {
+    if international {
+      ("专业学位" + base + "留学生", "学位论文")
+    } else {
+      ("专业学位" + base + "学位论文",)
+    }
+  } else if international {
+    (base + "留学生学位论文",)
+  } else {
+    (base + "学位论文",)
+  }
+}
+
+// 同等学力封面的括号副题（三号黑体）
+#let equivalent-subtitle(doctype: "master") = if doctype == "doctor" {
+  "（同等学力申请博士学位）"
+} else {
+  "（同等学力申请硕士学位）"
+}
+
+// 专业学位封面以“学位类别”取代“学科专业”
+#let major-label(kind: "academic") = if kind == "professional" { "学位类别" } else { "学科专业" }
 
 // 博士学位论文须在封面后附专家评阅结果处理办法页
 #let review-result-page(fonts: (:), twoside: false) = {
@@ -59,8 +87,12 @@
   )
 }
 
-#let anonymous-cover(
+#let blind-cover(
   doctype: "master",
+  blind: "double",
+  kind: "academic",
+  international: false,
+  equivalent: false,
   twoside: false,
   fonts: (:),
   info: (:),
@@ -75,7 +107,8 @@
     info.title = info.title.split("\n")
   }
 
-  let degree-name = if doctype == "doctor" { "博士学位论文" } else { "硕士学位论文" }
+  let name-lines = degree-name-lines(doctype: doctype, kind: kind, international: international)
+  let label = major-label(kind: kind)
   let submit-date-text = if type(info.submit-date) == datetime {
     // 硕士封面仅写年月，博士封面写全日期
     if doctype == "doctor" {
@@ -102,7 +135,11 @@
   v(82pt)
   logo
   v(-25pt)
-  text(size: 字号.初号, font: fonts.黑体, weight: "bold", degree-name)
+  text(size: 字号.初号, font: fonts.黑体, weight: "bold", name-lines.join("\n"))
+  if equivalent {
+    v(4pt)
+    text(size: 字号.三号, font: fonts.黑体, weight: "bold", equivalent-subtitle(doctype: doctype))
+  }
   v(34pt)
 
   // 论文题目写于横线之上，固定两行
@@ -128,6 +165,33 @@
     stroke: (bottom: stroke-width + black),
     align(center, text(font: fonts.黑体, size: 字号.三号, bottom-edge: "descender", body)),
   )
+
+  // 单盲在学科（学位类别）前后保留作者与导师栏，并与下方留一空行分隔
+  let rows = if blind == "single" {
+    (
+      blind-key[作者姓名],
+      blind-value(info.author),
+      blind-key(label),
+      blind-value(info.major),
+      blind-key[指导教师],
+      blind-value(info.supervisor.intersperse(" ").sum()),
+      [], [],
+      blind-key[所在学院],
+      blind-value(info.department),
+      blind-key[论文提交日期],
+      blind-value(submit-date-text),
+    )
+  } else {
+    (
+      blind-key(label),
+      blind-value(info.major),
+      blind-key[所在学院],
+      blind-value(info.department),
+      blind-key[论文提交日期],
+      blind-value(submit-date-text),
+    )
+  }
+
   set align(left)
   block(
     inset: (left: 64pt),
@@ -135,12 +199,7 @@
       columns: (123pt, 194pt),
       row-gutter: 11pt,
       align: (left, left),
-      blind-key[学科专业],
-      blind-value(info.major),
-      blind-key[所在学院],
-      blind-value(info.department),
-      blind-key[论文提交日期],
-      blind-value(submit-date-text),
+      ..rows,
     ),
   )
 

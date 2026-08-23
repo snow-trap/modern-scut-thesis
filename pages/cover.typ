@@ -3,12 +3,15 @@
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/style.typ": 字号, 字体
-#import "./anonymous-cover.typ": anonymous-cover
+#import "./blind-cover.typ": blind-cover
 
 #let cover(
   doctype: "master",
   twoside: false,
-  anonymous: false,
+  blind: "none",
+  kind: "academic",
+  international: false,
+  equivalent: false,
   fonts: (:),
   info: (:),
   logo: image("../assets/scut-logo.jpg", width: 12.1cm),
@@ -25,9 +28,13 @@
   fonts = 字体 + fonts
 
   // 盲审模式：仅盲审封面（博士另附专家评阅结果处理办法页）
-  if anonymous {
-    return anonymous-cover(
+  if blind != "none" {
+    return blind-cover(
       doctype: doctype,
+      blind: blind,
+      kind: kind,
+      international: international,
+      equivalent: equivalent,
       twoside: twoside,
       fonts: fonts,
       info: info,

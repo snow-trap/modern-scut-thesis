@@ -30,7 +30,10 @@
 #let documentclass(
   doctype,
   twoside,
-  anonymous,
+  blind,
+  kind: "academic",
+  international: false,
+  equivalent: false,
   bibliography: none,
   fonts: (:),
   info,
@@ -40,7 +43,7 @@
   return (
     doctype: doctype,
     twoside: twoside,
-    anonymous: anonymous,
+    blind: blind,
     fonts: fonts,
     info: info,
 
@@ -71,14 +74,17 @@
       cover(
         doctype: doctype,
         twoside: twoside,
-        anonymous: anonymous,
+        blind: blind,
+        kind: kind,
+        international: international,
+        equivalent: equivalent,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     decl-page: (..args) => {
-      decl-page(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      decl-page(twoside: twoside, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     abstract: (..args) => {
       abstract(
@@ -112,7 +118,7 @@
     },
     bibliography: bibliography,
     publications: (..args) => {
-      publications(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      publications(twoside: twoside, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     acknowledgement: (..args) => {
       acknowledgement(twoside: twoside, ..args)
