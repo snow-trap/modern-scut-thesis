@@ -1,6 +1,7 @@
 #import "../lib.typ": documentclass
 #import "@preview/algorithmic:1.0.7"
 #import "info.typ": anonymous, doctype, info, twoside
+#import "../utils/style.typ": 字号, 辅助字体
 
 // SCUT 学位论文模板
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
@@ -231,11 +232,21 @@ f
 
 === 图片
 
-插图用 `figure` + `image` 或任意图形内容：
-
+插图用 `figure` + `image` 或任意图形内容。多张图可排列成子图，@fig:example-figure(a) 用 `rect` 等绘图原语绘制，@fig:example-figure(b) 用 `image` 引入 SVG。
 #figure(
-  rect(width: 60%, height: 80pt, fill: gray.lighten(30%)),
-  caption: [示例图片],
+  grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    [
+      #align(center, box(width: 100%, height: 100pt, rect(width: 100%, height: 100%, fill: gray.lighten(30%))))
+      #align(center, text(font: 辅助字体, size: 字号.五号)[(a) 左：typst 图形])
+    ],
+    [
+      #align(center, box(width: 100%, height: 100pt, image("../assets/example.svg", height: 100%)))
+      #align(center, text(font: 辅助字体, size: 字号.五号)[(b) 右：SVG 图片])
+    ],
+  ),
+  caption: [示例：左右两子图],
 ) <example-figure>
 
 == 公式
