@@ -13,6 +13,7 @@
   info: (:),
   logo: image("../assets/scut-logo.jpg", width: 12.1cm),
   stroke-width: 0.5pt,
+  committee-line-inset: 1.6pt,
   min-title-lines: 2,
   info-key-width: 112pt,
   info-value-width: 210pt,
@@ -186,10 +187,12 @@
   )
 
   // 答辩委员会：姓名置于横线之上，留空则为固定宽空白横线
+  // 横线位于基线下方约 1pt（与 Word 单下划线位置一致），避免紧贴字形底部导致视觉上浮；
+  // 留空时用全角空格占位，使空白横线与有姓名时的高度、基线完全一致。
   let committee-line(width, body) = if body == "" or body == none {
-    box(width: width, stroke: (bottom: stroke-width + black), inset: (bottom: 1pt))[]
+    box(width: width, stroke: (bottom: stroke-width + black), inset: (bottom: committee-line-inset))[\u{3000}]
   } else {
-    box(stroke: (bottom: stroke-width + black), inset: (bottom: 1pt), body)
+    box(stroke: (bottom: stroke-width + black), inset: (bottom: committee-line-inset), body)
   }
 
   v(10pt)
