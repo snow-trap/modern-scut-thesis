@@ -17,49 +17,25 @@
 #import "pages/publications.typ": publications
 #import "utils/custom-cuti.typ": *
 #import "utils/custom-numbering.typ": custom-numbering
-#import "utils/custom-heading.typ": heading-display, active-heading, current-heading
+#import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "utils/threeline-table.typ": threeline-table
-#import "utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof
+#import "utils/theorem.typ": corollary, definition, example, lemma, proof, proposition, remark, theorem
 #import "utils/algorithm.typ": algorithm-figure
-#import "@preview/i-figured:0.2.4": show-figure, show-equation
+#import "@preview/i-figured:0.2.4": show-equation, show-figure
 #import "utils/style.typ": 字体, 字号
 
 #let indent = h(2em)
 
 // 全局配置工厂：聚合字体、信息、模式等参数，返回烘焙好配置的页面/布局闭包
 #let documentclass(
-  doctype: "master",
-  twoside: false,
-  anonymous: false,
+  doctype,
+  twoside,
+  anonymous,
   bibliography: none,
   fonts: (:),
-  info: (:),
+  info,
 ) = {
   fonts = 字体 + fonts
-  info = (
-    title: "华南理工大学学位论文",
-    title-en: "SCUT Thesis Template for Typst",
-    author: "张三",
-    author-en: "Zhang San",
-    student-id: "1234567890",
-    department: "某学院",
-    department-en: "XX School",
-    major: "某专业",
-    major-en: "XX Major",
-    field: "某方向",
-    field-en: "XX Field",
-    supervisor: ("李四", "教授"),
-    supervisor-en: "Prof. Li Si",
-    submit-date: datetime.today(),
-    defend-date: datetime.today(),
-    confer-date: datetime.today(),
-    school-code: "10561",
-    clc: "",
-    udc: "",
-    secret-level: "公开",
-    chairman: "某某某 教授",
-    reviewer: ("某某某 教授", "某某某 教授"),
-  ) + info
 
   return (
     doctype: doctype,
@@ -76,8 +52,12 @@
     },
     mainmatter: (..args) => {
       mainmatter(
-        doctype: doctype, twoside: twoside, display-header: true,
-        ..args, fonts: fonts + args.named().at("fonts", default: (:)),
+        doctype: doctype,
+        twoside: twoside,
+        display-header: true,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
+        info: info + args.named().at("info", default: (:)),
       )
     },
     appendix: (..args) => {
@@ -89,24 +69,31 @@
     },
     cover: (..args) => {
       cover(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        anonymous: anonymous,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     decl-page: (..args) => {
-      decl-page(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      decl-page(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     abstract: (..args) => {
       abstract(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     abstract-en: (..args) => {
       abstract-en(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
@@ -125,7 +112,7 @@
     },
     bibliography: bibliography,
     publications: (..args) => {
-      publications(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      publications(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     acknowledgement: (..args) => {
       acknowledgement(twoside: twoside, ..args)

@@ -15,7 +15,6 @@
   body,
 ) = {
   fonts = 字体 + fonts
-  info = (title: "华南理工大学学位论文") + info
 
   pagebreak(weak: true, to: if twoside { "odd" })
 

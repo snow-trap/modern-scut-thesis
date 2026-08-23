@@ -1,5 +1,6 @@
 #import "../lib.typ": documentclass
 #import "@preview/algorithmic:1.0.7"
+#import "info.typ": anonymous, doctype, info, twoside
 
 // SCUT 学位论文模板
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
@@ -32,34 +33,10 @@
   proof,
   algorithm-figure,
 ) = documentclass(
-  doctype: "master", // "master" | "doctor"
-  twoside: true, // 双面模式
-  // anonymous: true, // 盲审模式
-  info: (
-    title: ("基于 Typst 的", "华南理工大学学位论文"),
-    title-en: "SCUT Thesis Template for Typst",
-    author: "张三",
-    author-en: "Zhang San",
-    student-id: "1234567890",
-    department: "某学院",
-    department-en: "XX School",
-    major: "某专业",
-    major-en: "XX Major",
-    field: "某方向",
-    field-en: "XX Field",
-    supervisor: ("李四", "教授"),
-    supervisor-en: "Prof. Li Si",
-    submit-date: datetime.today(),
-    defend-date: datetime.today(),
-    confer-date: datetime.today(),
-    school-code: "10561",
-    clc: "TP391",
-    udc: "004.9",
-    secret-level: "公开",
-    chairman: "某某某 教授",
-    reviewer: ("某某某 教授", "某某某 教授"),
-  ),
-  // 参考文献源
+  doctype, // "master" | "doctor"
+  twoside, // 双面模式
+  anonymous, // 盲审模式
+  info, // 论文信息
   bibliography: bibliography.with("ref.bib", style: "GB-T-7714—2015（顺序编码，双语，姓名不大写，无URL、DOI）.csl"),
 )
 
@@ -197,7 +174,7 @@
 #proof[
   由同余定义直接可得。
 ]
-
+f
 #corollary[
   同余关系对减法也成立。
 ]
@@ -387,8 +364,10 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 其他说明
 
+- 论文信息：作者、学号、学位类型等统一在 `info.typ` 中维护，封面、摘要、PDF 元信息均从此读取。
+- 分类号（CLC）：默认博士 `TP391`、硕士 `TP273`；如需修改请在 `info.typ` 的 `info` 中设置 `clc`。
 - 字体：宋体、黑体、楷体、仿宋需系统已安装，拉丁字符统一用 Times New Roman。
-- 盲审模式：在 `documentclass()` 中设置 `anonymous: true`，将隐藏作者和导师信息。
+- 盲审模式：在 `documentclass()` 中设置 `anonymous: true`。封面替换为“双盲”评审封面（只保留论文题目、学科专业、所在学院、论文提交日期），不输出英文内封、提名页与原创性声明页；博士另在封面后附专家评阅结果处理办法页。正文中的致谢、成果清单等涉及身份信息的内容需自行处理。
 - 双面打印：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题。
 - 图表清单：必要时可启用 `#list-of-figures()` 和 `#list-of-tables()`。
 
