@@ -17,23 +17,23 @@
 #import "pages/publications.typ": publications
 #import "utils/custom-cuti.typ": *
 #import "utils/custom-numbering.typ": custom-numbering
-#import "utils/custom-heading.typ": heading-display, active-heading, current-heading
+#import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "utils/threeline-table.typ": threeline-table
-#import "utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof
+#import "utils/theorem.typ": corollary, definition, example, lemma, proof, proposition, remark, theorem
 #import "utils/algorithm.typ": algorithm-figure
-#import "@preview/i-figured:0.2.4": show-figure, show-equation
+#import "@preview/i-figured:0.2.4": show-equation, show-figure
 #import "utils/style.typ": 字体, 字号
 
 #let indent = h(2em)
 
 // 全局配置工厂：聚合字体、信息、模式等参数，返回烘焙好配置的页面/布局闭包
 #let documentclass(
-  doctype: "master",
-  twoside: false,
-  anonymous: false,
+  doctype,
+  twoside,
+  anonymous,
   bibliography: none,
   fonts: (:),
-  info: (:),
+  info,
 ) = {
   fonts = 字体 + fonts
 
@@ -52,8 +52,11 @@
     },
     mainmatter: (..args) => {
       mainmatter(
-        doctype: doctype, twoside: twoside, display-header: true,
-        ..args, fonts: fonts + args.named().at("fonts", default: (:)),
+        doctype: doctype,
+        twoside: twoside,
+        display-header: true,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
@@ -66,24 +69,31 @@
     },
     cover: (..args) => {
       cover(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        anonymous: anonymous,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     decl-page: (..args) => {
-      decl-page(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      decl-page(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     abstract: (..args) => {
       abstract(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     abstract-en: (..args) => {
       abstract-en(
-        doctype: doctype, twoside: twoside, ..args,
+        doctype: doctype,
+        twoside: twoside,
+        ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
@@ -102,7 +112,7 @@
     },
     bibliography: bibliography,
     publications: (..args) => {
-      publications(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      publications(twoside: twoside, anonymous: anonymous, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     acknowledgement: (..args) => {
       acknowledgement(twoside: twoside, ..args)

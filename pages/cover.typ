@@ -3,10 +3,12 @@
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/style.typ": 字号, 字体
+#import "./anonymous-cover.typ": anonymous-cover
 
 #let cover(
   doctype: "master",
   twoside: false,
+  anonymous: false,
   fonts: (:),
   info: (:),
   logo: image("../assets/scut-logo.jpg", width: 12.1cm),
@@ -20,6 +22,20 @@
   datetime-ym-display: datetime-ym-display,
 ) = {
   fonts = 字体 + fonts
+
+  // 盲审模式：仅盲审封面（博士另附专家评阅结果处理办法页）
+  if anonymous {
+    return anonymous-cover(
+      doctype: doctype,
+      twoside: twoside,
+      fonts: fonts,
+      info: info,
+      logo: logo,
+      stroke-width: stroke-width,
+      datetime-display: datetime-display,
+      datetime-ym-display: datetime-ym-display,
+    )
+  }
 
   if type(info.title) == str {
     info.title = info.title.split("\n")

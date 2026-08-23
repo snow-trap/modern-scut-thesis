@@ -4,6 +4,10 @@
 
 #let doctype = "master" // "master" | "doctor"
 
+#let anonymous = false// true 时使用盲审模式
+
+#let twoside = true // 双面模式
+
 #let info = (
   title: ("基于 Typst 的", "华南理工大学学位论文"),
   title-en: "SCUT Thesis Template for Typst",

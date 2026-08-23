@@ -5,9 +5,13 @@
 
 #let decl-page(
   twoside: false,
+  anonymous: false,
   fonts: (:),
   address: "广东省广州市天河区华南理工大学（五山校区）3号楼",
 ) = {
+  // 盲审模式下不包含声明页
+  if anonymous { return }
+
   fonts = 字体 + fonts
 
   pagebreak(weak: true, to: if twoside { "odd" })
