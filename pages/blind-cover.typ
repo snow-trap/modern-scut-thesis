@@ -166,7 +166,7 @@
     align(center, text(font: fonts.黑体, size: 字号.三号, bottom-edge: "descender", body)),
   )
 
-  // 单盲在学科（学位类别）前后保留作者与导师栏，并与下方留一空行分隔
+  // 单盲在学科（学位类别）前后保留作者与导师栏
   let rows = if blind == "single" {
     (
       blind-key[作者姓名],
@@ -175,7 +175,6 @@
       blind-value(info.major),
       blind-key[指导教师],
       blind-value(info.supervisor.intersperse(" ").sum()),
-      [], [],
       blind-key[所在学院],
       blind-value(info.department),
       blind-key[论文提交日期],
