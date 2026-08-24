@@ -1,10 +1,11 @@
 // SCUT 原创性声明与版权授权书
 // 版式还原自 local/SCUT_thesis/cover_file/master_cover.docx
 #import "../utils/custom-cuti.typ": fakebold
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字体, 字号
 
 #let decl-page(
-  twoside: false,
+  open-right: false,
   blind: "none",
   fonts: (:),
   address: "广东省广州市天河区华南理工大学（五山校区）3号楼",
@@ -14,7 +15,7 @@
 
   fonts = 字体 + fonts
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   set text(font: fonts.宋体, size: 字号.四号)
   set par(leading: 0.75em, spacing: 0.75em)
@@ -102,4 +103,9 @@
 
     #text(tracking: -0.05em)[联系地址(含邮编)：#address]
   ]
+
+  // 声明页单面印刷，背面留白
+  if open-right {
+    section-break(open-right: true)
+  }
 }

@@ -1,6 +1,5 @@
 // SCUT 符号表
 #let notation(
-  twoside: false,
   title: "符号表",
   outlined: true,
   width: 350pt,
@@ -27,8 +26,4 @@
         .flatten()
     ))
   ))
-
-  if twoside {
-    pagebreak() + " "
-  }
 }

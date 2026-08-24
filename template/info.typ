@@ -1,19 +1,16 @@
 // 论文信息（单一真相源）
 // 在这里统一维护作者、学号、学位类型、学院、专业、日期等信息。
 // `template/thesis.typ` 会从本文件导入这些信息；封面、摘要等页面自动使用。
+// 盲审、查重与印刷等构建场景由 `template/build.typ` 解析。
 
 #let doctype = "master" // "master" | "doctor"
 
-// 盲审级别："none" 正式提交 | "single" 单盲评审 | "double" 双盲评审
-#let blind = "none"
 // "academic" 学术型 | "professional" 专业学位（影响盲审封面标题与字段标签）
 #let kind = "academic"
 // 留学生学位论文（影响盲审封面标题）
 #let international = false
 // 同等学力申请学位（盲审封面标题下加括号副题）
 #let equivalent = false
-
-#let twoside = true // 双面模式
 
 #let info = (
   title: ("基于 Typst 的", "华南理工大学学位论文"),

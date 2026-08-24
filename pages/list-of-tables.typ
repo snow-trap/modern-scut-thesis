@@ -1,10 +1,11 @@
 // SCUT 表格目录
 #import "@preview/i-figured:0.2.4"
 #import "../utils/invisible-heading.typ": invisible-heading
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号
 
 #let list-of-tables(
-  twoside: false,
+  open-right: false,
   fonts: (:),
   title: "表格目录",
   outlined: false,
@@ -24,7 +25,7 @@
     font = fonts.宋体
   }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   set text(font: font, size: size)
 
@@ -42,8 +43,4 @@
   )
 
   i-figured.outline(target-kind: table, title: none)
-
-  if twoside {
-    pagebreak() + " "
-  }
 }

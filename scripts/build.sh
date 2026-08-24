@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+usage() {
+  cat <<'EOF'
+Usage:
+  scripts/build.sh final
+  scripts/build.sh blind <single|double>
+  scripts/build.sh for-check
+  scripts/build.sh for-print
+  scripts/build.sh all
+  scripts/build.sh clean
+EOF
+}
+
+compile() {
+  mkdir -p out
+  typst compile --root . "$@"
+}
+
+build_final() {
+  compile template/thesis.typ out/thesis.pdf
+}
+
+build_blind() {
+  local level="${1:-}"
+  if [[ "$level" != "single" && "$level" != "double" ]]; then
+    usage >&2
+    exit 2
+  fi
+
+  compile \
+    --input profile=blind \
+    --input "blind=$level" \
+    template/thesis.typ "out/thesis-blind-$level.pdf"
+}
+
+main_start() {
+  typst eval --root . --in template/thesis.typ \
+    'query(<mainmatter-start>).first().location().page()'
+}
+
+backmatter_start() {
+  typst eval --root . --in template/thesis.typ \
+    'query(<backmatter-start>).first().location().page()'
+}
+
+build_for_check() {
+  local start end
+  start="$(main_start)"
+  end="$(($(backmatter_start) - 1))"
+
+  compile --no-pdf-tags --pages "$start-$end" template/thesis.typ out/thesis-for-check.pdf
+}
+
+build_for_print() {
+  compile \
+    --input profile=for-print \
+    template/thesis.typ out/thesis-for-print.pdf
+}
+
+case "${1:-}" in
+  final)
+    build_final
+    ;;
+  blind)
+    build_blind "${2:-}"
+    ;;
+  for-check)
+    build_for_check
+    ;;
+  for-print)
+    build_for_print
+    ;;
+  all)
+    build_final
+    build_blind single
+    build_blind double
+    build_for_check
+    build_for_print
+    ;;
+  clean)
+    rm -f out/thesis*.pdf
+    ;;
+  *)
+    usage >&2
+    exit 2
+    ;;
+esac

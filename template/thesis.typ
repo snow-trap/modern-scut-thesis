@@ -1,6 +1,7 @@
 #import "../lib.typ": documentclass
 #import "@preview/algorithmic:1.0.7"
-#import "info.typ": blind, doctype, equivalent, info, international, kind, twoside
+#import "build.typ": blind, include-acknowledgement, print-ready, twoside
+#import "info.typ": doctype, equivalent, info, international, kind
 #import "../utils/style.typ": 字号, 辅助字体
 
 // SCUT 学位论文模板
@@ -37,6 +38,7 @@
   doctype, // "master" | "doctor"
   twoside, // 双面模式
   blind, // 盲审级别："none" | "single" | "double"
+  print-ready: print-ready, // 印刷版空白页
   kind: kind, // "academic" | "professional"
   international: international, // 留学生学位论文
   equivalent: equivalent, // 同等学力申请学位
@@ -95,7 +97,7 @@
 //   / Typst: 一种现代化的排版系统
 // ]
 
-= 绪　论
+= 绪　论 <mainmatter-start>
 
 绪论（或引言）一般作为第一章，是论文主体的开端。绪论的内容应简要说明研究工作的目的、范围、相关领域的前人工作和知识空白、理论基础、研究设想、研究方法和实验设计、预期结果和意义等。应言简意赅，不要与摘要雷同，不要写成摘要的注释。一般教科书中有的知识，在绪论中不必赘述。
 
@@ -381,9 +383,10 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 - 论文信息：作者、学号、学位类型等统一在 `info.typ` 中维护，封面、摘要、PDF 元信息均从此读取。
 - 分类号（CLC）：默认博士 `TP391`、硕士 `TP273`；如需修改请在 `info.typ` 的 `info` 中设置 `clc`。
 - 字体：宋体、黑体、楷体、仿宋需系统已安装，拉丁字符统一用 Times New Roman。
-- 盲审模式：在 `documentclass()` 中设置 `blind: "single"`（单盲，封面保留作者与导师栏）或 `"double"`（双盲）。双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，且不输出英文内封、提名页与原创性声明页，研究成果清单自动切换为匿名表格；单盲封面仅比双盲多显作者姓名与指导教师栏，研究成果页与非盲完全一致。博士（两种盲审）均在封面后附专家评阅结果处理办法页。
+- 构建场景：使用 `scripts/build.sh final`、`scripts/build.sh blind single`、`scripts/build.sh blind double`、`scripts/build.sh for-check`、`scripts/build.sh for-print` 生成完整电子版、评审版、查重版与印刷版；构建参数由 `template/build.typ` 解析。
+- 盲审模式：单盲封面保留作者与导师栏；双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，且不输出英文内封、提名页、原创性声明页与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者。博士（两种盲审）均在封面后附专家评阅结果处理办法页。
 - 封面变体（作用于盲审封面）：`kind: "professional"` 为专业学位（信息栏改用“学位类别”）；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位，标题下加括号副题。
-- 双面打印：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题。
+- 双面版式：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题；`for-print` 仅给封面、英文内封、提名页与声明页补空白背面，中文摘要起连续双面排布。
 - 图表清单：必要时可启用 `#list-of-figures()` 和 `#list-of-tables()`。
 
 = 结　论 <no-numbering>
@@ -394,6 +397,8 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 如果不能导出应有的结论，也可以没有结论而进行必要的讨论。
 
+#pagebreak(weak: true)
+#metadata(none) <backmatter-start>
 #bibliography(title: "参考文献", full: true)
 
 // 附录
@@ -414,6 +419,8 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 // 致谢
 // “致谢中主要感谢指导教师和在学术方面对论文的完成有直接贡献及重要帮助的团体和人士，以及感谢给予转载和引用权的资料、图片、文献、研究思想和设想的所有者。致谢辞应谦虚诚恳，内容简洁明了、实事求是。”
-#acknowledgement[
-  致谢内容。感谢指导教师和在学术方面对论文的完成有直接贡献及重要帮助的团体和人士。
-]
+#if include-acknowledgement {
+  acknowledgement[
+    致谢内容。感谢指导教师和在学术方面对论文的完成有直接贡献及重要帮助的团体和人士。
+  ]
+}

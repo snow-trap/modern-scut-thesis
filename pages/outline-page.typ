@@ -1,9 +1,10 @@
 // SCUT 目录
 #import "../utils/invisible-heading.typ": invisible-heading
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号
 
 #let outline-page(
-  twoside: false,
+  open-right: false,
   fonts: (:),
   depth: 3,
   title: "目　　录",
@@ -41,7 +42,7 @@
     below = (14pt, 10pt, 10pt, 10pt)
   }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   set text(font: reference-font, size: reference-size)
 

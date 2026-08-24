@@ -1,10 +1,11 @@
 // SCUT 英文摘要
 #import "../utils/style.typ": 字体, 正文字体, 正文字号, 正文行距, 正文段间距, 首行缩进, 章标题字号
 #import "../utils/invisible-heading.typ": invisible-heading
+#import "../utils/section-break.typ": section-break
 
 #let abstract-en(
   doctype: "master",
-  twoside: false,
+  open-right: false,
   fonts: (:),
   info: (:),
   keywords: (),
@@ -16,7 +17,7 @@
 ) = {
   fonts = 字体 + fonts
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   [
     #set text(font: 正文字体, size: 正文字号)

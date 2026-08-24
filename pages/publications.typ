@@ -1,8 +1,9 @@
 // SCUT 研究成果
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字体, 字号, 章标题字体, 章标题字号, 辅助字体, 辅助字号
 
 #let publications(
-  twoside: false,
+  open-right: false,
   blind: "none",
   fonts: (:),
   title: "攻读博士/硕士学位期间取得的研究成果",
@@ -11,12 +12,11 @@
 ) = {
   fonts = 字体 + fonts
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   align(center, text(
     font: 章标题字体,
     size: 章标题字号,
-    weight: "bold",
     title,
   ))
 

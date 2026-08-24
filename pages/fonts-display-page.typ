@@ -1,9 +1,10 @@
 // SCUT 字体显示测试页
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/hline.typ": hline
 
 #let fonts-display-page(
-  twoside: false,
+  open-right: false,
   fonts: (:),
   size: 字号.小四,
   lang: "zh",
@@ -22,7 +23,7 @@
     *#cjk-name (#latin-name Latin Bold): The fanfare of birds announces the morning.*
   ]
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set text(size: size, lang: lang)
 
   [

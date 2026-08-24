@@ -1,18 +1,16 @@
 // SCUT 前言：罗马数字页码
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字体, 辅助字体, 辅助字号
 
 #let preface(
-  twoside: false,
   fonts: (:),
   ..args,
   it,
 ) = {
   fonts = 字体 + fonts
 
-  if twoside {
-    pagebreak() + " "
-  }
-  counter(page).update(0)
+  section-break(open-right: false)
+  counter(page).update(1)
   set page(
     numbering: "I",
     footer: context {

@@ -2,12 +2,13 @@
 // 版式还原自 local/SCUT_thesis/cover_file/master_cover.docx
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/justify-text.typ": justify-text
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字号, 字体
 #import "./blind-cover.typ": blind-cover
 
 #let cover(
   doctype: "master",
-  twoside: false,
+  open-right: false,
   blind: "none",
   kind: "academic",
   international: false,
@@ -35,7 +36,7 @@
       kind: kind,
       international: international,
       equivalent: equivalent,
-      twoside: twoside,
+      open-right: open-right,
       fonts: fonts,
       info: info,
       logo: logo,
@@ -87,7 +88,7 @@
   let degree-level = info.degree-type + (if doctype == "doctor" { "博士" } else { "硕士" })
 
   // ====== 中文封面 ======
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set align(center)
 
   v(70pt)
@@ -130,7 +131,7 @@
   )
 
   // ====== 英文内封 ======
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set text(font: fonts.宋体)
   set align(center)
 
@@ -148,7 +149,7 @@
   text(size: 字号.小三)[#info.school-address-en]
 
   // ====== 提名页 ======
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set align(left)
   set text(font: fonts.宋体, size: 字号.小四)
 

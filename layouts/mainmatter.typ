@@ -2,6 +2,7 @@
 #import "@preview/i-figured:0.2.4"
 #import "../utils/style.typ": 字号, 字体, 正文字体, 正文字号, 正文行距, 正文段间距, 首行缩进, 辅助字体, 辅助字号, 章标题字体, 章标题字号, 节一级标题字号, 节二级标题字号, 节三级标题字号, 节标题字体
 #import "../utils/custom-numbering.typ": custom-numbering
+#import "../utils/section-break.typ": section-break
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
 #import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter, lemma-counter, corollary-counter, definition-counter, proposition-counter, example-counter
@@ -14,6 +15,7 @@
 #let mainmatter(
   doctype: "master",
   twoside: false,
+  open-right: false,
   fonts: (:),
   info: (:),
   leading: 正文行距,
@@ -45,6 +47,7 @@
   ..args,
   it,
 ) = {
+  section-break(open-right: open-right)
   set page(numbering: "1")
 
   fonts = 字体 + fonts

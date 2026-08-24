@@ -31,6 +31,7 @@
   doctype,
   twoside,
   blind,
+  print-ready: false,
   kind: "academic",
   international: false,
   equivalent: false,
@@ -48,10 +49,10 @@
     info: info,
 
     doc: (..args) => {
-      doc(..args, info: info + args.named().at("info", default: (:)))
+      doc(blind: blind, ..args, info: info + args.named().at("info", default: (:)))
     },
     preface: (..args) => {
-      preface(twoside: twoside, ..args)
+      preface(..args)
     },
     mainmatter: (..args) => {
       mainmatter(
@@ -68,12 +69,12 @@
     },
 
     fonts-display-page: (..args) => {
-      fonts-display-page(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      fonts-display-page(..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     cover: (..args) => {
       cover(
         doctype: doctype,
-        twoside: twoside,
+        open-right: print-ready,
         blind: blind,
         kind: kind,
         international: international,
@@ -84,12 +85,11 @@
       )
     },
     decl-page: (..args) => {
-      decl-page(twoside: twoside, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      decl-page(open-right: print-ready, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     abstract: (..args) => {
       abstract(
         doctype: doctype,
-        twoside: twoside,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
@@ -98,30 +98,29 @@
     abstract-en: (..args) => {
       abstract-en(
         doctype: doctype,
-        twoside: twoside,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
         info: info + args.named().at("info", default: (:)),
       )
     },
     outline-page: (..args) => {
-      outline-page(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      outline-page(..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     list-of-figures: (..args) => {
-      list-of-figures(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      list-of-figures(..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     list-of-tables: (..args) => {
-      list-of-tables(twoside: twoside, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      list-of-tables(..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     notation: (..args) => {
-      notation(twoside: twoside, ..args)
+      notation(..args)
     },
     bibliography: bibliography,
     publications: (..args) => {
-      publications(twoside: twoside, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      publications(blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     acknowledgement: (..args) => {
-      acknowledgement(twoside: twoside, ..args)
+      acknowledgement(..args)
     },
     threeline-table: threeline-table,
     theorem: theorem,

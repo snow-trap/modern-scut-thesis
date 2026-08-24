@@ -5,6 +5,7 @@
 // 单盲保留作者姓名与指导教师栏，双盲隐去。
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/custom-cuti.typ": fakebold
+#import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字号, 字体
 
 // 封面主标题行：“专业学位硕士留学生学位论文”过长，模板将其断为两行
@@ -34,9 +35,9 @@
 #let major-label(kind: "academic") = if kind == "professional" { "学位类别" } else { "学科专业" }
 
 // 博士学位论文须在封面后附专家评阅结果处理办法页
-#let review-result-page(fonts: (:), twoside: false) = {
+#let review-result-page(fonts: (:), open-right: false) = {
   fonts = 字体 + fonts
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set align(left)
 
   v(106pt)
@@ -93,7 +94,7 @@
   kind: "academic",
   international: false,
   equivalent: false,
-  twoside: false,
+  open-right: false,
   fonts: (:),
   info: (:),
   logo: image("../assets/scut-logo.jpg", width: 12.1cm),
@@ -129,7 +130,7 @@
   )
 
   // ====== 盲审封面 ======
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
   set align(center)
 
   v(82pt)
@@ -204,6 +205,6 @@
 
   // 博士学位论文须附专家评阅结果处理办法页
   if doctype == "doctor" {
-    review-result-page(fonts: fonts, twoside: twoside)
+    review-result-page(fonts: fonts, open-right: open-right)
   }
 }

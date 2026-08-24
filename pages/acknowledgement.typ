@@ -1,11 +1,13 @@
 // SCUT 致谢页
+#import "../utils/section-break.typ": section-break
+
 #let acknowledgement(
-  twoside: false,
+  open-right: false,
   title: "致　谢",
   outlined: true,
   body,
 ) = {
-  pagebreak(weak: true, to: if twoside { "odd" })
+  section-break(open-right: open-right)
 
   heading(level: 1, numbering: none, outlined: outlined, title)
 
