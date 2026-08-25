@@ -1,6 +1,6 @@
 // great-theorems 定理环境封装
 #import "@preview/great-theorems:0.1.2": mathblock, proofblock
-#import "@preview/headcount:0.1.0": dependent-numbering
+#import "@preview/headcount:0.1.1": dependent-numbering
 
 #let theorem-counter = counter("theorem")
 #let lemma-counter = counter("lemma")

@@ -7,7 +7,7 @@
 #import "../utils/unpairs.typ": unpairs
 #import "../utils/theorem.typ": theorem, lemma, corollary, definition, proposition, example, remark, proof, theorem-counter, lemma-counter, corollary-counter, definition-counter, proposition-counter, example-counter
 #import "@preview/great-theorems:0.1.2": great-theorems-init
-#import "@preview/headcount:0.1.0": reset-counter
+#import "@preview/headcount:0.1.1": reset-counter
 #import "../utils/algorithm.typ": style-algorithm
 #import "@preview/zebraw:0.6.3": zebraw
 #import "@preview/cuti:0.4.0": show-cn-fakebold
