@@ -106,13 +106,8 @@
   set heading(numbering: numbering)
 
   // 隐藏带 no-numbering 标签的标题编号（如结论章不加章号）
-  show heading: it => {
-    if "label" in it.fields() and str(it.label) == "no-numbering" {
-      heading(level: it.level, numbering: none, it.body)
-    } else {
-      it
-    }
-  }
+  // 用选择器 show-set 而非重建 heading，避免目录与 PDF 书签出现重复条目
+  show heading.where(label: <no-numbering>): set heading(numbering: none)
 
   // 标题字体、字号、段间距
   show heading: it => {
