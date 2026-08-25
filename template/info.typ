@@ -22,7 +22,7 @@
   major: "某专业",
   field: "某方向",
   supervisor: ("李四", "教授"),
-  supervisor-en: "Prof. Li Si",
+  supervisor-en: "Prof. Li Si", // "Assoc. Prof. Wang Wu"
   submit-date: datetime(year: 2026, month: 6, day: 1),
   defend-date: datetime.today(),
   confer-date: datetime(year: 2026, month: 6, day: 1) + duration(days: 30),
@@ -31,9 +31,7 @@
   school-name-en: "South China University of Technology",
   school-address-en: "Guangzhou, China",
   degree-type: "工学",
-  // CLC 按学位类型自动选择：博士 TP391，硕士 TP273。
-  // 如需固定值，改为具体分类号即可。
-  clc: if doctype == "doctor" { "TP391" } else { "TP273" },
+  clc: "XXXXX",  // 按论文主题对照《中国图书馆分类法》填写
   chairman: "某某某 教授",
   reviewer: ("某某某 教授", "某某某 教授", "某某某 教授"),
 )
