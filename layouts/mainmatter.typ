@@ -93,6 +93,15 @@
 
   show terms: set par(first-line-indent: 0pt)
 
+  // 中文排版惯例：列表符号与段落首行缩进对齐
+  let list-indent = if type(first-line-indent) == dictionary {
+    first-line-indent.amount
+  } else {
+    first-line-indent
+  }
+  set list(indent: list-indent)
+  set enum(indent: list-indent)
+
   // 标题编号
   set heading(numbering: numbering)
 
