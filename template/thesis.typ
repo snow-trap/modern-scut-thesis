@@ -383,7 +383,7 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 - 论文信息：作者、学号、学位类型等统一在 `info.typ` 中维护，封面、摘要、PDF 元信息均从此读取。
 - 分类号（CLC）：默认博士 `TP391`、硕士 `TP273`；如需修改请在 `info.typ` 的 `info` 中设置 `clc`。
 - 字体：宋体、黑体、楷体、仿宋需系统已安装，拉丁字符统一用 Times New Roman。
-- 构建场景：使用 `scripts/build.sh final`、`scripts/build.sh blind single`、`scripts/build.sh blind double`、`scripts/build.sh for-check`、`scripts/build.sh for-print` 生成完整电子版、评审版、查重版与印刷版；构建参数由 `template/build.typ` 解析。
+- 构建场景：Linux/macOS 使用 `scripts/build.sh`，Windows 使用 `scripts/build.ps1`；两者均支持 `final`、`blind single`、`blind double`、`for-check`、`for-print`，构建参数由 `template/build.typ` 解析。
 - 盲审模式：单盲封面保留作者与导师栏；双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，且不输出英文内封、提名页、原创性声明页与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者。博士（两种盲审）均在封面后附专家评阅结果处理办法页。
 - 封面变体（作用于盲审封面）：`kind: "professional"` 为专业学位（信息栏改用“学位类别”）；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位，标题下加括号副题。
 - 双面版式：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题；`for-print` 仅给封面、英文内封、提名页与声明页补空白背面，中文摘要起连续双面排布。
