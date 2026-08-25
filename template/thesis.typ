@@ -97,6 +97,7 @@
 //   / Typst: 一种现代化的排版系统
 // ]
 
+// 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
 = 绪　论 <mainmatter-start>
 
 绪论（或引言）一般作为第一章，是论文主体的开端。绪论的内容应简要说明研究工作的目的、范围、相关领域的前人工作和知识空白、理论基础、研究设想、研究方法和实验设计、预期结果和意义等。应言简意赅，不要与摘要雷同，不要写成摘要的注释。一般教科书中有的知识，在绪论中不必赘述。
@@ -107,9 +108,9 @@
 
 == 国内外研究现状
 
-引用参考文献时采用顺序编码制，标注格式为[序号]，如文献[1]所述。
+引用参考文献时采用顺序编码制，以上标方括号标注，如文献 @蒋有绪1998 所述。
 
-= 正　文
+= 正文要求
 
 论文正文是学位论文的核心部分，占主要篇幅。正文应该结构合理，层次分明，推理严密，重点突出，图表、参考文献规范，内容集中简练，文笔通顺流畅。博士学位论文不少于6万字，硕士学位论文为3～5万字。
 
@@ -155,13 +156,104 @@
 
 本章说明如何用本 Typst 模板实现 SCUT 规范中的各项格式。
 
+== Typst 简介
+
+Typst 是一门用 Rust 编写的现代化排版系统，于 2023 年公开发布，目标是成为 LaTeX 的现代替代品：既具备与 LaTeX 相当的排版能力，又在易用性和编译速度上大幅改进。本模板即基于 Typst 实现。
+
+速度是 Typst 相对 LaTeX 最直观的优势。LaTeX 每次修改都需完整重新编译，长文档动辄数秒乃至数分钟；Typst 采用增量编译，首次编译通常在毫秒到秒级，此后每次修改只需数毫秒即可更新结果，配合编辑器插件可以边写作边预览。此外，Typst 编译器是数十 MB 的单一可执行文件，不必像 TeX Live 那样安装数 GB 的宏包体系，第三方宏包在首次引用时自动下载缓存；数学公式、图表编号、交叉引用、目录、参考文献管理等在 LaTeX 中需借助宏包的功能均为内置能力；其标记语法与脚本语言经过统一设计，报错信息也较 LaTeX 清晰易读。
+
+关于 Typst 的定位、性能与适用场景的更多讨论，可参阅小蓝书导引章“为什么学习 Typst”一节@raindrop-blue；中文资料与常见问题的汇总见“Typst 中文社区导航”@typst-guide-cn。
+
+== 环境配置
+
+使用本模板前需完成三项准备：获取模板源码、安装 Typst 编译器、安装模板所需字体。
+
+=== 获取模板源码
+
+本模板以 Git 仓库分发，通过 Git 克隆获得：
+
+```shell
+git clone https://github.com/snow-trap/typstified-scut-thesis.git
+```
+
+若尚未安装 Git：Windows 可从 https://git-scm.com 下载安装程序，macOS 可执行 `brew install git`，Linux 可用发行版包管理器（如 Ubuntu 的 `sudo apt install git`）。
+
+写作过程中也建议继续用 Git 管理自己的论文：`.typ` 源文件是纯文本，按章节粒度提交，便于回退、对比与协作；编译产物（PDF）建议写入 `.gitignore`，只跟踪源文件。
+
+=== 安装 Typst 编译器
+
+Typst 各平台的安装途径与编辑器配置，小蓝书导引章“配置 Typst 运行环境”一节已有详细介绍@raindrop-blue，此处按官方 README 的 Installation 一节列出常用方式#footnote[Typst 官方仓库 README 的安装说明：#link("https://github.com/typst/typst?tab=readme-ov-file#installation")]。安装完成后执行 `typst --version` 验证。
+
+*包管理器方式。* Windows 使用 winget，安装后自动加入 PATH：
+
+```powershell
+winget install --id Typst.Typst
+```
+
+macOS 使用 Homebrew：
+
+```shell
+brew install typst
+```
+
+Ubuntu 使用 snap：
+
+```shell
+sudo snap install typst
+```
+
+BTW：
+
+```shell
+sudo pacman -S typst
+```
+
+其余发行版的打包情况可在 Repology 查询。注意包管理器中的版本可能滞后于官方最新发布。
+
+*Docker 方式。* 不想在本机安装编译器时，可直接运行官方预构建镜像。镜像内不含中文字体，编译本模板需同时挂载源码目录与宿主机字体目录：
+
+```shell
+docker run --rm -v "$PWD":/data -v /usr/share/fonts:/usr/share/fonts:ro \
+  -w /data ghcr.io/typst/typst:latest compile --root . template/thesis.typ
+```
+
+*手动构建方式。* 安装 Rust 工具链后，可安装最新发布版：
+
+```shell
+cargo install --locked typst-cli
+```
+
+或跟踪主分支的开发版：
+
+```shell
+cargo install --git https://github.com/typst/typst --locked typst-cli
+```
+
+也可以从 GitHub Releases 直接下载预编译二进制放入 PATH，此后用 `typst update` 升级。本地编辑推荐 VS Code 搭配 Tinymist 插件，可获得实时预览。
+
+*Typst Web App。* 不想本地安装时，可使用官方在线编辑器 Typst Web App（https://typst.app ）：浏览器打开即用，提供实时预览与多人协作。对本模板而言有两点不便：其一，模板依赖的宋体、黑体、楷体、仿宋等中文字体需以字体文件形式上传到项目中才能正确渲染；其二，构建脚本与命令行构建参数不可用，盲审、印刷等构建变体需直接修改 `template/build.typ` 中的默认值。
+
+=== 安装字体
+
+本模板不随仓库分发字体文件，而是依赖操作系统已安装的字体：中文部分需要宋体（SimSun）、黑体（SimHei）、楷体（KaiTi）、仿宋（FangSong），拉丁字符统一使用 Times New Roman。Windows 自带上述字体，开箱即用；macOS 与 Linux 需自行安装，前者通过字体册安装字体文件，后者将字体文件复制到 `~/.local/share/fonts` 后执行 `fc-cache -f` 刷新缓存。安装完成后可用 `typst fonts` 确认编译器能识别到这些字体；若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。
+
+实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置（定义见 `utils/style.typ`），例如以思源宋体替代宋体，但需自行核对学院对字体的要求。
+
+完成本节三项准备后，在仓库根目录执行以下命令即可编译出本说明文档：
+
+```shell
+typst compile --root . template/thesis.typ
+```
+
+盲审、查重、印刷等场景的构建命令见本章“其他说明”一节。
+
 == 章节标题
 
 正文中 `=` 对应章标题，`==` 对应节标题，`===` 对应条标题。各层级自动按 SCUT 规范编号（如"第一章"、"1.1"、"1.1.1"）。结论章不加章号，在标题后加 `<no-numbering>` 标签即可。
 
-== 定理环境
+== 定理环境 <sec:theorem>
 
-基于 `great-theorems` 包。
+基于 `great-theorems` 包@great-theorems。
 
 模板内置定理、引理、推论、定义、命题、例、备注、证明八种环境。
 各环境有独立计数器，每章起始处自动重置，序号格式为"章号-序号"。
@@ -208,7 +300,7 @@
 
 == 图表
 
-基于 `i-figured` 包。
+基于 `i-figured` 包@i-figured。
 
 === 三线表
 
@@ -256,7 +348,7 @@
 
 == 公式
 
-基于 `i-figured` 包。
+基于 `i-figured` 包@i-figured。
 
 === 独立编号公式
 
@@ -309,19 +401,26 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 标签与引用
 
-基于 `i-figured` 包。
+基于 `i-figured` 包@i-figured。
 
 图表标签不加前缀，由 `i-figured` 自动生成带前缀的内部标签。引用时加对应前缀：
 
 - 表格 `@tbl:my-table`，如@tbl:example-table
 - 图片 `@fig:my-figure`，如@fig:example-figure
 - 公式 `@eqt:my-eq`，如@eqt:linear
+- 章节 `@sec:my-section`，如@sec:theorem（渲染为"小节 编号"，Typst 内置中文 supplement）
 
 引用参考文献用 `@citation-key`，标注为上标方括号，如文献 @蒋有绪1998 所述。
 
+== 参考文献
+
+本模板的参考文献按“条目数据与著录样式分离”的思路组织：条目统一维护在 `template/ref.bib`（BibTeX 格式）中，著录格式则由 `documentclass` 的 `bibliography` 参数指定的 CSL 文件统一控制，当前使用 GB/T 7714—2015 顺序编码双语变体，取自 Zotero 中文社区样式库@zotero-chinese-styles。需要更换样式时（例如要求显示 URL、DOI），只需替换该 CSL 文件，正文与条目文件均不必改动。
+
+.bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。
+
 == 代码块
 
-基于 `zebraw` 包，支持行号和语法高亮。
+基于 `zebraw` 包@zebraw，支持行号和语法高亮。
 
 代码块支持语法高亮和行号。
 
@@ -335,7 +434,7 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 算法伪代码
 
-基于 `algorithmic` 包。
+基于 `algorithmic` 包@algorithmic。
 
 使用 `algorithm-figure()`，自动编号（"算法 2-1"）。
 语法模仿 LaTeX algorithmicx，提供 `If`/`While`/`For`/`Function`/`Procedure` 等。
@@ -378,16 +477,20 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 引用用 `@alg:binary-search`，渲染为@alg:binary-search。
 
+== 脚注
+
+正文中以 `#footnote[内容]` 插入脚注，标记跟在所需注释的文字之后。脚注按页重新编号，以辅助字体小字号排版#footnote[这是一个脚注示例。]。
+
 == 其他说明
 
 - 论文信息：作者、学号、学位类型等统一在 `info.typ` 中维护，封面、摘要、PDF 元信息均从此读取。
 - 分类号（CLC）：在 `info.typ` 的 `info` 中设置 `clc`，按论文主题对照《中国图书馆分类法》填写，提名页左上角自动渲染。
-- 字体：宋体、黑体、楷体、仿宋需系统已安装，拉丁字符统一用 Times New Roman。
 - 构建场景：Linux/macOS 使用 `scripts/build.sh`，Windows 使用 `scripts/build.ps1`；两者均支持 `final`、`blind single`、`blind double`、`for-check`、`for-print`，构建参数由 `template/build.typ` 解析。
 - 盲审模式：单盲封面保留作者与导师栏；双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，且不输出英文内封、提名页、原创性声明页与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者。博士（两种盲审）均在封面后附专家评阅结果处理办法页。
 - 封面变体（作用于盲审封面）：`kind: "professional"` 为专业学位（信息栏改用“学位类别”）；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位，标题下加括号副题。
 - 双面版式：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题；`for-print` 仅给封面、英文内封、提名页与声明页补空白背面，中文摘要起连续双面排布。
 - 图表清单：必要时可启用 `#list-of-figures()` 和 `#list-of-tables()`。
+- 符号表：必要时可在正文前启用 `#notation[]`，写法见上方注释掉的示例。
 
 = 结　论 <no-numbering>
 
@@ -398,6 +501,7 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 如果不能导出应有的结论，也可以没有结论而进行必要的讨论。
 
 #pagebreak(weak: true)
+// 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
 #metadata(none) <backmatter-start>
 #bibliography(title: "参考文献", full: true)
 
