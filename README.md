@@ -5,7 +5,7 @@
 ## 劣势
 
 - Typst 是一门新生的排版标记语言，还做不到像 Word 或 LaTeX 一样成熟稳定。
-- 该模板并非官方模板，而是民间模板，**存在不被认可的风险**。
+- 该模板是民间模板，**存在不被认可的风险**。
 
 ## 优势
 
@@ -50,7 +50,7 @@ typst compile thesis.typ
 
 ### 构建变体
 
-除最终版外，仓库还提供 `scripts/build.sh`（Linux/macOS）与 `scripts/build.ps1`（Windows），支持以下场景：
+除最终版外，仓库还提供 `scripts/build.sh`（Linux/macOS）与 `scripts/build.ps1`（Windows），支持以下场景。
 
 | 场景 | 说明 |
 |------|------|
@@ -67,7 +67,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 
 ## 特性
 
-- **全局配置**：类似 LaTeX 中 `documentclass` 的全局信息配置，学位类型、论文信息、字体等一次设置全局生效
+- **全局配置**：类似 LaTeX 中 `documentclass` 的全局信息配置，学位类型、论文信息及字体等一次设置全局生效
 - **硕士/博士**：`doctype: "master" | "doctor"`，两种学位论文均支持
 - **盲审模式**：`blind: "single" | "double"`，封面隐藏个人信息、不输出英文内封与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者
 - **封面变体**：`kind: "professional"` 专业学位；`international: true` 留学生学位论文；`equivalent: true` 同等学力申请学位

@@ -4,7 +4,6 @@
 #import "info.typ": doctype, equivalent, info, international, kind
 
 // SCUT 学位论文模板
-// 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
 
 #let (
   doc,
@@ -220,7 +219,7 @@ cargo install --git https://github.com/typst/typst --locked typst-cli
 
 本地编辑推荐使用 VS Code 搭配 Tinymist 插件：安装后打开 `.typ` 文件即可获得语法高亮与报错提示，按下 `Ctrl + K V` 开启实时预览，每次保存自动增量编译。
 
-*Typst Web App。* 不想本地安装时，可使用官方在线编辑器 Typst Web App（https://typst.app ）：浏览器打开即用，提供实时预览与多人协作。对本模板而言有几点不便：其一，模板依赖的宋体、黑体、楷体、仿宋等中文字体需以字体文件形式上传到项目中才能正确渲染；其二，命令行构建参数不可用，盲审、印刷等构建变体需直接修改项目根目录 `build.typ` 中的默认值；其三，查重版依赖页范围抽取与关闭 PDF 标签（均为命令行导出选项），无法在 Web App 中直接完成，可下载完整 PDF 后用 PDF 工具抽取正文页面，或改用本地 Typst CLI。
+*Typst Web App。* 不想本地安装时，可使用官方在线编辑器 Typst Web App（https://typst.app ）：浏览器打开即用，提供实时预览与多人协作。对本模板而言有几点不便。其一，模板依赖的宋体、黑体、楷体、仿宋等中文字体需以字体文件形式上传到项目中才能正确渲染；其二，命令行构建参数不可用，盲审、印刷等构建变体需直接修改项目根目录 `build.typ` 中的默认值；其三，查重版依赖页范围抽取与关闭 PDF 标签（均为命令行导出选项），无法在 Web App 中直接完成，可下载完整 PDF 后用 PDF 工具抽取正文页面，或改用本地 Typst CLI。
 
 === 安装字体
 

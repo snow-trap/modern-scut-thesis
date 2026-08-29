@@ -2,7 +2,5 @@
 
 /out/
 *.pdf
-*.md
-!README.md
 
 .typst/
