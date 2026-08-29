@@ -3,7 +3,7 @@
 #import "../utils/datetime-display.typ": datetime-display, datetime-ym-display
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/section-break.typ": section-break
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字体, 字号
 #import "./blind-cover.typ": blind-cover
 
 #let cover(
@@ -53,7 +53,7 @@
     info.title-en = info.title-en.split("\n")
   }
   // 标题补空行，日期格式化
-  info.title = info.title + range(min-title-lines - info.title.len()).map((it) => "　")
+  info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
   if type(info.defend-date) == datetime {
     info.defend-date = datetime-display(info.defend-date)
   }
@@ -100,7 +100,7 @@
   // 论文题目：无标签，标题居中带下划线，空行补足横线
   stack(
     spacing: 5pt,
-    ..info.title.map((s) => info-value(s, size: 字号.二号, width: 15cm)),
+    ..info.title.map(s => info-value(s, size: 字号.二号, width: 15cm)),
   )
 
   v(90pt)
@@ -109,14 +109,10 @@
     columns: (info-key-width, info-value-width),
     column-gutter: info-column-gutter,
     row-gutter: info-row-gutter,
-    info-key("作者姓名"),
-    info-value(info.author),
-    info-key("学科专业"),
-    info-value(info.major),
-    info-key("指导教师"),
-    info-value(info.supervisor.intersperse(" ").sum()),
-    info-key("所在学院"),
-    info-value(info.department),
+    info-key("作者姓名"), info-value(info.author),
+    info-key("学科专业"), info-value(info.major),
+    info-key("指导教师"), info-value(info.supervisor.intersperse(" ").sum()),
+    info-key("所在学院"), info-value(info.department),
     info-key("论文提交日期"),
     // 硕士封面仅写年月，博士封面写全日期
     info-value(if type(info.submit-date) == datetime {
@@ -182,16 +178,11 @@
     columns: (auto, 1fr),
     column-gutter: 24pt,
     row-gutter: 22pt,
-    [作者姓名：#h(0.5em)#info.author],
-    [指导教师姓名、职称：#h(0.5em)#info.supervisor.intersperse(" ").sum()],
-    [申请学位级别：#h(0.5em)#degree-level],
-    [学科专业名称：#h(0.5em)#info.major],
-    [研究方向：#h(0.5em)#info.field],
-    [],
-    [论文提交日期：#h(0.5em)#datetime-display(info.submit-date)],
-    [论文答辩日期：#h(0.5em)#info.defend-date],
-    [学位授予单位：#h(0.5em)#info.school-name],
-    [学位授予日期：#h(0.5em)#confer-date-text],
+    [作者姓名：#h(0.5em)#info.author], [指导教师姓名、职称：#h(0.5em)#info.supervisor.intersperse(" ").sum()],
+    [申请学位级别：#h(0.5em)#degree-level], [学科专业名称：#h(0.5em)#info.major],
+    [研究方向：#h(0.5em)#info.field], [],
+    [论文提交日期：#h(0.5em)#datetime-display(info.submit-date)], [论文答辩日期：#h(0.5em)#info.defend-date],
+    [学位授予单位：#h(0.5em)#info.school-name], [学位授予日期：#h(0.5em)#confer-date-text],
   )
 
   // 答辩委员会：姓名置于横线之上，留空则为固定宽空白横线
