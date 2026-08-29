@@ -22,7 +22,7 @@
 #import "utils/theorem.typ": corollary, definition, example, lemma, proof, proposition, remark, theorem
 #import "utils/algorithm.typ": algorithm-figure
 #import "@preview/i-figured:0.2.4": show-equation, show-figure
-#import "utils/style.typ": 字体, 字号
+#import "utils/style.typ": 字体, 字号, 辅助字体
 
 #let indent = h(2em)
 

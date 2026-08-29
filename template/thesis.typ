@@ -1,8 +1,7 @@
-#import "../lib.typ": documentclass
+#import "@preview/modern-scut-thesis:0.1.0": documentclass, 字号, 辅助字体
 #import "@preview/algorithmic:1.0.7"
 #import "build.typ": blind, include-acknowledgement, print-ready, twoside
 #import "info.typ": doctype, equivalent, info, international, kind
-#import "../utils/style.typ": 字号, 辅助字体
 
 // SCUT 学位论文模板
 // 字体可在系统安装 SimSun, SimHei, KaiTi, FangSong, Times New Roman, Arial
@@ -166,19 +165,7 @@ Typst 是一门用 Rust 编写的现代化排版系统，于 2023 年公开发�
 
 == 环境配置
 
-使用本模板前需完成三项准备：获取模板源码、安装 Typst 编译器、安装模板所需字体。
-
-=== 获取模板源码
-
-本模板以 Git 仓库分发，通过 Git 克隆获得：
-
-```shell
-git clone https://github.com/snow-trap/typstified-scut-thesis.git
-```
-
-若尚未安装 Git：Windows 可从 https://git-scm.com 下载安装程序，macOS 可执行 `brew install git`，Linux 可用发行版包管理器（如 Ubuntu 的 `sudo apt install git`）。
-
-写作过程中也建议继续用 Git 管理自己的论文：`.typ` 源文件是纯文本，按章节粒度提交，便于回退、对比与协作；编译产物（PDF）建议写入 `.gitignore`，只跟踪源文件。
+使用本模板前需完成三项准备：安装 Typst 编译器、安装模板所需字体、创建论文项目。
 
 === 安装 Typst 编译器
 
@@ -214,7 +201,7 @@ sudo pacman -S typst
 
 ```shell
 docker run --rm -v "$PWD":/data -v /usr/share/fonts:/usr/share/fonts:ro \
-  -w /data ghcr.io/typst/typst:latest compile --root . template/thesis.typ
+  -w /data ghcr.io/typst/typst:latest compile thesis.typ
 ```
 
 *手动构建方式。* 安装 Rust 工具链后，可安装最新发布版：
@@ -229,27 +216,52 @@ cargo install --locked typst-cli
 cargo install --git https://github.com/typst/typst --locked typst-cli
 ```
 
-也可以从 GitHub Releases 直接下载预编译二进制放入 PATH，此后用 `typst update` 升级。本地编辑推荐 VS Code 搭配 Tinymist 插件，可获得实时预览。
+也可以从 GitHub Releases 直接下载预编译二进制放入 PATH，此后用 `typst update` 升级。
 
-*Typst Web App。* 不想本地安装时，可使用官方在线编辑器 Typst Web App（https://typst.app ）：浏览器打开即用，提供实时预览与多人协作。对本模板而言有两点不便：其一，模板依赖的宋体、黑体、楷体、仿宋等中文字体需以字体文件形式上传到项目中才能正确渲染；其二，构建脚本与命令行构建参数不可用，盲审、印刷等构建变体需直接修改 `template/build.typ` 中的默认值。
+本地编辑推荐使用 VS Code 搭配 Tinymist 插件：安装后打开 `.typ` 文件即可获得语法高亮与报错提示，按下 `Ctrl + K V` 开启实时预览，每次保存自动增量编译。
+
+*Typst Web App。* 不想本地安装时，可使用官方在线编辑器 Typst Web App（https://typst.app ）：浏览器打开即用，提供实时预览与多人协作。对本模板而言有几点不便：其一，模板依赖的宋体、黑体、楷体、仿宋等中文字体需以字体文件形式上传到项目中才能正确渲染；其二，命令行构建参数不可用，盲审、印刷等构建变体需直接修改项目根目录 `build.typ` 中的默认值；其三，查重版依赖页范围抽取与关闭 PDF 标签（均为命令行导出选项），无法在 Web App 中直接完成，可下载完整 PDF 后用 PDF 工具抽取正文页面，或改用本地 Typst CLI。
 
 === 安装字体
 
 本模板不随仓库分发字体文件，而是依赖操作系统已安装的字体：中文部分需要宋体（SimSun）、黑体（SimHei）、楷体（KaiTi）、仿宋（FangSong），拉丁字符统一使用 Times New Roman。Windows 自带上述字体，开箱即用；macOS 与 Linux 需自行安装，前者通过字体册安装字体文件，后者将字体文件复制到 `~/.local/share/fonts` 后执行 `fc-cache -f` 刷新缓存。安装完成后可用 `typst fonts` 确认编译器能识别到这些字体；若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。
 
-实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置（定义见 `utils/style.typ`），例如以思源宋体替代宋体，但需自行核对学院对字体的要求。
+如有特殊需要，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置（配置结构见模板源码仓库的 `utils/style.typ`），当您这么做时，请自行谨慎核对学院对字体的要求。
 
-完成本节三项准备后，在仓库根目录执行以下命令即可编译出本说明文档：
+=== 创建论文项目
+
+模板已发布至 Typst Universe，使用 `typst init` 即可创建论文项目：
 
 ```shell
-typst compile --root . template/thesis.typ
+typst init @preview/modern-scut-thesis:0.1.0 my-thesis
+cd my-thesis
+typst compile thesis.typ
 ```
 
-盲审、查重、印刷等场景的构建命令见本章“其他说明”一节。
+VS Code 用户还可通过 Tinymist 插件的模板库创建：按下 `Ctrl + Shift + P` 打开命令面板，输入 `Typst: Show available Typst templates (gallery)`，搜索 `modern-scut-thesis`，点击 `+` 号生成项目目录。
+
+Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesis` 即可在线创建项目。
+
+模板源码托管于 GitHub 仓库（https://github.com/snow-trap/modern-scut-thesis ），可用于提交 Issue 与 PR。写作过程中也建议用 Git 管理自己的论文：`.typ` 源文件是纯文本，按章节粒度提交，便于回退、对比与协作；编译产物（PDF）建议写入 `.gitignore`，只跟踪源文件。
+
+完成本节三项准备后，在论文项目根目录执行 `typst compile thesis.typ` 即可编译出本说明文档。盲审、查重、印刷等场景的构建命令见本章“构建变体”一节。
+
+== 论文信息
+
+论文题目、作者、学号、导师、学院、专业、日期等元信息统一在项目根目录的 `info.typ` 中维护，封面、英文内封、提名页、摘要页与 PDF 元信息均从此读取，正文无需重复填写。其中分类号 `clc` 按论文主题对照《中国图书馆分类法》填写，自动渲染于提名页左上角。
+
+学位类型相关变体也在 `info.typ` 顶部配置：`doctype` 选择硕士（`"master"`）或博士（`"doctor"`）；`kind: "professional"` 为专业学位；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位。后三者均作用于盲审封面：专业学位将信息栏改用“学位类别”，同等学力在标题下加括号副题。
 
 == 章节标题
 
 正文中 `=` 对应章标题，`==` 对应节标题，`===` 对应条标题。各层级自动按 SCUT 规范编号（如"第一章"、"1.1"、"1.1.1"）。结论章不加章号，在标题后加 `<no-numbering>` 标签即可。
+
+== 可选页面
+
+插图目录、表格目录与符号表为可选页面，`thesis.typ` 中相应调用已写好并注释，需要时取消注释即可：
+
+- *插图目录与表格目录*：`#list-of-figures()` 与 `#list-of-tables()`，位于目录页之后。
+- *符号表*：`#notation[...]`，位于正文开始之前，表项写法见 `thesis.typ` 中被注释的示例。
 
 == 定理环境 <sec:theorem>
 
@@ -329,21 +341,25 @@ typst compile --root . template/thesis.typ
 
 === 图片
 
-插图用 `figure` + `image` 或任意图形内容。多张图可排列成子图，@fig:example-figure(a) 用 `rect` 等绘图原语绘制，@fig:example-figure(b) 用 `image` 引入 SVG。
+插图用 `figure` + `image` 或任意图形内容。论文配图建议统一放在项目根目录的 `images/` 文件夹中，以相对路径引用，如 `image("images/fig1.png")`。多张图可排列成子图，@fig:example-figure(a) 用 `rect` 等绘图原语绘制，@fig:example-figure(b) 用 `image` 引入 SVG，@fig:example-figure(c) 用 `image` 引入位图。
 #figure(
   grid(
-    columns: (1fr, 1fr),
+    columns: (1fr, 1fr, 1fr),
     gutter: 1em,
     [
       #align(center, box(width: 100%, height: 100pt, rect(width: 100%, height: 100%, fill: gray.lighten(30%))))
       #align(center, text(font: 辅助字体, size: 字号.五号)[(a) 左：typst 图形])
     ],
     [
-      #align(center, box(width: 100%, height: 100pt, image("../assets/example.svg", height: 100%)))
-      #align(center, text(font: 辅助字体, size: 字号.五号)[(b) 右：SVG 图片])
+      #align(center, box(width: 100%, height: 100pt, image("images/example.svg", height: 100%)))
+      #align(center, text(font: 辅助字体, size: 字号.五号)[(b) 中：SVG 图片])
+    ],
+    [
+      #align(center, box(width: 100%, height: 100pt, image("images/scut_logo.jpg", height: 100%)))
+      #align(center, text(font: 辅助字体, size: 字号.五号)[(c) 右：JPG 图片])
     ],
   ),
-  caption: [示例：左右两子图],
+  caption: [示例：三个子图],
 ) <example-figure>
 
 == 公式
@@ -414,19 +430,18 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 == 参考文献
 
-本模板的参考文献按“条目数据与著录样式分离”的思路组织：条目统一维护在 `template/ref.bib`（BibTeX 格式）中，著录格式则由 `documentclass` 的 `bibliography` 参数指定的 CSL 文件统一控制，当前使用 GB/T 7714—2015 顺序编码双语变体，取自 Zotero 中文社区样式库@zotero-chinese-styles。需要更换样式时（例如要求显示 URL、DOI），只需替换该 CSL 文件，正文与条目文件均不必改动。
+本模板的参考文献按“条目数据与著录样式分离”的思路组织：条目统一维护在项目根目录的 `ref.bib`（BibTeX 格式）中，著录格式则由 `documentclass` 的 `bibliography` 参数指定的 CSL 文件统一控制，当前使用 GB/T 7714—2015 顺序编码双语变体，取自 Zotero 中文社区样式库@zotero-chinese-styles。需要更换样式时（例如要求显示 URL、DOI），只需替换该 CSL 文件，正文与条目文件均不必改动。
 
 .bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。
 
 == 代码块
 
-基于 `zebraw` 包@zebraw，支持行号和语法高亮。
+基于 `zebraw` 包@zebraw，支持行号和语法高亮。学校目前规范（2022 版本）暂无代码块字体要求，这里使用了中文计算机学科教材常见的 Courier New 及宋体。
 
-代码块支持语法高亮和行号。
 
 #figure(
   ```py
-  def hello():
+  def hello(): # 一个 python 函数
       print("Hello, SCUT!")
   ```,
   caption: [代码块示例],
@@ -481,16 +496,50 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 
 正文中以 `#footnote[内容]` 插入脚注，标记跟在所需注释的文字之后。脚注按页重新编号，以辅助字体小字号排版#footnote[这是一个脚注示例。]。
 
-== 其他说明
+== 构建变体
 
-- 论文信息：作者、学号、学位类型等统一在 `info.typ` 中维护，封面、摘要、PDF 元信息均从此读取。
-- 分类号（CLC）：在 `info.typ` 的 `info` 中设置 `clc`，按论文主题对照《中国图书馆分类法》填写，提名页左上角自动渲染。
-- 构建场景：Linux/macOS 使用 `scripts/build.sh`，Windows 使用 `scripts/build.ps1`；两者均支持 `final`、`blind single`、`blind double`、`for-check`、`for-print`，构建参数由 `template/build.typ` 解析。
-- 盲审模式：单盲封面保留作者与导师栏；双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，且不输出英文内封、提名页、原创性声明页与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者。博士（两种盲审）均在封面后附专家评阅结果处理办法页。
-- 封面变体（作用于盲审封面）：`kind: "professional"` 为专业学位（信息栏改用“学位类别”）；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位，标题下加括号副题。
-- 双面版式：`twoside: true` 时偶数页页眉显示学校名称，奇数页显示章标题；`for-print` 仅给封面、英文内封、提名页与声明页补空白背面，中文摘要起连续双面排布。
-- 图表清单：必要时可启用 `#list-of-figures()` 和 `#list-of-tables()`。
-- 符号表：必要时可在正文前启用 `#notation[]`，写法见上方注释掉的示例。
+除最终版外，常用构建变体如下。所有开关由项目根目录的 `build.typ` 解析命令行输入（`--input`）控制，不传入任何参数时即为最终版。
+
+*盲审版。* 使用 `--input profile=blind` 启用盲审，并用 `--input blind=single|double` 指定级别（缺省为双盲）。单盲封面保留作者与导师栏；双盲封面只保留论文题目、学科（学位类别）、所在学院与论文提交日期，不输出英文内封、提名页、原创性声明页与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者；博士论文（两种盲审级别）均在封面后附专家评阅结果处理办法页。
+
+```shell
+typst compile --input profile=blind --input blind=single thesis.typ thesis-blind-single.pdf
+```
+
+*印刷版。* 使用 `--input profile=for-print`，自动为封面、英文内封、提名页与声明页补充空白背面页：
+
+```shell
+typst compile --input profile=for-print thesis.typ thesis-for-print.pdf
+```
+
+*查重版。* 查重系统通常只需要正文部分，页码范围由本文档中的 `<mainmatter-start>` 与 `<backmatter-start>` 标签定位，并需关闭 PDF 标签以兼容查重系统。分两步完成：先用 `typst eval` 查询两个标签所在的页码
+
+```shell
+typst eval --in thesis.typ 'query(<mainmatter-start>).first().location().page()'
+typst eval --in thesis.typ 'query(<backmatter-start>).first().location().page()'
+```
+
+假设输出分别为 9 和 23，则正文为第 9 至 22 页，代入执行
+
+```shell
+typst compile --no-pdf-tags --pages 9-22 thesis.typ thesis-for-check.pdf
+```
+
+Linux/macOS 用户也可用下面的命令自动完成查询与抽取：
+
+```shell
+start=$(typst eval --in thesis.typ \
+  'query(<mainmatter-start>).first().location().page()')
+end=$(( $(typst eval --in thesis.typ \
+  'query(<backmatter-start>).first().location().page()') - 1 ))
+typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pdf
+```
+
+其余开关：`--input twoside=false` 关闭双面排版；`--input include-acknowledgement=false` 隐藏致谢页。
+
+需要长期切换到某一变体时，也可直接修改 `build.typ` 中对应开关的默认值（如将 `profile` 的默认值改为 `"blind"`），此后普通编译与编辑器实时预览均按该变体输出。
+
+模板源码仓库另提供封装脚本 `scripts/build.sh`（Linux/macOS）与 `scripts/build.ps1`（Windows），支持 `final`、`blind`、`for-check`、`for-print` 与 `all` 子命令，一键产出对应 PDF 到 `out/` 目录；这些脚本只是上述 `--input` 命令的封装，克隆仓库的用户直接执行脚本即可，如 `scripts/build.sh blind single`。
 
 = 结　论 <no-numbering>
 
