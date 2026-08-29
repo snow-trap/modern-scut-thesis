@@ -414,6 +414,25 @@ $ x = (-b ± sqrt(b^2 - 4 a c)) / (2 a) $
 当判别式 $b^2 - 4 a c > 0$ 时方程有两个不等实根。
 此结论可推广至复数域。
 
+=== 兼容 LaTeX 公式语法
+
+Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `\frac{a}{b}`，上下标一般无需花括号，直接粘贴 LaTeX 公式源码无法编译。
+
+若希望保留 LaTeX 写法，可用 mitex 包@mitex 渲染；套一层数学环境后，公式照常按章编号，也可用 `@eqt:` 引用：
+
+#figure(
+  ```typ
+  #import "@preview/mitex:0.2.7": mi, mitex
+
+  行内公式 #mi(`e^{i \pi} + 1 = 0`)，行间公式：
+
+  $ #mitex(`\frac{1}{2} + \sum_{i=1}^{n} x_i`) $ <my-eq>
+  ```,
+  caption: [用 mitex 渲染 LaTeX 公式],
+)
+
+如需把存量 LaTeX 公式一次性转换为 Typst 语法，可使用 tex2typst 转换工具#footnote[tex2typst 提供命令行工具与网页版：#link("https://github.com/qwinsi/tex2typst")]，长期写作建议仍直接使用 Typst 语法。
+
 == 标签与引用
 
 基于 `i-figured` 包@i-figured。

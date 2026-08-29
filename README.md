@@ -118,6 +118,10 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 
 论文配图统一放在项目的 `images/` 目录，用相对路径引用，如 `image("images/fig1.png")`。
 
+### 我习惯了 LaTeX 公式语法，可以直接用吗？
+
+Typst 的公式语法与 LaTeX 不同，直接粘贴 LaTeX 源码无法编译。可用 [mitex](https://typst.app/universe/package/mitex) 渲染 LaTeX 公式，或用 [tex2typst](https://github.com/qwinsi/tex2typst) 将存量公式转换为 Typst 语法。
+
 ## 参与贡献
 
 - 在 Issues 中提出你的想法
