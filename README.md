@@ -89,6 +89,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 │   ├── thesis.typ        # 论文源文件
 │   ├── info.typ          # 论文信息（题目、作者、学号等）
 │   ├── build.typ         # 构建参数（盲审、双面等开关）
+│   ├── data.typ          # 实验数据常量（正文以变量引用）
 │   ├── ref.bib           # 参考文献
 │   └── images/           # 论文配图目录
 ├── assets/               # 模板自身资源（校徽等，包内使用）
