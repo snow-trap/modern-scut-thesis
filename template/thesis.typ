@@ -82,18 +82,60 @@
 // 目录
 #outline-page()
 
-// 图表清单（必要时启用）
-// #list-of-figures()
-// #list-of-tables()
+// 插图目录与表格目录（不需要时可删除或注释）
+#list-of-figures()
+#list-of-tables()
+
+// 主要符号对照表（置于前言部分；条目中的数学式自动转为行内，不参与编号）
+#notation[
+  / $\{I\}$: 惯性坐标系
+  / $\{B\}$: 体坐标系
+  / $bold(q) = [q_0, q_1, q_2, q_3]^sans(T)$: 单位四元数
+  / $bold(eta)_q$: 位姿向量
+  / $bold(nu) = [u, v, w, p, q, r]^sans(T)$: 速度向量
+  / $u, v, w$: 纵向、横向、垂向速度
+  / $p, q, r$: 横滚、俯仰、偏航角速度
+  / $bold(tau)$: 控制输入向量
+  / $bold(M)$: 惯性矩阵
+  / $bold(C)(bold(nu))$: 科里奥利力和向心力矩阵
+  / $bold(D)(bold(nu))$: 流体阻尼矩阵
+  / $bold(g)_q (bold(q))$: 恢复力向量
+  / $bold(R)(bold(q))$: 旋转矩阵
+  / $bold(J)_q (bold(eta)_q)$: 运动学变换矩阵
+  / $m$: 水下机器人质量
+  / $bold(I)_b$: 转动惯量矩阵
+  / $I_c (bold(x))$: 观测图像
+  / $J_c (bold(x))$: 无退化场景辐射亮度
+  / $B_c^infinity (bold(x))$: 无限远处背景光
+  / $t_c (bold(x))$: 透射率
+  / $beta_c$: 总衰减系数
+  / $d(bold(x))$: 场景点到相机的距离
+  / $bold(x)_0$: 原始数据样本
+  / $bold(x)_t$: 第 $t$ 步噪声状态
+  / $T$: 总扩散步数
+  / $beta_t$: 噪声方差调度参数
+  / $alpha_t$: 噪声调度参数
+  / $macron(alpha)_t$: 累积乘积
+  / $bold(epsilon)$: 高斯噪声
+  / $bold(epsilon)_theta$: 噪声预测网络
+  / $hat(bold(x))_0$: 预测的原始数据
+  / $sigma_t$: 随机性参数
+  / $cal(D)$: 专家轨迹数据集
+  / $bold(o)$: 观测
+  / $bold(a)$: 动作
+  / $pi_theta$: 策略网络
+  / $H$: 预测时域
+  / $n_("act")$: 动作预测长度
+  / $bold(I)_("rgb")$: RGB输入图像
+  / $bold(I)_d$: 度量深度图像
+  / $bold(c)$: 目标条件向量
+  / $bold(F)$: 视觉特征图
+  / $bold(gamma), bold(beta)$: 特征级线性调制参数
+  / $bold(F)_("vit")$: DinoV2骨干特征
+]
 
 // 正文
 #show: mainmatter
-
-// 符号表（必要时启用）
-// #notation[
-//   / SCUT: 华南理工大学 (South China University of Technology)
-//   / Typst: 一种现代化的排版系统
-// ]
 
 // 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
 = 绪　论 <mainmatter-start>
@@ -257,10 +299,10 @@ Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesi
 
 == 可选页面
 
-插图目录、表格目录与符号表为可选页面，`thesis.typ` 中相应调用已写好并注释，需要时取消注释即可：
+插图目录、表格目录与符号表为可选页面，`thesis.typ` 已默认启用，不需要时删除或注释相应调用即可：
 
 - *插图目录与表格目录*：`#list-of-figures()` 与 `#list-of-tables()`，位于目录页之后。
-- *符号表*：`#notation[...]`，位于正文开始之前，表项写法见 `thesis.typ` 中被注释的示例。
+- *符号表*：`#notation[...]`，位于正文开始之前，表项写法见 `thesis.typ` 中的示例。
 
 == 定理环境 <sec:theorem>
 
@@ -336,11 +378,11 @@ Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesi
   caption: [示例表格],
 ) <example-table>
 
-如需普通表格（如附录中的成果表），直接用 `table()` 即可。
+如需普通表格（如附录中的成果表），直接用 `table()` 即可。合并单元格也不需要额外封装，在 `data` 中直接使用 `table.cell(rowspan: 2)[...]` 或 `table.cell(colspan: 2)[...]` 即可。
 
 === 图片
 
-插图用 `figure` + `image` 或任意图形内容。论文配图建议统一放在项目根目录的 `images/` 文件夹中，以相对路径引用，如 `image("images/fig1.png")`。多张图可排列成子图，@fig:example-figure(a) 用 `rect` 等绘图原语绘制，@fig:example-figure(b) 用 `image` 引入 SVG，@fig:example-figure(c) 用 `image` 引入位图。
+插图用 `figure` + `image` 或任意图形内容。论文配图建议统一放在项目根目录的 `images/` 文件夹中，以相对路径引用，如 `image("images/fig1.png")`。多张图可排列成子图，@fig:example-figure(a) 用 `rect` 等绘图原语绘制，@fig:example-figure(b) 用 `image` 引入 SVG，@fig:example-figure(c) 用 `image` 引入位图。子图的 (a)(b)(c) 标签目前需要手写（如本例）；Universe 上的 subpar 包虽提供子图自动编号，但其计数与 i-figured 冲突（子图会被计入正图序号），暂不兼容。
 #figure(
   grid(
     columns: (1fr, 1fr, 1fr),
@@ -444,13 +486,17 @@ Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `
 - 公式 `@eqt:my-eq`，如@eqt:linear
 - 章节 `@sec:my-section`，如@sec:theorem（渲染为"小节 编号"，Typst 内置中文 supplement）
 
+两个容易踩的坑。其一，标签处只写裸名 `<my-figure>`，不要写成 `<fig:my-figure>`：`i-figured` 会无条件再套一层前缀变成 `fig:fig:my-figure`，引用静默失效。其二，引用渲染自带“图”“表”等补充词，正文写作时不要再手写这类字：写“如 @fig:example-figure 所示”，而不是“如图 @fig:example-figure 所示”（后者会渲染成“如图 图 3-1 所示”）。
+
 引用参考文献用 `@citation-key`，标注为上标方括号，如文献 @蒋有绪1998 所述。
 
 == 参考文献
 
 本模板的参考文献按“条目数据与著录样式分离”的思路组织：条目统一维护在项目根目录的 `ref.bib`（BibTeX 格式）中，著录格式则由 `documentclass` 的 `bibliography` 参数指定的 CSL 文件统一控制，当前使用 GB/T 7714—2015 顺序编码双语变体，取自 Zotero 中文社区样式库@zotero-chinese-styles。需要更换样式时（例如要求显示 URL、DOI），只需替换该 CSL 文件，正文与条目文件均不必改动。
 
-.bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。
+.bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。`ref.bib` 中附有几条英文示例：IEEE 会议论文 @akkaynak2018revised @akkaynak2019seathru、arXiv 预印本 @wolf2025diffusion @chib2023recent，以及作者超过三人的期刊论文 @mitchell2022review。
+
+受 Typst 的 CSL 引擎限制，整篇文献列表使用统一的中文语言环境：英文条目超过三位作者时同样显示“等”而非“et al.”——见上一条 @mitchell2022review 在文末文献列表中的著录。按条目语言切换需要 CSL 的多 layout 特性（CSL-M 扩展），Typst 内置引擎暂不支持。若送审对此有要求，可参考 modern-nju-thesis 的做法：在参考文献渲染结果上用 show 规则做字符串替换（检测到纯英文条目时把“等”替换为“et al.”、“卷”替换为“Vol.”等），该方案的 `bilingual-bibliography` 函数可直接从其仓库拷贝使用；更彻底的方案是以 citext 或 gb7714-bilingual 等第三方引擎整体替换内置引擎。
 
 == 代码块
 
@@ -471,6 +517,8 @@ Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `
 
 使用 `algorithm-figure()`，自动编号（"算法 2-1"）。
 语法模仿 LaTeX algorithmicx，提供 `If`/`While`/`For`/`Function`/`Procedure` 等。
+
+注意不要在章节文件顶层写 `#import "@preview/algorithmic:1.0.7": *`：通配导入会把模板封装的中文补充词“算法”覆盖成英文“Algorithm”。像下方示例一样把 `import` 写在 `algorithm-figure` 的花括号作用域内即可。
 
 #algorithm-figure(
   "Binary Search",
