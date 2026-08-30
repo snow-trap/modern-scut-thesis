@@ -67,18 +67,16 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 
 ## 特性
 
-- **全局配置**：类似 LaTeX 中 `documentclass` 的全局信息配置，学位类型、论文信息及字体等一次设置全局生效
-- **硕士/博士**：`doctype: "master" | "doctor"`，两种学位论文均支持
-- **盲审模式**：`blind: "single" | "double"`，封面隐藏个人信息、不输出英文内封与致谢，研究成果清单自动切换为匿名表格，PDF 元数据不写入作者
-- **封面变体**：`kind: "professional"` 专业学位；`international: true` 留学生学位论文；`equivalent: true` 同等学力申请学位
-- **双面版式**：`twoside: true` 时偶数页页眉显示学校名称、奇数页显示章标题；`for-print` 自动补充空白背面
-- **定理环境**：基于 `great-theorems`，内置定理、引理、推论、定义、命题、例、备注、证明八种环境，每章自动重置计数
-- **图表公式**：基于 `i-figured`，图片/表格/公式按章编号（图 1-1、表 1-1、式 (1-1)），交叉引用使用 `@fig:`、`@tbl:`、`@eqt:` 前缀
+- **封面代码生成**：中文封面、英文内封与提名页均由模板排版生成，无需用 Word 制作封面再转换为 PDF
+- **封面变体**：`kind: "professional"` 专业学位、`international: true` 留学生学位论文、`equivalent: true` 同等学力申请学位，再加上其盲审版本，34 种封面变体皆可用 typst 代码参数化生成
+- **盲审模式**：`blind: "single" | "double"` 一键切换，除改变封面，也支持不输出英文内封与致谢，研究成果清单切换为匿名表格，PDF 元数据不写入作者
+- **构建变体**：查重版自动抽取正文页范围并关闭 PDF 标签，印刷版自动为封面等前置页补充空白背面，无需手工拆分 PDF
+- **定理环境**：内置定理、引理、推论、定义、命题、例、备注、证明八种环境，每章自动重置计数（基于 `great-theorems`）
+- **图表公式**：图片/表格/公式按章编号（图 1-1、表 1-1、式 (1-1)），交叉引用使用 `@fig:`、`@tbl:`、`@eqt:` 前缀（基于 `i-figured`）
 - **三线表**：`threeline-table()` 封装，传入 `header` 与 `data` 即可
-- **算法伪代码**：基于 `algorithmic`，`algorithm-figure()` 自动编号
-- **代码块**：基于 `zebraw`，支持行号和语法高亮
-- **参考文献**：BibTeX 条目 + GB/T 7714—2015 CSL 样式分离，更换样式只需替换 CSL 文件
-- **页码编号**：前言使用罗马数字，正文使用阿拉伯数字
+- **算法伪代码**：`algorithm-figure()` 自动编号（基于 `algorithmic`）
+- **代码块**：行号与语法高亮（基于 `zebraw`）
+- **参考文献**：BibTeX 条目与 GB/T 7714—2015 CSL 样式分离，更换样式只需替换 CSL 文件
 
 ## 目录结构
 
@@ -129,6 +127,7 @@ Typst 的公式语法与 LaTeX 不同，直接粘贴 LaTeX 源码无法编译。
 
 ## 致谢
 
+- 感谢 [SCUT_thesis](https://github.com/mengchaoheng/SCUT_thesis) LaTeX 模板，它是本仓在论文规范上的第二标准，学校 2022 年规范未规定之处的实现决策多参考于它
 - 感谢 [modern-nju-thesis](https://github.com/nju-lug/modern-nju-thesis)，本模板的代码架构参考了它
 - 感谢 Typst 中文社区维护的 [小蓝书](https://typst-doc-cn.github.io/tutorial/) 与 [FAQ](https://typst-doc-cn.github.io/guide/)
 - 感谢 [great-theorems](https://typst.app/universe/package/great-theorems)、[i-figured](https://typst.app/universe/package/i-figured)、[zebraw](https://typst.app/universe/package/zebraw)、[algorithmic](https://typst.app/universe/package/algorithmic)、[cuti](https://typst.app/universe/package/cuti) 等包的作者
