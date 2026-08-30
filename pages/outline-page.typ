@@ -1,6 +1,7 @@
 // SCUT 目录
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/section-break.typ": section-break
+#import "../utils/outline-cite.typ": outline-cite
 #import "../utils/style.typ": 字号, 字体, 章标题字体, 章标题字号
 
 #let outline-page(
@@ -83,8 +84,8 @@
     ),
   )
 
-  // 目录条目不登记引用：标题中的 @cite 在目录中不显示、不参与编号
-  show cite: none
+  // 目录条目不登记引用：标题中的 @cite 显示为正文顺序编号文本，不参与编号
+  show cite: outline-cite
 
   outline(title: none, depth: depth)
 }
