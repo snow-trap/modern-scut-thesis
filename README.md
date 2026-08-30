@@ -76,7 +76,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 - **三线表**：`threeline-table()` 封装，传入 `header` 与 `data` 即可
 - **算法伪代码**：`algorithm-figure()` 自动编号（基于 `algorithmic`）
 - **代码块**：行号与语法高亮（基于 `zebraw`）
-- **参考文献**：BibTeX 条目与 GB/T 7714—2015 CSL 样式分离，更换样式只需替换 CSL 文件
+- **参考文献**：BibTeX 条目与 GB/T 7714—2015 CSL 样式分离，更换样式只需替换 CSL 文件；中文条目显示“等”、英文条目自动显示“et al.”
 
 ## 目录结构
 
@@ -122,7 +122,7 @@ Typst 的公式语法与 LaTeX 不同，直接粘贴 LaTeX 源码无法编译。
 
 ### 参考文献中英文条目都显示“等”而不是“et al.”？
 
-这是 Typst 的 CSL 引擎限制：整篇文献列表使用统一语言环境（中文），无法按条目语言切换“等”与“et al.”。待 Typst 支持多语言 layout 后自然解决，目前只能编译后人工核对。
+这是 Typst 的 CSL 引擎限制：整篇文献列表使用统一语言环境，无法按条目语言切换“等”与“et al.”。本模板通过 `bilingual-bibliography()` 绕过：后台以英文环境额外渲染一遍文献列表，将英文条目整格替换为英文渲染，中文条目保持“等”，无需人工核对。
 
 ## 参与贡献
 

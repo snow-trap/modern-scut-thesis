@@ -19,6 +19,7 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "utils/threeline-table.typ": threeline-table
+#import "utils/bilingual-bibliography.typ": bilingual-bibliography
 #import "utils/theorem.typ": corollary, definition, example, lemma, proof, proposition, remark, theorem
 #import "utils/algorithm.typ": algorithm-figure
 #import "@preview/i-figured:0.2.4": show-equation, show-figure

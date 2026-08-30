@@ -1,4 +1,4 @@
-#import "@preview/modern-scut-thesis:0.1.0": documentclass, 字号, 辅助字体
+#import "@preview/modern-scut-thesis:0.1.0": bilingual-bibliography, documentclass, 字号, 辅助字体
 #import "@preview/algorithmic:1.0.7"
 #import "build.typ": blind, include-acknowledgement, print-ready, twoside
 #import "info.typ": doctype, equivalent, info, international, kind
@@ -496,7 +496,7 @@ Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `
 
 .bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。`ref.bib` 中附有几条英文示例：IEEE 会议论文 @akkaynak2018revised @akkaynak2019seathru、arXiv 预印本 @wolf2025diffusion @chib2023recent，以及作者超过三人的期刊论文 @mitchell2022review。
 
-受 Typst 的 CSL 引擎限制，整篇文献列表使用统一的中文语言环境：英文条目超过三位作者时同样显示“等”而非“et al.”——见上一条 @mitchell2022review 在文末文献列表中的著录。按条目语言切换需要 CSL 的多 layout 特性（CSL-M 扩展），Typst 内置引擎暂不支持。若送审对此有要求，可参考 modern-nju-thesis 的做法：在参考文献渲染结果上用 show 规则做字符串替换（检测到纯英文条目时把“等”替换为“et al.”、“卷”替换为“Vol.”等），该方案的 `bilingual-bibliography` 函数可直接从其仓库拷贝使用；更彻底的方案是以 citext 或 gb7714-bilingual 等第三方引擎整体替换内置引擎。
+Typst 的 CSL 引擎只支持单一全局语言环境，无法按条目语言切换“等”与“et al.”（该能力属于 CSL-M 扩展）。本模板用 `bilingual-bibliography()` 调用文献列表以绕过这一限制：它在后台以英文环境额外渲染一遍文献列表，将英文条目的整格内容替换为英文渲染，中文条目保持不变——文末可见 @mitchell2022review 显示“et al.”而中文条目显示“等”。中英文渲染均出自引擎自身，不做字符串替换；代价是多渲染一遍文献列表。若遇到未预期的排版，可将该调用换回普通的 `#bibliography(title: "参考文献", full: true)`。
 
 == 代码块
 
@@ -618,7 +618,7 @@ typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pd
 #pagebreak(weak: true)
 // 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
 #metadata(none) <backmatter-start>
-#bibliography(title: "参考文献", full: true)
+#bilingual-bibliography(bibliography: bibliography, title: "参考文献", full: true)
 
 // 附录
 // “对需要收录于学位论文中但又不适合书写于正文中的附加数据、方案、资料、详细公式推导、计算机程序、统计表、注释等有特色的内容，可做为附录排写，序号采用‘附录1’、‘附录2’等。”
