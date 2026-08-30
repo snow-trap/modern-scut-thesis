@@ -4,7 +4,7 @@
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字体, 字号
-#import "@preview/cuti:0.4.0": fakebold
+#import "@preview/cuti:0.4.0": cn-fakebold, fakebold
 #import "./blind-cover.typ": blind-cover
 
 #let cover(
@@ -165,7 +165,8 @@
   v(70pt)
   align(center, text(font: fonts.黑体, size: 字号.小二, info.school-name + degree-name))
   v(46pt)
-  align(center, text(font: fonts.黑体, size: 字号.二号, fakebold(info.title.intersperse("\n").sum())))
+  // 题名中英文混排：汉字黑体伪粗，拉丁字符 Times New Roman 真粗体
+  align(center, text(font: fonts.黑体, size: 字号.二号, weight: "bold", cn-fakebold(info.title.intersperse("\n").sum())))
   v(66pt)
 
   let confer-date-text = if type(info.confer-date) == datetime {
