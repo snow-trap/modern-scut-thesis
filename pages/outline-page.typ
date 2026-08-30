@@ -83,5 +83,8 @@
     ),
   )
 
+  // 目录条目不登记引用：标题中的 @cite 在目录中不显示、不参与编号
+  show cite: none
+
   outline(title: none, depth: depth)
 }

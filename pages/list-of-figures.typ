@@ -42,5 +42,8 @@
     below: below,
   )
 
+  // 目录条目不登记引用：图题中的 @cite 在目录中不显示、不参与编号
+  show cite: none
+
   i-figured.outline(target-kind: image, title: none)
 }
