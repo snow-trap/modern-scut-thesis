@@ -37,26 +37,22 @@ build_blind() {
     template/thesis.typ "out/thesis-blind-$level.pdf"
 }
 
-main_start() {
+page_range() {
+  # 单次 eval 同时查询两个结构标签，省一次完整编译
   typst eval --root . --in template/thesis.typ \
-    'query(<mainmatter-start>).first().location().page()' || {
-      echo "错误：未找到 <mainmatter-start> 标签（应由 mainmatter 布局自动放置）。" >&2
-      exit 1
-    }
-}
-
-backmatter_start() {
-  typst eval --root . --in template/thesis.typ \
-    'query(<backmatter-start>).first().location().page()' || {
-      echo "错误：未找到 <backmatter-start> 标签（应由 bilingual-bibliography() 自动放置，请检查是否改用了普通 bibliography）。" >&2
+    'str(query(<mainmatter-start>).first().location().page()) + " " + str(query(<backmatter-start>).first().location().page())' || {
+      echo "错误：未找到结构标签（<mainmatter-start> 应由 mainmatter 布局自动放置，" >&2
+      echo "<backmatter-start> 应由 bilingual-bibliography() 自动放置）。" >&2
       exit 1
     }
 }
 
 build_for_check() {
-  local start end
-  start="$(main_start)"
-  end="$(($(backmatter_start) - 1))"
+  local range start end
+  range="$(page_range)"
+  range="${range//\"/}"
+  start="${range% *}"
+  end=$(( ${range#* } - 1 ))
 
   compile --no-pdf-tags --pages "$start-$end" template/thesis.typ out/thesis-for-check.pdf
 }
