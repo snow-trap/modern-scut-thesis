@@ -154,12 +154,13 @@
   set text(font: fonts.黑体, size: 字号.四号)
   stack(
     dir: ltr,
-    [分类号：#fakebold[#info.clc]],
+    // 标签黑体无真粗体，用伪粗；值为纯拉丁字符，Times New Roman 有真粗体
+    fakebold[分类号：] + text(weight: "bold", info.clc),
     h(1fr),
-    [学校代号：#fakebold[#info.school-code]],
+    fakebold[学校代号：] + text(weight: "bold", info.school-code),
   )
   v(4pt)
-  [学　号：#fakebold[#info.student-id]]
+  fakebold[学　号：] + text(weight: "bold", info.student-id)
 
   v(70pt)
   align(center, text(font: fonts.黑体, size: 字号.小二, info.school-name + degree-name))
