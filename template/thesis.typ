@@ -2,6 +2,7 @@
 #import "@preview/algorithmic:1.0.7"
 #import "build.typ": blind, include-acknowledgement, print-ready, twoside
 #import "info.typ": doctype, equivalent, info, international, kind
+#import "data.typ": * // 实验数据常量，见第三章「实验数据管理」一节
 
 // SCUT 学位论文模板
 
@@ -185,7 +186,7 @@
 
 == 结果分析
 
-（此处填写实验结果与分析。）
+（此处填写实验结果与分析。实验数据建议统一维护在 `data.typ` 中，如：共进行 #exp-rounds 回合实验，成功率 #exp-success-rate%，平均延迟 #exp-avg-latency ms。写法见第三章「实验数据管理」一节。）
 
 == 本章小结
 
@@ -291,6 +292,26 @@ Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesi
 论文题目、作者、学号、导师、学院、专业、日期等元信息统一在项目根目录的 `info.typ` 中维护，封面、英文内封、提名页、摘要页与 PDF 元信息均从此读取，正文无需重复填写。其中分类号 `clc` 按论文主题对照《中国图书馆分类法》填写，自动渲染于提名页左上角。
 
 学位类型相关变体也在 `info.typ` 顶部配置：`doctype` 选择硕士（`"master"`）或博士（`"doctor"`）；`kind: "professional"` 为专业学位；`international: true` 为留学生学位论文；`equivalent: true` 为同等学力申请学位。后三者均作用于盲审封面：专业学位将信息栏改用“学位类别”，同等学力在标题下加括号副题。
+
+== 实验数据管理
+
+实验设置与结果中的数值（回合数、成功率、延迟等）往往在全文中多处出现，写作过程中还会反复修订。建议把这些常量统一定义在项目根目录的 `data.typ` 中，正文用变量引用，修改一处即全部更新：
+
+#figure(
+  ```typ
+  // data.typ
+  #let exp-rounds = 20       // 实验回合数
+  #let exp-success-rate = 92.5 // 成功率 (%)
+
+  // 章节文件或 thesis.typ 顶部
+  #import "data.typ": *
+
+  共进行 #exp-rounds 回合实验，成功率 #exp-success-rate%。
+  ```,
+  caption: [实验数据集中管理示例],
+)
+
+常量不限于数值，也可以是数学式（如 `#let train-lr = $4 times 10^(-4)$`）或内容块，表格的 `data` 参数中同样可以使用。为避免通配导入的名称冲突，建议常量统一加前缀（如 `exp-`、`train-`）。
 
 == 章节标题
 

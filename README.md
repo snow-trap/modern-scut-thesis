@@ -76,6 +76,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 - **三线表**：`threeline-table()` 封装，传入 `header` 与 `data` 即可
 - **算法伪代码**：`algorithm-figure()` 自动编号（基于 `algorithmic`）
 - **代码块**：行号与语法高亮（基于 `zebraw`）
+- **实验数据管理**：实验常量集中在 `data.typ` 定义，正文以变量引用，修改一处全文自动更新
 - **参考文献**：BibTeX 条目与 GB/T 7714—2015 CSL 样式分离，更换样式只需替换 CSL 文件；中文条目显示“等”、英文条目自动显示“et al.”
 
 ## 目录结构
