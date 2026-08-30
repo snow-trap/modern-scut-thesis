@@ -311,7 +311,7 @@ Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesi
 
 == 图表
 
-基于 `i-figured` 包@i-figured。
+编号与交叉引用基于 `i-figured` 包@i-figured。
 
 === 三线表
 
@@ -363,7 +363,7 @@ Typst Web App 用户在首页 `Start from template` 中选择 `modern-scut-thesi
 
 == 公式
 
-基于 `i-figured` 包@i-figured。
+编号与交叉引用基于 `i-figured` 包@i-figured。
 
 === 独立编号公式
 
@@ -435,7 +435,7 @@ Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `
 
 == 标签与引用
 
-基于 `i-figured` 包@i-figured。
+编号与交叉引用基于 `i-figured` 包@i-figured。
 
 图表标签不加前缀，由 `i-figured` 自动生成带前缀的内部标签。引用时加对应前缀：
 

@@ -72,7 +72,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 - **盲审模式**：`blind: "single" | "double"` 一键切换，除改变封面，也支持不输出英文内封与致谢，研究成果清单切换为匿名表格，PDF 元数据不写入作者
 - **构建变体**：查重版自动抽取正文页范围并关闭 PDF 标签，印刷版自动为封面等前置页补充空白背面，无需手工拆分 PDF
 - **定理环境**：内置定理、引理、推论、定义、命题、例、备注、证明八种环境，每章自动重置计数（基于 `great-theorems`）
-- **图表公式**：图片/表格/公式按章编号（图 1-1、表 1-1、式 (1-1)），交叉引用使用 `@fig:`、`@tbl:`、`@eqt:` 前缀（基于 `i-figured`）
+- **图表公式**：图片/表格/公式按章编号（图 1-1、表 1-1、式 (1-1)），交叉引用使用 `@fig:`、`@tbl:`、`@eqt:` 前缀（编号基于 `i-figured`）
 - **三线表**：`threeline-table()` 封装，传入 `header` 与 `data` 即可
 - **算法伪代码**：`algorithm-figure()` 自动编号（基于 `algorithmic`）
 - **代码块**：行号与语法高亮（基于 `zebraw`）
