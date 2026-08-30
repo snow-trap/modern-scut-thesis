@@ -137,8 +137,7 @@
 // 正文
 #show: mainmatter
 
-// 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
-= 绪　论 <mainmatter-start>
+= 绪　论
 
 绪论（或引言）一般作为第一章，是论文主体的开端。绪论的内容应简要说明研究工作的目的、范围、相关领域的前人工作和知识空白、理论基础、研究设想、研究方法和实验设计、预期结果和意义等。应言简意赅，不要与摘要雷同，不要写成摘要的注释。一般教科书中有的知识，在绪论中不必赘述。
 
@@ -578,7 +577,7 @@ typst compile --input profile=blind --input blind=single thesis.typ thesis-blind
 typst compile --input profile=for-print thesis.typ thesis-for-print.pdf
 ```
 
-*查重版。* 查重系统通常只需要正文部分，页码范围由本文档中的 `<mainmatter-start>` 与 `<backmatter-start>` 标签定位，并需关闭 PDF 标签以兼容查重系统。分两步完成：先用 `typst eval` 查询两个标签所在的页码
+*查重版。* 查重系统通常只需要正文部分，页码范围由模板自动标记（`<mainmatter-start>` 由 `mainmatter` 布局放置在正文首页，`<backmatter-start>` 由 `bilingual-bibliography()` 放置在参考文献页），并需关闭 PDF 标签以兼容查重系统。分两步完成：先用 `typst eval` 查询两个标签所在的页码
 
 ```shell
 typst eval --in thesis.typ 'query(<mainmatter-start>).first().location().page()'
@@ -616,8 +615,6 @@ typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pd
 如果不能导出应有的结论，也可以没有结论而进行必要的讨论。
 
 #pagebreak(weak: true)
-// 结构标签：供 scripts/build.* 定位查重版（for-check）的抽页范围，请勿删除或移动
-#metadata(none) <backmatter-start>
 #bilingual-bibliography(bibliography: bibliography, title: "参考文献", full: false)
 
 // 附录

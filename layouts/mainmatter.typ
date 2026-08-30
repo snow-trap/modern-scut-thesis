@@ -50,6 +50,9 @@
   section-break(open-right: open-right)
   set page(numbering: "1")
 
+  // 结构标签：供 scripts/build.* 定位查重版（for-check）抽页范围
+  [#metadata(none) <mainmatter-start>]
+
   fonts = 字体 + fonts
 
   // 收集用户传入的 heading-* 扩展参数

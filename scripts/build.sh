@@ -39,12 +39,18 @@ build_blind() {
 
 main_start() {
   typst eval --root . --in template/thesis.typ \
-    'query(<mainmatter-start>).first().location().page()'
+    'query(<mainmatter-start>).first().location().page()' || {
+      echo "错误：未找到 <mainmatter-start> 标签（应由 mainmatter 布局自动放置）。" >&2
+      exit 1
+    }
 }
 
 backmatter_start() {
   typst eval --root . --in template/thesis.typ \
-    'query(<backmatter-start>).first().location().page()'
+    'query(<backmatter-start>).first().location().page()' || {
+      echo "错误：未找到 <backmatter-start> 标签（应由 bilingual-bibliography() 自动放置，请检查是否改用了普通 bibliography）。" >&2
+      exit 1
+    }
 }
 
 build_for_check() {

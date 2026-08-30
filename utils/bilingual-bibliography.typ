@@ -40,6 +40,9 @@
 ) = {
   assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
 
+  // 结构标签：供 scripts/build.* 定位查重版（for-check）抽页范围
+  [#metadata(none) <backmatter-start>]
+
   [
     #show grid.cell.where(x: 1): it => {
       let t = _to-string(it)
