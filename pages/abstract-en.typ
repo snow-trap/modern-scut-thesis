@@ -25,12 +25,15 @@
 
     #invisible-heading(level: 1, outlined: outlined, outline-title)
 
-    #align(center)[
+    // 标题段独立设置段间距，使其后间距约一行正文行距
+    #[
+      #set par(spacing: 0.65em)
+      #align(center)[
       #set text(font: "Times New Roman", size: 章标题字号)
-      #v(1em)
       Abstract
-    ]
+    ] ]
 
+    // 规范：摘要题头后隔行书写正文
     #v(1em)
 
     #set par(first-line-indent: 首行缩进)
