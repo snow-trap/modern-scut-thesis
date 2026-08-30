@@ -9,7 +9,7 @@
   fonts: (:),
   info: (:),
   keywords: (),
-  outline-title: "中文摘要",
+  outline-title: "摘要",
   outlined: true,
   leading: 正文行距,
   spacing: 正文段间距,

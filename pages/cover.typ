@@ -4,6 +4,7 @@
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/section-break.typ": section-break
 #import "../utils/style.typ": 字体, 字号
+#import "@preview/cuti:0.4.0": fakebold
 #import "./blind-cover.typ": blind-cover
 
 #let cover(
@@ -150,20 +151,20 @@
   set text(font: fonts.宋体, size: 字号.小四)
 
   v(10pt)
-  set text(font: fonts.黑体, size: 字号.四号, weight: "bold")
+  set text(font: fonts.黑体, size: 字号.四号)
   stack(
     dir: ltr,
-    [分类号：#info.clc],
+    [分类号：#fakebold[#info.clc]],
     h(1fr),
-    [学校代号：#info.school-code],
+    [学校代号：#fakebold[#info.school-code]],
   )
   v(4pt)
-  [学　号：#info.student-id]
+  [学　号：#fakebold[#info.student-id]]
 
   v(70pt)
   align(center, text(font: fonts.黑体, size: 字号.小二, info.school-name + degree-name))
   v(46pt)
-  align(center, text(font: fonts.黑体, size: 字号.二号, weight: "bold", info.title.intersperse("\n").sum()))
+  align(center, text(font: fonts.黑体, size: 字号.二号, fakebold(info.title.intersperse("\n").sum())))
   v(66pt)
 
   let confer-date-text = if type(info.confer-date) == datetime {

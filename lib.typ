@@ -117,7 +117,7 @@
     },
     bibliography: bibliography,
     publications: (..args) => {
-      publications(blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
+      publications(doctype: doctype, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },
     acknowledgement: (..args) => {
       acknowledgement(..args)
