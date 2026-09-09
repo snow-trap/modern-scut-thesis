@@ -21,6 +21,33 @@ Typst 是可用于出版的可编程标记语言，拥有变量、函数与包�
 
 模板已上传 Typst Universe。论文源文件只需修改 `thesis.typ` 与 `info.typ`，基本可以满足所有需求。
 
+### 准备字体
+
+默认论文排版使用宋体（SimSun）、黑体（SimHei）、Times New Roman，以及代码中的 Courier New，建议至少准备以下完整字形集：
+
+```text
+CourierNew-Regular.ttf
+CourierNew-Bold.ttf
+CourierNew-Italic.ttf
+CourierNew-BoldItalic.ttf
+TimesNewRoman-Regular.ttf
+TimesNewRoman-Bold.ttf
+TimesNewRoman-Italic.ttf
+TimesNewRoman-BoldItalic.ttf
+SimSun-Regular.ttf
+SimHei-Regular.ttf
+```
+
+楷体和仿宋（可选）：
+
+```text
+KaiTi-Regular.ttf
+FangSong-Regular.ttf
+```
+
+
+本地编辑需将上述字体安装到操作系统（Linux 可复制字体文件到 `~/.local/share/fonts` 后执行 `fc-cache -f`），安装完成后用 `typst fonts` 确认编译器能识别；在线编辑需在创建项目后把字体文件上传到项目目录。若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置。
+
 ### VS Code 本地编辑（推荐）
 
 1. 安装 Typst（如 `winget install --id Typst.Typst` / `brew install typst`，或见 [官方安装说明](https://github.com/typst/typst?tab=readme-ov-file#installation)）。
@@ -36,17 +63,13 @@ cd my-thesis
 typst compile thesis.typ
 ```
 
+`typst init` 只复制论文源文件，模板实现由包仓库自动拉取。如需修改模板内部样式或使用构建脚本，请克隆[源码仓库](https://github.com/snow-trap/modern-scut-thesis)。
+
 ### 在线编辑
 
 在 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 的 `Start from template` 里选择 `modern-scut-thesis` 即可在线创建。
 
-**注意：Web App 没有安装模板所需的宋体、黑体、楷体、仿宋等中文字体，需手动上传字体文件到项目中，否则会导致字体显示错误，因此推荐本地编辑。**
-
-### 安装字体
-
-本模板不随仓库分发字体文件，依赖操作系统已安装的字体：中文部分需要宋体（SimSun）、黑体（SimHei）、楷体（KaiTi）、仿宋（FangSong），拉丁字符统一使用 Times New Roman。Windows 自带上述字体，开箱即用；macOS 与 Linux 需自行安装（Linux 可将字体文件复制到 `~/.local/share/fonts` 后执行 `fc-cache -f`）。
-
-安装完成后可用 `typst fonts` 确认编译器能识别这些字体；若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置。
+**注意：Web App 没有安装模板所需的中文字体，需按上文「准备字体」将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。**
 
 ### 构建变体
 
@@ -111,17 +134,9 @@ typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pd
 
 ## Q&A
 
-### 为什么我的字体显示为「豆腐块」？
+### 为什么 PDF 中没有文字或显示为「豆腐块」？
 
-本地没有安装对应字体。请参照上文「安装字体」一节安装宋体、黑体、楷体、仿宋后重新编译；也可用 `#fonts-display-page()` 显示字体渲染测试页确认命中情况。字体名称可通过 `typst fonts` 查询。
-
-### 我需要修改页面样式怎么办？
-
-理论上你不需要修改模板内部文件，样式配置都可以在 `thesis.typ` 内通过函数参数完成。`documentclass` 及各页面函数的参数定义见对应源码文件；如仍无法满足需求，欢迎提出 Issue。
-
-### 图片放在哪里？
-
-论文配图统一放在项目的 `images/` 目录，用相对路径引用，如 `image("images/fig1.png")`。
+本地没有安装对应字体。请参照上文「准备字体」一节的文件列表准备字体后重新编译；也可用 `#fonts-display-page()` 显示字体渲染测试页检查显示效果（该页额外需要楷体和仿宋）。字体名称可通过 `typst fonts` 查询。
 
 ### 我习惯了 LaTeX 公式语法，可以直接用吗？
 
