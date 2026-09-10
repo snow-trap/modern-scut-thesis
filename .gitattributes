@@ -1,2 +1,5 @@
 *.sh text eol=lf
 *.ps1 text
+
+/CONTRIBUTING.md export-ignore
+/AGENT.md export-ignore
