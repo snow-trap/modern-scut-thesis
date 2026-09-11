@@ -36,7 +36,6 @@
   kind: "academic",
   international: false,
   equivalent: false,
-  bibliography: none,
   fonts: (:),
   info,
 ) = {
@@ -116,7 +115,6 @@
     notation: (..args) => {
       notation(..args)
     },
-    bibliography: bibliography,
     publications: (..args) => {
       publications(doctype: doctype, blind: blind, ..args, fonts: fonts + args.named().at("fonts", default: (:)))
     },

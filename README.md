@@ -19,6 +19,8 @@ Typst 是可用于出版的可编程标记语言，拥有变量、函数与包�
 
 ## 使用
 
+需要 **Typst 0.15.0 或更新版本**。
+
 模板已上传 Typst Universe。论文源文件只需修改 `thesis.typ` 与 `info.typ`，基本可以满足所有需求。
 
 ### 准备字体
@@ -142,9 +144,6 @@ typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pd
 
 Typst 的公式语法与 LaTeX 不同，直接粘贴 LaTeX 源码无法编译。可用 [mitex](https://typst.app/universe/package/mitex) 渲染 LaTeX 公式，或用 [tex2typst](https://github.com/qwinsi/tex2typst) 将存量公式转换为 Typst 语法。
 
-### 参考文献中英文条目都显示“等”而不是“et al.”？
-
-这是 Typst 的 CSL 引擎限制：整篇文献列表使用统一语言环境，无法按条目语言切换“等”与“et al.”。本模板通过 `bilingual-bibliography()` 绕过：对渲染结果做最小字符串替换，检测到的英文条目中“等”替换为“et al.”、“卷 N”替换为“Vol. N”，中文条目保持不变。
 
 ## 参与贡献
 

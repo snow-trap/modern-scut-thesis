@@ -34,11 +34,11 @@
 }
 
 #let bilingual-bibliography(
-  bibliography: none,
+  source: none,
   title: "参考文献",
   full: false,
 ) = {
-  assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
+  assert(source != none, message: "请通过 source 传入文献源，如 path(\"ref.bib\")。")
 
   // 结构标签：供 scripts/build.* 定位查重版（for-check）抽页范围
   [#metadata(none) <backmatter-start>]
@@ -77,6 +77,6 @@
         if r == t { it } else { r }
       }
     }
-    #bibliography(title: title, full: full)
+    #bibliography(source, title: title, full: full)
   ]
 }

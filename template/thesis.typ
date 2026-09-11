@@ -16,7 +16,6 @@
   decl-page,
   abstract,
   abstract-en,
-  bibliography,
   outline-page,
   list-of-figures,
   list-of-tables,
@@ -42,7 +41,6 @@
   international: international, // 留学生学位论文
   equivalent: equivalent, // 同等学力申请学位
   info, // 论文信息
-  bibliography: bibliography.with("ref.bib"),
 )
 
 // 全局页面设置
@@ -516,7 +514,7 @@ Typst 的公式语法与 LaTeX 不同，例如分式写作 `frac(a, b)` 而非 `
 
 .bib 条目一般不必手工编写：Zotero 等文献管理软件可选中条目导出 BibTeX，配合 Better BibTeX 插件还能固定引用键；中国知网、万方、Google Scholar 等学术网站的论文页面也提供“导出”或“引用”入口，可直接获取 BibTeX 记录，粘贴进 `ref.bib` 即可使用。`ref.bib` 中附有几条英文示例：IEEE 会议论文 @akkaynak2018revised @akkaynak2019seathru、arXiv 预印本 @wolf2025diffusion @chib2023recent，以及作者超过三人的期刊论文 @mitchell2022review。
 
-Typst 的 CSL 引擎只支持单一全局语言环境，无法按条目语言切换“等”与“et al.”（该能力属于 CSL-M 扩展）。本模板用 `bilingual-bibliography()` 调用文献列表以绕过这一限制：它对渲染结果做最小字符串替换，检测到的英文条目中“等”替换为“et al.”、“卷 N”替换为“Vol. N”，中文条目保持不变——文末可见 @mitchell2022review 显示“et al.”而中文条目显示“等”。若遇到未预期的排版，可将该调用换回普通的 `#bibliography(title: "参考文献", full: false)`。注意文献列表默认只收录被正文引用的条目（`full: false`），`ref.bib` 中未被引用的条目不会出现在列表中。
+Typst 的 CSL 引擎只支持单一全局语言环境，无法按条目语言切换“等”与“et al.”（该能力属于 CSL-M 扩展）。本模板用 `bilingual-bibliography()` 调用文献列表以绕过这一限制：它对渲染结果做最小字符串替换，检测到的英文条目中“等”替换为“et al.”、“卷 N”替换为“Vol. N”，中文条目保持不变——文末可见 @mitchell2022review 显示“et al.”而中文条目显示“等”。若遇到未预期的排版，可将该调用换回普通的 `#bibliography("ref.bib", title: "参考文献", full: false)`。注意文献列表默认只收录被正文引用的条目（`full: false`），`ref.bib` 中未被引用的条目不会出现在列表中。
 
 == 代码块
 
@@ -636,7 +634,7 @@ typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pd
 如果不能导出应有的结论，也可以没有结论而进行必要的讨论。
 
 #pagebreak(weak: true)
-#bilingual-bibliography(bibliography: bibliography, title: "参考文献", full: false)
+#bilingual-bibliography(source: path("ref.bib"), title: "参考文献", full: false)
 
 // 附录
 // “对需要收录于学位论文中但又不适合书写于正文中的附加数据、方案、资料、详细公式推导、计算机程序、统计表、注释等有特色的内容，可做为附录排写，序号采用‘附录1’、‘附录2’等。”
