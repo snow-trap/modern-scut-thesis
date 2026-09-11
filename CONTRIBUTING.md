@@ -30,7 +30,7 @@ ln -s "$(pwd -P)" "$package"
 
 字体、字号等共享配置沿用已有入口，不在各页面重复定义默认值。
 
-提交说明参考本仓历史（`git log -10 --oneline`），采用 Conventional Commits：`<type>(<scope>): <英文现在时描述>`，scope 对应修改的模块。说明具体改了什么，避免套话，按内容需要分段或列点。
+提交说明参考本仓历史（`git log -10 --oneline`），采用 Conventional Commits。
 
 ## 版本号检查
 
