@@ -48,7 +48,7 @@ FangSong-Regular.ttf
 ```
 
 
-本地编辑需将上述字体安装到操作系统（Linux 可复制字体文件到 `~/.local/share/fonts` 后执行 `fc-cache -f`），安装完成后用 `typst fonts` 确认编译器能识别；在线编辑需在创建项目后把字体文件上传到项目目录。若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置。
+Windows 自带上述字体，开箱即用；macOS 通过字体册安装，Linux 可复制字体文件到 `~/.local/share/fonts` 后执行 `fc-cache -f`。安装完成后用 `typst fonts` 确认编译器能识别；在线编辑需在创建项目后把字体文件上传到项目目录。若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置（配置结构见 `utils/style.typ`）。
 
 ### VS Code 本地编辑（推荐）
 
@@ -67,32 +67,17 @@ typst compile thesis.typ
 
 `typst init` 只复制论文源文件，模板实现由包仓库自动拉取。如需修改模板内部样式或使用构建脚本，请克隆[源码仓库](https://github.com/snow-trap/modern-scut-thesis)。
 
+写作过程中建议用 Git 管理论文：`.typ` 源文件按章节粒度提交，便于回退、对比与协作；编译产物（PDF）写入 `.gitignore`，只跟踪源文件。
+
 ### 在线编辑
 
 在 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 的 `Start from template` 里选择 `modern-scut-thesis` 即可在线创建。
 
-**注意：Web App 没有安装模板所需的中文字体，需按上文「准备字体」将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。**
+**注意：Web App 没有安装模板所需的中文字体，需按上文「准备字体」将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。Web App 也不提供命令行构建参数，盲审、印刷等变体需直接修改项目根目录 `build.typ` 的默认值，查重版需改用本地 Typst CLI 完成。**
 
 ### 构建变体
 
-构建参数由项目根目录 `build.typ` 解析命令行输入（`--input`），不传参数即最终版。常用变体：
-
-```sh
-# 盲审版：single 单盲 / double 双盲（缺省 double），隐藏作者与导师信息
-typst compile --input profile=blind --input blind=single thesis.typ thesis-blind-single.pdf
-
-# 印刷版：自动为封面等前置页补充空白背面页
-typst compile --input profile=for-print thesis.typ thesis-for-print.pdf
-
-# 查重版：查询正文页范围后抽取，并关闭 PDF 标签以兼容查重系统
-start=$(typst eval --in thesis.typ \
-  'query(<mainmatter-start>).first().location().page()')
-end=$(( $(typst eval --in thesis.typ \
-  'query(<backmatter-start>).first().location().page()') - 1 ))
-typst compile --no-pdf-tags --pages "$start-$end" thesis.typ thesis-for-check.pdf
-```
-
-[源码仓库](https://github.com/snow-trap/modern-scut-thesis)的 `scripts/` 目录另提供这些命令的封装脚本。支持 Windows 和 Linux/MacOS。请注意，互联网上的脚本可能损坏您的电脑，即使你信任我，也请检查脚本内容后再执行！
+除最终版外，模板支持盲审（单盲/双盲）、印刷、查重等构建变体，参数与命令见模板内第三章「构建变体」一节。[源码仓库](https://github.com/snow-trap/modern-scut-thesis)的 `scripts/` 目录另提供封装脚本（`build.sh` / `build.ps1`），支持 Windows 与 Linux/macOS；请注意，互联网上的脚本可能损坏您的电脑，即使你信任我，也请检查脚本内容后再执行！
 
 ## 特性
 

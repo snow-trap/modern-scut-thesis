@@ -37,7 +37,7 @@ ln -s "$(pwd -P)" "$package"
 `typst.toml` 的 `package.version` 是版本的唯一来源；模板与用户文档保留固定版本，在同一次发布变更中手动同步：
 
 - [ ] 更新 `typst.toml` 中的包版本。
-- [ ] 更新 `template/thesis.typ` 的包导入及说明中的 `typst init` 命令。
+- [ ] 更新 `template/thesis.typ` 的包导入。
 - [ ] 更新 `README.md` 的 `typst init` 命令及 Web 模板链接。
 - [ ] 核对本地包软链接的版本与目标，编译模板并检查输出。
 
