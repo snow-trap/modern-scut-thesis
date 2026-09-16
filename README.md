@@ -1,37 +1,25 @@
 # 华南理工大学学位论文 modern-scut-thesis
 
-华南理工大学**硕士/博士学位论文**的 Typst 模板，能够简洁、快速、持续生成符合 SCUT 学位论文格式规范的 PDF。[Typst Universe](https://typst.app/universe/package/modern-scut-thesis)
+华南理工大学**硕士/博士学位论文**的 Typst 模板，可达到类似 markdown 的实时渲染速度，同时支持专业型/学术型、硕/博、留学生等不同封面变体生成，支持定理环境和算法块等特性。在线使用本模板：[Typst Universe](https://typst.app/universe/package/modern-scut-thesis)
 
-## 劣势
+## 选择 Typst 前您需注意
 
-- Typst 是一门新生的排版标记语言，还做不到像 Word 或 LaTeX 一样成熟稳定。
-- 该模板是民间模板，**存在不被认可的风险**。
+相对于 LaTeX, Typst 最突出的优势是编译速度极快，可以实现类似 Markdown 的实时编译预览。其环境搭建也简单很多，不需要像 LaTeX 一样安装数 GB 的宏包体系，编译器是单一可执行文件，第三方包在首次引用时自动下载。
 
-## 优势
+但该模板仍属于民间模板，**存在不被认可的风险**。您的评委也可能有自己的喜好。
 
-Typst 是可用于出版的可编程标记语言，拥有变量、函数与包管理等现代编程语言的特性，定位与 LaTeX 相似。相对 LaTeX：
-
-- **语法简洁**：上手难度与 Markdown 相当，文本源码可读性高，不会充斥着反斜杠与花括号。
-- **编译速度快**：采用增量编译，文档长度基本不影响编译速度，配合编辑器插件可边写作边预览。
-- **环境搭建简单**：不需要像 LaTeX 一样安装数 GB 的宏包体系，编译器是单一可执行文件，第三方包在首次引用时自动下载。
-
-可以参考 [Typst 中文文档网站](https://typst-doc-cn.github.io/docs/) 迅速入门。
+Typst 语法简单，上手容易，可以参考 [Typst 中文文档网站](https://typst-doc-cn.github.io/docs/) 迅速入门。
 
 ## 使用
 
-需要 **Typst 0.15.0 或更新版本**。
-
-模板已上传 Typst Universe。论文源文件只需修改 `thesis.typ` 与 `info.typ`，基本可以满足所有需求。
+模板已上传 Typst Universe。在 `info.typ` 管理你及你论文的信息。在 `thesis.typ` 开始写作。
 
 ### 准备字体
 
-默认论文排版使用宋体（SimSun）、黑体（SimHei）、Times New Roman，以及代码中的 Courier New，建议至少准备以下完整字形集：
+规范规定使用宋体（SimSun）、黑体（SimHei）、Times New Roman。代码块字体规范未曾规定，本模板选用 Courier New，建议至少准备以下完整字形集：
 
 ```text
-CourierNew-Regular.ttf
-CourierNew-Bold.ttf
-CourierNew-Italic.ttf
-CourierNew-BoldItalic.ttf
+CourierNew-Regular.ttf 
 TimesNewRoman-Regular.ttf
 TimesNewRoman-Bold.ttf
 TimesNewRoman-Italic.ttf
@@ -40,18 +28,9 @@ SimSun-Regular.ttf
 SimHei-Regular.ttf
 ```
 
-楷体和仿宋（可选）：
+### VS Code 本地编辑配置（推荐）
 
-```text
-KaiTi-Regular.ttf
-FangSong-Regular.ttf
-```
-
-
-Windows 自带上述字体，开箱即用；macOS 通过字体册安装，Linux 可复制字体文件到 `~/.local/share/fonts` 后执行 `fc-cache -f`。安装完成后用 `typst fonts` 确认编译器能识别；在线编辑需在创建项目后把字体文件上传到项目目录。若成稿字体与预期不符，可临时启用 `#fonts-display-page()` 检查实际命中的字体。实在无法安装上述字体时，可在 `documentclass` 的 `fonts` 参数中覆盖字体配置（配置结构见 `utils/style.typ`）。
-
-### VS Code 本地编辑（推荐）
-
+0. 安装上述字体。Windows 自带上述字体，开箱即用；macOS 通过字体册安装，Linux 可复制字体文件到 `~/.local/share/fonts` 后执行 `fc-cache -f`。安装完成后用 `typst fonts` 确认编译器能识别；
 1. 安装 Typst（如 `winget install --id Typst.Typst` / `brew install typst`，或见 [官方安装说明](https://github.com/typst/typst?tab=readme-ov-file#installation)）。
 2. 在 VS Code 中安装 [Tinymist Typst](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist)。
 3. 按下 `Ctrl + Shift + P`，输入 `Typst: Show available Typst templates (gallery)`，从中找到 `modern-scut-thesis`，点击 `+` 创建论文项目。
@@ -69,11 +48,19 @@ typst compile thesis.typ
 
 写作过程中建议用 Git 管理论文：`.typ` 源文件按章节粒度提交，便于回退、对比与协作；编译产物（PDF）写入 `.gitignore`，只跟踪源文件。
 
-### 在线编辑
+### 在线编辑配置
 
-在 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 的 `Start from template` 里选择 `modern-scut-thesis` 即可在线创建。
+1. 在 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 的 `Start from template` 里选择 `modern-scut-thesis` 用本模板在线创建项目。
+2. 把「准备字体」章所述字体文件上传到项目目录。直接上传到项目根目录或上传到任意文件夹中都可被 Typst 识别。
 
-**注意：Web App 没有安装模板所需的中文字体，需按上文「准备字体」将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。Web App 也不提供命令行构建参数，盲审、印刷等变体需直接修改项目根目录 `build.typ` 的默认值，查重版需改用本地 Typst CLI 完成。**
+**注意：如果没有将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。Web App 也不提供命令行构建参数，盲审、印刷等变体需直接修改项目根目录 `build.typ` 的默认值，查重版需改用本地 Typst CLI 完成。**
+
+### 开始写作
+
+- 在 `info.typ` 中管理你及你论文的信息，这里的信息会出现在论文的封面、页眉等处。
+- 在 `thesis.typ` 中开始写作。图片可放在 `images/` 下。
+- 在 `data.typ` 管理全文范围内一致的常量，比如实验数据，然后在 `thesis.typ` 中引用。
+- 在 `ref.bib` 管理 BibTeX 格式的参考文献。
 
 ### 构建变体
 
