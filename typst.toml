@@ -8,6 +8,7 @@ description = "Master's and doctoral thesis at the South China University of Tec
 repository = "https://github.com/snow-trap/modern-scut-thesis"
 keywords = ["South China University of Technology", "SCUT", "thesis"]
 categories = ["thesis"]
+exclude = ["/docs/"]
 compiler = "0.15.0"
 
 [template]

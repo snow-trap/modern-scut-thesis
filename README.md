@@ -13,6 +13,9 @@ Typst 语法简单，上手容易，可以参考 [Typst 中文文档网站](http
 ## 本模板已实现特性
 
 - **34 种封面变体**：参数化支持学术型/专业型、硕/博、留学生、同等学力及对应盲审版封面（配置见 [info.typ](template/info.typ)）。
+
+  ![封面变体预览](docs/images/covers.png)
+
 - **盲审模式**：支持单盲与双盲模式，自动脱敏封面、隐藏致谢与内封、成果清单切换为匿名表格、清除 PDF 作者元数据。
 - **构建变体**：支持**最终版**（无空白页，用于提交图书馆）、**盲审版**、**查重版**（只包含论文主体）与**印刷版**（前置页自动补白背面，配置见 [build.typ](template/build.typ)）。
 - **定理环境**：基于 `great-theorems`。
@@ -62,10 +65,13 @@ typst compile thesis.typ
 
 ### 在线编辑配置
 
-1. 在 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 的 `Start from template` 里选择 `modern-scut-thesis` 用本模板在线创建项目。
+1. 点击 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.0) 链接，会直接打开「Configure new project」对话框并预选本模板；填写 Project Title 后点击 Create 即可在线创建项目。
+
+   ![Typst Web App 模板选取与创建示意图](docs/images/template.png)
+
 2. 把「准备字体」章所述字体文件上传到项目目录。直接上传到项目根目录或上传到任意文件夹中都可被 Typst 识别。
 
-**注意：如果没有将字体文件上传到项目中，否则会导致文字空白或异常回退到别的字体。Web App 也不提供命令行构建参数，盲审、印刷等变体需直接修改项目根目录 `build.typ` 的默认值，查重版需改用本地 Typst CLI 完成。**
+**注意：如果没有将字体文件上传到项目中，会导致文字空白或异常回退到别的字体。Web App 也不提供命令行构建参数，盲审、印刷等变体需直接修改项目根目录 `build.typ` 的默认值，查重版需改用本地 Typst CLI 完成。**
 
 ### 开始写作
 
