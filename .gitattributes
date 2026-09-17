@@ -2,4 +2,4 @@
 *.ps1 text
 
 /CONTRIBUTING.md export-ignore
-/AGENT.md export-ignore
+/scripts/ export-ignore
