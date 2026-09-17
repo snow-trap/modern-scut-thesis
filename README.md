@@ -10,9 +10,21 @@
 
 Typst 语法简单，上手容易，可以参考 [Typst 中文文档网站](https://typst-doc-cn.github.io/docs/) 迅速入门。
 
-## 使用
+## 本模板已实现特性
 
-模板已上传 Typst Universe。在 `info.typ` 管理你及你论文的信息。在 `thesis.typ` 开始写作。
+- **34 种封面变体**：参数化支持学术型/专业型、硕/博、留学生、同等学力及对应盲审版封面（配置见 [info.typ](template/info.typ)）。
+- **盲审模式**：支持单盲与双盲模式，自动脱敏封面、隐藏致谢与内封、成果清单切换为匿名表格、清除 PDF 作者元数据。
+- **构建变体**：支持**最终版**（无空白页，用于提交图书馆）、**盲审版**、**查重版**（只包含论文主体）与**印刷版**（前置页自动补白背面，配置见 [build.typ](template/build.typ)）。
+- **定理环境**：基于 `great-theorems`。
+- **三线表**：提供简洁的 `threeline-table()` 封装函数，支持表头自动分线、跨页与单元格合并。
+- **算法伪代码**：提供符合规范的 `algorithm-figure()` 算法框与自动编号，基于 `algorithmic`。
+- **代码块**：支持行号显示与语法高亮，基于 `zebraw`。
+- **实验数据集中管理**：实验数值与模型参数在 [data.typ](template/data.typ) 中集中定义，正文变量引用，修改一处全文联动更新。
+- **双语参考文献**：默认符合 GB/T 7714—2015 顺序编码规范，自动处理中文条目显示“等”、英文条目显示“et al.”。
+
+> 各特性的详情请直接参考示例文件 [template/thesis.typ](template/thesis.typ) 第三章「本模板说明」。
+
+## 使用
 
 ### 准备字体
 
@@ -66,20 +78,6 @@ typst compile thesis.typ
 
 除最终版外，模板支持盲审（单盲/双盲）、印刷、查重等构建变体，参数与命令见模板内第三章「构建变体」一节。[源码仓库](https://github.com/snow-trap/modern-scut-thesis)的 `scripts/` 目录另提供封装脚本（`build.sh` / `build.ps1`），支持 Windows 与 Linux/macOS；请注意，互联网上的脚本可能损坏您的电脑，即使你信任我，也请检查脚本内容后再执行！
 
-## 特性
-
-- **封面代码生成**：中文封面、英文内封与提名页均由模板排版生成，无需用 Word 制作封面再转换为 PDF
-- **封面变体**：`kind: "professional"` 专业学位、`international: true` 留学生学位论文、`equivalent: true` 同等学力申请学位，再加上其盲审版本，34 种封面变体皆可用 typst 代码参数化生成
-- **盲审模式**：`blind: "single" | "double"` 一键切换，除改变封面，也支持不输出英文内封与致谢，研究成果清单切换为匿名表格，PDF 元数据不写入作者
-- **构建变体**：查重版自动抽取正文页范围并关闭 PDF 标签，印刷版自动为封面等前置页补充空白背面，无需手工拆分 PDF
-- **定理环境**：内置定理、引理、推论、定义、命题、例、备注、证明八种环境，每章自动重置计数（基于 `great-theorems`）
-- **图表公式**：图片/表格/公式按章编号（图 1-1、表 1-1、式 (1-1)），交叉引用使用 `@fig:`、`@tbl:`、`@eqt:` 前缀（编号基于 `i-figured`）
-- **三线表**：`threeline-table()` 封装，传入 `header` 与 `data` 即可
-- **算法伪代码**：`algorithm-figure()` 自动编号（基于 `algorithmic`）
-- **代码块**：行号与语法高亮（基于 `zebraw`）
-- **实验数据管理**：实验常量集中在 `data.typ` 定义，正文以变量引用，修改一处全文自动更新
-- **参考文献**：BibTeX 条目与 GB/T 7714—2015 CSL 样式分离，样式随包分发且可一行覆盖；中文条目显示“等”、英文条目自动显示“et al.”
-
 ## 目录结构
 
 ```text
@@ -115,12 +113,6 @@ typst compile thesis.typ
 ### 我习惯了 LaTeX 公式语法，可以直接用吗？
 
 Typst 的公式语法与 LaTeX 不同，直接粘贴 LaTeX 源码无法编译。可用 [mitex](https://typst.app/universe/package/mitex) 渲染 LaTeX 公式，或用 [tex2typst](https://github.com/qwinsi/tex2typst) 将存量公式转换为 Typst 语法。
-
-
-## 参与贡献
-
-- 在 Issues 中提出你的想法
-- 欢迎提交 PR
 
 ## 致谢
 
