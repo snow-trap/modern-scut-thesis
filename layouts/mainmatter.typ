@@ -174,7 +174,8 @@
           if not skip-on-first-level or cur-heading == none {
             if header-render == auto {
               set text(font: 辅助字体, size: 辅助字号)
-              let header-text = if twoside and calc.rem(loc.page(), 2) == 0 {
+              // 与正文页脚一致，按重置后的逻辑页码判断奇偶
+              let header-text = if twoside and calc.rem(counter(page).get().first(), 2) == 0 {
                 school-header
               } else {
                 heading-display(active-heading(level: 1, prev: false))
