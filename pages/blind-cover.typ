@@ -143,12 +143,12 @@
   }
   v(34pt)
 
-  // 论文题目写于横线之上，固定两行
+  // 论文题目写于横线之上，至少保留两行且不截断长标题
+  let title-lines = info.title + range(calc.max(0, 2 - info.title.len())).map(_ => [])
   set align(left)
   stack(
     spacing: 8pt,
-    blind-line(body: info.title.at(0)),
-    blind-line(body: info.title.at(1, default: [])),
+    ..title-lines.map(line => blind-line(body: line)),
   )
 
   v(76pt)
