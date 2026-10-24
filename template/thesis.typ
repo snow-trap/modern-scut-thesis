@@ -236,7 +236,7 @@
 基于 `great-theorems` 包@great-theorems。
 
 模板内置定理、引理、推论、定义、命题、例、备注、证明八种环境。
-各环境有独立计数器，每章起始处自动重置，序号格式为"章号-序号"。
+各环境有独立计数器，每章起始处自动重置，序号格式为"章号.序号"。
 如需混合计数器（如定理与引理共用），修改 `utils/theorem.typ` 中
 对应环境的 `counter` 参数为同一计数器即可。
 
@@ -442,7 +442,7 @@ Typst 的 CSL 引擎只支持单一全局语言环境，无法按条目语言切
 
 基于 `algorithmic` 包@algorithmic。
 
-使用 `algorithm-figure()`，自动编号（"算法 2-1"）。
+使用 `algorithm-figure()`，自动按章编号（如"算法 3-1"）。
 语法模仿 LaTeX algorithmicx，提供 `If`/`While`/`For`/`Function`/`Procedure` 等。
 
 注意不要在章节文件顶层写 `#import "@preview/algorithmic:1.0.7": *`：通配导入会把模板封装的中文补充词“算法”覆盖成英文“Algorithm”。像下方示例一样把 `import` 写在 `algorithm-figure` 的花括号作用域内即可。
