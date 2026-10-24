@@ -42,7 +42,7 @@ page_range() {
   typst eval --root . --in template/thesis.typ \
     'str(query(<mainmatter-start>).first().location().page()) + " " + str(query(<backmatter-start>).first().location().page())' || {
       echo "错误：未找到结构标签（<mainmatter-start> 应由 mainmatter 布局自动放置，" >&2
-      echo "<backmatter-start> 应由 bilingual-bibliography() 自动放置）。" >&2
+      echo "<backmatter-start> 应由 mainmatter 布局在参考文献前自动放置）。" >&2
       exit 1
     }
 }

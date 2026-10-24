@@ -40,9 +40,6 @@
 ) = {
   assert(source != none, message: "请通过 source 传入文献源，如 path(\"ref.bib\")。")
 
-  // 结构标签：供 scripts/build.* 定位查重版（for-check）抽页范围
-  [#metadata(none) <backmatter-start>]
-
   [
     #show grid.cell.where(x: 1): it => {
       let t = _to-string(it)

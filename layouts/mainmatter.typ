@@ -53,6 +53,12 @@
   // 结构标签：供 scripts/build.* 定位查重版（for-check）抽页范围
   [#metadata(none) <mainmatter-start>]
 
+  // 后置部分从任意参考文献实现开始，标记不依赖 bilingual-bibliography()
+  show bibliography: it => {
+    [#metadata(none) <backmatter-start>]
+    it
+  }
+
   fonts = 字体 + fonts
 
   // 收集用户传入的 heading-* 扩展参数
