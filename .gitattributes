@@ -3,3 +3,4 @@
 
 /CONTRIBUTING.md export-ignore
 /scripts/ export-ignore
+/.agents/ export-ignore
