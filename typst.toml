@@ -1,6 +1,6 @@
 [package]
 name = "modern-scut-thesis"
-version = "0.1.1"
+version = "0.1.2"
 entrypoint = "lib.typ"
 authors = ["snow-trap <@snow-trap>"]
 license = "MIT"

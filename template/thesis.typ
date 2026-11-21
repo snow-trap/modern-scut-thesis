@@ -1,4 +1,4 @@
-#import "@preview/modern-scut-thesis:0.1.1": bilingual-bibliography, documentclass, 字号, 辅助字体
+#import "@preview/modern-scut-thesis:0.1.2": bilingual-bibliography, documentclass, 字号, 辅助字体
 #import "@preview/algorithmic:1.0.7"
 #import "build.typ": blind, include-acknowledgement, print-ready, twoside
 #import "info.typ": doctype, equivalent, info, international, kind

@@ -54,7 +54,7 @@ SimHei-Regular.ttf
 也可以用命令行初始化：
 
 ```sh
-typst init @preview/modern-scut-thesis:0.1.1 my-thesis
+typst init @preview/modern-scut-thesis:0.1.2 my-thesis
 cd my-thesis
 typst compile thesis.typ
 ```
@@ -65,7 +65,7 @@ typst compile thesis.typ
 
 ### 在线编辑配置
 
-1. 点击 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.1) 链接，会直接打开「Configure new project」对话框并预选本模板；填写 Project Title 后点击 Create 即可在线创建项目。
+1. 点击 [Typst Web App](https://typst.app/?template=modern-scut-thesis&version=0.1.2) 链接，会直接打开「Configure new project」对话框并预选本模板；填写 Project Title 后点击 Create 即可在线创建项目。
 
    ![Typst Web App 模板选取与创建示意图](docs/images/template.png)
 
